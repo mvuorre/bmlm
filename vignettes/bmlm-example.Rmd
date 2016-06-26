@@ -36,3 +36,11 @@ devtools::install_github("mvuorre/bmlm")
 ```
 
 If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me.
+
+# Example
+
+```{r, echo = F}
+# Loads pre-fitted model to save time building the vignette
+
+```
+

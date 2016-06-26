@@ -96,7 +96,7 @@ mlm_pars_plot <- function(mod = NULL,
     # Ensure suitable model object passed
     if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
 
-    d <- as.data.frame(mod)
+    d <- as.data.frame(mod, pars = pars)
     d <- reshape2::melt(d)
     if (type == "hist"){
         p1 <- ggplot2::ggplot(d, aes(x=value)) +
@@ -106,27 +106,30 @@ mlm_pars_plot <- function(mod = NULL,
             facet_wrap(~variable,
                        scales = "free",
                        ncol=3) +
-            theme_minimal() +
+            theme_bw() +
             theme(axis.text.y = element_blank(),
                   axis.ticks.y = element_blank(),
+                  axis.ticks.x = element_line(size = .3),
                   panel.background = element_rect(color="gray50"),
-                  panel.grid = element_blank())
+                  panel.grid = element_blank(),
+                  strip.background = element_rect(fill = NA, colour = NA),
+                  strip.text.x = element_text(face = "bold"))
     } else {
         d <- dplyr::group_by(d, variable)
         d <- dplyr::summarize(d,
                               m = mean(value),
                               lwr = stats::quantile(value, probs = .5 - level/2),
                               upr = stats::quantile(value, probs = .5 + level/2))
-        p1 <- ggplot2::ggplot(d, aes(x = variable, y = m)) +
+        p1 <- ggplot2::ggplot(d, aes(x = rev(variable), y = m)) +
+            geom_hline(yintercept = 0, lty = 2, size = .3) +
             geom_pointrange(aes(y=m, ymin = lwr, ymax=upr)) +
-            labs(x="Value", y="Parameter") +
             coord_flip() +
-            theme_minimal() +
-            labs(title="Posterior samples of bestan fit") +
-            theme(axis.text.y = element_blank(),
-                  axis.ticks.y = element_blank(),
+            theme_bw() +
+            theme(axis.title = element_blank(),
+                  axis.ticks = element_line(size = .3),
                   panel.background = element_rect(color="gray50"),
                   panel.grid = element_blank())
+        p1
     }
     return(p1)
 }
