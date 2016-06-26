@@ -7,7 +7,6 @@
 #' @param x Column of X values in \code{data}.
 #' @param m Column of M values in \code{data}.
 #' @param y Column of Y values in \code{data}.
-#' @param everything Return all estimated parameters? (FALSE by default.)
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
@@ -31,9 +30,7 @@
 #' @import rstan
 #' @export
 
-mlm <- function(d = NULL, id = id, x = x, m = m, y = y,
-                everything = FALSE,
-                ...) {
+mlm <- function(d = NULL, id = id, x = x, m = m, y = y, ...) {
 
     # Check for data and quit if not suitable
     if (!(is.data.frame(d))) stop("d is not a data.frame")
@@ -51,15 +48,9 @@ mlm <- function(d = NULL, id = id, x = x, m = m, y = y,
     # Sample from model
     model_file <- system.file("stan/bmlm.stan", package="bmlm")
     message("Estimating model, please wait.")
-    if (everything){
-        fit <- rstan::stan(file = model_file, data = standat, ...)
-    } else {
-        fit <- rstan::stan(file = model_file,
-                           data = standat,
-                           pars = c("U", "Sigma", "Omega", "Tau"),
-                           include = F,
-                           ...)
-    }
+    fit <- rstan::stan(file = model_file,
+                       model_name = "Multilevel mediation",
+                       data = standat, ...)
 
     # Return stanfit object
     return(fit)

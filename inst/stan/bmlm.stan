@@ -38,8 +38,8 @@ model {
     vector[N] mu_m;
     // Priors
     // Regression parameters
-    dm ~ normal(0, .001);
-    dy ~ normal(0, .001);
+    dm ~ normal(0, 1);
+    dy ~ normal(0, 1);
     a ~ normal(0, 10);
     b ~ normal(0, 10);
     cp ~ normal(0, 10);

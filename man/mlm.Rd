@@ -4,7 +4,7 @@
 \alias{mlm}
 \title{Bayesian parameter estimation for multilevel mediation models}
 \usage{
-mlm(d = NULL, id = id, x = x, m = m, y = y, everything = FALSE, ...)
+mlm(d = NULL, id = id, x = x, m = m, y = y, ...)
 }
 \arguments{
 \item{d}{A \code{data.frame}.}
@@ -16,8 +16,6 @@ mlm(d = NULL, id = id, x = x, m = m, y = y, everything = FALSE, ...)
 \item{m}{Column of M values in \code{data}.}
 
 \item{y}{Column of Y values in \code{data}.}
-
-\item{everything}{Return all estimated parameters? (FALSE by default.)}
 
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
