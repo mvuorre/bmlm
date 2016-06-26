@@ -1,0 +1,38 @@
+---
+title: "bmlm: Multilevel mediation modeling with Stan"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+    fig_caption: yes
+vignette: >
+  %\VignetteIndexEntry{bmlm: Multilevel mediation modeling with Stan}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+[__bmlm__](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. It relies heavily on the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful  [Stan](http://mc-stan.org/) Bayesian inference engine. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with __bmlm__. This document explains how to install __bmlm__ and its required components, and then walks through an example of how to use it in practice.
+
+# Installing __bmlm__
+
+## Pre-requisites 
+
+1. Please ensure you have the [latest version of R](https://cran.r-project.org/) installed.
+2. This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the RStan interface.
+3. Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/web/packages/devtools/index.html) for installation. If you don't have the devtools package installed in R, install it by running the following code in the R console:
+
+```{r, eval = F}
+install.packages("devtools")
+```
+
+## Installing bmlm
+
+Then proceed to install bmlm:
+
+```{r, eval = F}
+devtools::install_github("mvuorre/bmlm")
+```
+
+If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me.

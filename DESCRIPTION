@@ -11,6 +11,13 @@ LazyData: true
 Depends:
     R (>= 3.1.2),
     rstan
+Imports:
+    ggplot2 (>= 2.1.0)
 Suggests:
-    qgraph
+    qgraph,
+    knitr,
+    rmarkdown,
+    reshape2,
+    dplyr
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr

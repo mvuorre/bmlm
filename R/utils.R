@@ -86,7 +86,7 @@ mlm_summary <- function(mod = NULL,
                               probs = c(lower_ci, upper_ci),
                               pars = pars)$summary[,-2]
     descriptors <- as.data.frame(round(mod_sum, digits = digits))[,1:4]
-    diagnostics <- as.data.frame(mod_sum, digits = digits)[,5:6]
+    diagnostics <- as.data.frame(round(mod_sum, digits = digits))[,5:6]
     mod_sum <- cbind(parameter = as.character(row.names(mod_sum)),
                      descriptors,
                      pprob = sapply(as.data.frame(mod, pars = pars), getpps),
