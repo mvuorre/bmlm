@@ -44,7 +44,7 @@ model {
     b ~ normal(0, 10);
     cp ~ normal(0, 10);
     // RE SDs and correlation matrix
-    Tau ~ cauchy(0, 1); // The Intercepts need tight priors!
+    Tau ~ cauchy(0, 1);
     Omega ~ lkj_corr(2);
 
     // Sample random effects

@@ -1,5 +1,5 @@
 ---
-title: "bmlm: Multilevel mediation modeling with Stan"
+title: "bmlm: Multilevel Mediation Modeling with Stan"
 author: "Matti Vuorre"
 date: "`r Sys.Date()`"
 output: 
@@ -39,8 +39,122 @@ If something goes wrong during the installation process, you will receive a noti
 
 # Example
 
-```{r, echo = F}
+```{r, echo = F, message=FALSE, results='hide'}
 # Loads pre-fitted model to save time building the vignette
+load("fit.rda")
+library(knitr)
+opts_chunk$set(message = F, warning = F)
+```
 
+After installing the required software, load the __bmlm__ package to your current R workspace:
+
+```{r, message=FALSE}
+library(bmlm)
+```
+
+__bmlm__ contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) (Bolger & Laurenceau, 2013). We'll use this data set in the example, and first load it into the workspace from the package, and display what the data looks like:
+
+```{r, eval = F, echo = T}
+data(BLch9)
+head(BLch9)
+```
+
+```{r, eval = T, echo = F}
+# Hack to show tabulated output instead of raw print
+data(BLch9)
+kable(head(BLch9))
+```
+
+## Fit model
+
+To estimate the multilevel mediation model, simply run the following command:
+
+```{r, eval = F}
+fit <- mlm(d = BLch9, iter = 1000)
+```
+
+The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
+
+* `id` is a column of participant IDs in the provided `data.frame`.
+* `x` is the manipulated variable.
+* `m` is the mediator variable.
+* `y` is the outcome variable.
+
+We didn't need to specify these in this example, because the defaults point to those names, and the example data already contained columns with these names.
+
+There are various additional arguments to the above command. Most notably, the `iter = 1000` specified that Stan should draw 1000 samples from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. So we have a total of $1000 / 2 * 4 = 2000$ samples from the joint posterior distribution. In practice, for this model we recommend obtaining more samples to ensure precision in parameter estimates. For this example, 2000 samples is sufficient.
+
+## Summarize fitted model
+
+After the samples have been obtained, __bmlm__'s helper functions can be used to obtain summaries of the results. For more options, all [rstan](https://cran.r-project.org/web/packages/rstan/index.html) methods are also available.
+
+### Numerical summary
+
+A numerical summary can be obtained by `mlm_summary(fit)`:
+
+```{r, eval = F, echo = T}
+mlm_summary(fit)
+```
+
+```{r, eval = T, echo = F}
+# Hack to show tabulated output instead of raw print
+kable(mlm_summary(fit))
+```
+
+`mlm_summary()` returns, for each parameter, the following information:
+
+* Posterior _Mean_: This can be used as a point estimate of parameter
+* Posterior _SD_: The standard deviation of the marginal posterior distribution of plausible parameter values. 
+* Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.91, but users may supply any value they desire.
+* Posterior probability (_pprob_), which summarizes the probability density at the observed side of 0. For example, if the estimate (_Mean_) is -0.55, the posterior probability is defined as the proportion of probability density _below zero_.
+* n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see `?mlm` or `?stan` for details.
+
+### Graphical summaries
+
+Currently, __bmlm__ provides two graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated posterior probabilities:
+
+```{r, fig.width = 6, fig.height = 3.5, fig.cap="Figure 1. Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
+mlm_path_plot(fit)
+```
+
+This figure offers a quick view of what the model suggests about the data: All paths (`a, b, c'`) are positive with very high posterior probabilities (p = 1). The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship.
+
+For a more detailed investigation of the model's parameters, __bmlm__ offers two methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` for histograms, or `coefplot` for a coefficient plot. If plotting a coefficient plot, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
+
+```{r, fig.cap = "Figure 2. A coefficient plot.", fig.show='hold'}
+mlm_pars_plot(fit, type = "coefplot", level = .50)
+mlm_pars_plot(fit, type = "coefplot", level = .99)
+```
+
+The user can also specify the parameters to show on the plot, as illustrated in the next histograms:
+
+```{r, fig.height = 4, fig.width = 6, fig.cap = "Figure 3. Histograms for a selection of parameters."}
+mlm_pars_plot(fit, type = "hist", pars = c("ab", "c", "pme", "corrab"))
+```
+
+The histograms are useful for visually assessing the shape of each marginal posterior distribution.
+
+# Further information
+
+The functions contained in __bmlm__ have various options available for the user. Inspect these options by looking at the functions' help pages:
+
+```{r, eval = F}
+?mlm
+?mlm_summary
+?mlm_path_plot
+?mlm_pars_plot
+```
+
+Users can also input any valid `stan()` arguments to `mlm()`; see `?stan` for details. The fitted object from `mlm()` is a valid `Stanfit` object, so all `Stanfit` methods are available as well. For example, it is important to assess the performance of Stan's MCMC algorithms after estimating a model by, for example, inspecting traceplots for convergence problems:
+
+```{r, fig.width = 6}
+pars <- c("a", "ab", "cp", "c", "corrab")
+traceplot(fit, pars = pars)
+```
+
+Further modification of the model is possible through modifying the Stan code underlying `mlm()`. To obtain the Stan code for the multilevel mediation model, run `print_model()`
+
+```{r}
+print_model()  # Note, user doesn't need to provide a model object
 ```
 
