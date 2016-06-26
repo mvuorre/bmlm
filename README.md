@@ -35,7 +35,7 @@ fit <- mlm(BLch9)
 After a while, you will have a joint posterior distribution of plausible parameter values from the model applied to this data. Inspect the model:
 
 ```r
-print(fit)
+mlm_summary(fit)
 ```
 
 # Information
