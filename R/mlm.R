@@ -37,12 +37,13 @@ mlm <- function(d = NULL, id = id, x = x, m = m, y = y, ...) {
 
     # Create a data list for Stan
     ld <- list()
-    ld$id <- seq_ids(d[,id])  # Coerce to 1:J sequential
+    # Coerce to 1:J sequential
+    ld$id <- as.integer(as.factor(as.character(d[,id])))
     ld$X <- d[,x]
     ld$M <- d[,m]
     ld$Y <- d[,y]
     ld$J <- length(unique(ld$id))
-    ld$N <- length(ld$y)
+    ld$N <- nrow(d)
 
     # Sample from model
     model_file <- system.file("stan/bmlm.stan", package="bmlm")
