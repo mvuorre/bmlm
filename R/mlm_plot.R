@@ -6,6 +6,9 @@
 #' @param xlab Label for X
 #' @param ylab Label for Y
 #' @param mlab Label for M
+#' @param border.width Size of node borders (defaults to 2).
+#' @param edge.labels.cex Text size.
+#' @param fade Should edges fade to white? (Defaults to FALSE.)
 #'
 #' @return A qgraph object.
 #'
@@ -15,8 +18,12 @@
 #' with estimated average parameter values and posterior probabilities.
 #'
 #' @export
-mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M"){
-
+mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
+                          border.width = 2,
+                          edge.label.cex = 1.2,
+                          fade = FALSE, 
+                          ...){
+    
     # Requires the qgraph package
     if (!requireNamespace("qgraph", quietly = TRUE)) {
         stop("qgraph package needed for this function. Please install it.",
@@ -24,7 +31,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M"){
     }
     # Ensure suitable model object passed
     if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
-
+    
     # Get model summary
     sfit <- mlm_summary(mod)
     a <- round(as.numeric(sfit[1, c("Mean", "pprob")]), 2)
@@ -33,7 +40,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M"){
     ab <- round(as.numeric(sfit[5, c("Mean", "pprob")]), 2)
     c <- round(as.numeric(sfit[6, c("Mean", "pprob")]), 2)
     pme <- round(as.numeric(sfit[7, c("Mean", "pprob")]), 2)
-
+    
     # Specify plot layout and parameters
     edgelabels <- c(
         paste0(" a \n (M = ", a[1], ") \n (p = ", a[2], ") \n"),
@@ -43,22 +50,22 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M"){
     x <- matrix(c(1, b[1], 0,
                   0, 1, 0,
                   a[1], cp[1] ,1), byrow=T, nrow = 3)
-
+    
     # Create plot
     p2 <- qgraph::qgraph(x, layout = "circle",
                          shape = "square",
                          labels = c(mlab, ylab, xlab),
-                         border.width = 2,
-                         edge.color = "black",
+                         border.width = border.width,
                          edge.labels = edgelabels,
-                         edge.label.cex = 1.2,
-                         fade = FALSE)
+                         edge.label.cex = edge.label.cex,
+                         fade = FALSE, 
+                         ...)
     graphics::text(-1.2, 1.1,
-         paste0("ab: M = ", ab[1], " (p = ", a[2], ")"), pos=4)
+                   paste0("ab: M = ", ab[1], " (p = ", a[2], ")"), pos=4)
     graphics::text(-1.2, 0.9,
-         paste0("c: M = ", c[1], " (p = ", c[2], ")"), pos=4)
+                   paste0("c: M = ", c[1], " (p = ", c[2], ")"), pos=4)
     graphics::text(-1.2, 0.7,
-         paste0("%me: M = ", pme[1], " (p = ", pme[2], ")"), pos=4)
+                   paste0("%me: M = ", pme[1], " (p = ", pme[2], ")"), pos=4)
 }
 
 #' Plot marginal posterior histograms
