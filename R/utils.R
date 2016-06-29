@@ -71,7 +71,7 @@ mlm_summary <- function(mod = NULL,
 
     # Choose which parameters to display
     if (is.null(pars)) pars <- mod@sim$pars_oi  # Return all parameters
-    if (level1) pars <- c(pars, "u_")
+    if (level1) pars <- c(pars, "u_ab", "u_cp", "u_c", "u_pme")
 
     # Obtain model summary from Stanfit
     lower_ci <- .5 - (level/2)

@@ -46,7 +46,7 @@
 #' @import rstan
 #' @export
 
-mlm <- function(d = NULL, id = id, x = x, m = m, y = y,
+mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
                 prior_scale = NULL,
                 intrcpt_scale = NULL,
                 no_priors = FALSE,
@@ -55,22 +55,22 @@ mlm <- function(d = NULL, id = id, x = x, m = m, y = y,
     # Check for data and quit if not suitable
     if (is.null(d)) stop("No data entered")
 
+    # Check priors
+    if (is.null(prior_scale)) prior_scale <- 100
+    if (is.null(intrcpt_scale)) intrcpt_scale <- 100
+
     # Create a data list for Stan
     ld <- list()
     # Coerce to 1:J sequential
     ld$id = as.integer(as.factor(as.character(d[,id])))
-    ld$x = d[,x]
-    ld$m = d[,m]
-    ld$y = d[,y]
+    ld$X = d[,x]
+    ld$M = d[,m]
+    ld$Y = d[,y]
     ld$J <- length(unique(ld$id))
     ld$N <- nrow(d)
     ld$prior_scale <- prior_scale
     ld$intrcpt_scale <- intrcpt_scale
-    ld$y_mean <- mean(d[,y])
 
-    # Check priors
-    if (is.null(prior_scale)) prior_scale <- 100
-    if (is.null(intrcpt_scale)) intrcpt_scale <- 100
 
     # Sample from model
     if (no_priors == FALSE) {

@@ -9,9 +9,11 @@ data {
     vector[N] Y;                // Outcome
     real prior_scale;           // Prior scale for regression params
     real intrcpt_scale;         // Prior scale for intercepts
-    real y_mean;                // Mean of Y
 }
-
+transformed data{
+    real y_mean;                // Mean of Y
+    y_mean = mean(Y);
+}
 parameters{
     // Regression Y on X and M
     real dy;                    // Intercept
