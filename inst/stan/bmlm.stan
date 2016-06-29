@@ -8,20 +8,22 @@ data {
     vector[N] M;                // Mediator
     vector[N] Y;                // Outcome
     real prior_scale;           // Prior scale for regression params
-    real intrcpt_scale;         // Prior scale for intercepts (deprecated)
+    real intrcpt_scale;         // Prior scale for intercepts
 }
 transformed data{
     real y_mean;                // Mean of Y
     int K;                      // Number of predictors
     y_mean = mean(Y);
-    K = 3;
+    K = 5;
 }
 parameters{
     // Regression Y on X and M
+    real dy;                    // Intercept
     real cp;                    // X to Y effect
     real b;                     // M to Y effect
     real<lower=0> sigma_y;      // Residual
     // Regression M on X
+    real dm;                    // Intercept
     real a;                     // X to M effect
     real<lower=0> sigma_m;      // Residual
 
@@ -37,16 +39,10 @@ transformed parameters {
     // standardized z_U matrix
     matrix[J, K] U;
 
-    // Transform Cholesky factorized correlation matrix to corrmat and covmat
-    matrix[K, K] Omega;         // Correlation matrix
-    matrix[K, K] Sigma;         // Covariance matrix
-
     // Sample varying effects from Cholesky factorized covariance matrix
     // diag_pre_multiply(tau, L_Omega) = Cholesky covariance matrix
     U = (diag_pre_multiply(tau, L_Omega) * z_U)';
 
-    Omega = L_Omega * L_Omega';
-    Sigma = quad_form_diag(Omega, tau);
 }
 model {
     // Means of linear models
@@ -55,6 +51,8 @@ model {
     // Cholesky factor of covariance matrix
     matrix[K, K] L_Sigma;
     // Regression parameter priors
+    dy ~ normal(0, intrcpt_scale);
+    dm ~ normal(0, intrcpt_scale);
     a ~ normal(0, prior_scale);
     b ~ normal(0, prior_scale);
     cp ~ normal(0, prior_scale);
@@ -62,14 +60,19 @@ model {
     tau[1] ~ cauchy(0, 1);      // u_cp
     tau[2] ~ cauchy(0, 1);      // u_b
     tau[3] ~ cauchy(0, 1);      // u_a
+    tau[4] ~ cauchy(0, 1);      // u_intrcpt_y
+    tau[5] ~ cauchy(0, 1);      // u_intrcpt_m
     L_Omega ~ lkj_corr_cholesky(2);
     // Allow vectorized sampling of varying effects via stdzd z_U
     to_vector(z_U) ~ normal(0, 1);
 
     // Regressions (No intercepts: assume within-person deviated variables)
     for (n in 1:N){
-        mu_y[n] = (cp + U[id[n], 1]) * X[n] + (b + U[id[n], 2]) * M[n];
-        mu_m[n] = (a + U[id[n], 3]) * X[n];
+        mu_y[n] = (cp + U[id[n], 1]) * X[n] +
+                  (b + U[id[n], 2]) * M[n] +
+                  (dy + U[id[n], 4]);
+        mu_m[n] = (a + U[id[n], 3]) * X[n] +
+                  (dm + U[id[n], 5]);
     }
 
     // Data model
@@ -77,6 +80,10 @@ model {
     M ~ normal(mu_m, sigma_m);
 }
 generated quantities{
+    // Transform Cholesky factorized correlation matrix to corrmat and covmat
+    matrix[K, K] Omega;         // Correlation matrix
+    matrix[K, K] Sigma;         // Covariance matrix
+
     // Average mediation parameters
     real covab;                 // a-b covariance
     real corrab;                // a-b correlation
@@ -89,6 +96,9 @@ generated quantities{
     vector[J] u_cp;
     vector[J] u_c;
     vector[J] u_pme;
+
+    Omega = L_Omega * L_Omega';
+    Sigma = quad_form_diag(Omega, tau);
 
     covab = Sigma[3,2];
     corrab = Omega[3,2];

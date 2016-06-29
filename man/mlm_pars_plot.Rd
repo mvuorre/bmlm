@@ -2,10 +2,10 @@
 % Please edit documentation in R/mlm_plot.R
 \name{mlm_pars_plot}
 \alias{mlm_pars_plot}
-\title{Plot marginal posterior histograms}
+\title{Plot marginal posterior histograms or coefficients plots.}
 \usage{
 mlm_pars_plot(mod = NULL, type = "hist", color = "black", level = 0.91,
-  pars = c("a", "b", "cp", "corrab", "ab", "c", "pme"))
+  nrow = 3, pars = c("a", "b", "cp", "corrab", "ab", "c", "pme"))
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -16,6 +16,8 @@ mlm_pars_plot(mod = NULL, type = "hist", color = "black", level = 0.91,
 
 \item{level}{X level for Credible Intervals.}
 
+\item{nrow}{Number of rows for multiple histograms.}
+
 \item{pars}{List of parameters to plot.}
 }
 \value{
@@ -25,8 +27,7 @@ A ggplot2 object.
 Plot the model's estimated parameters as histograms or a coefficient plot.
 }
 \details{
-Experimental. Plots a path diagram of the mediation model,
-with estimated average parameter values and posterior probabilities.
+The point estimate for the coefficient plot is the posterior median.
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}

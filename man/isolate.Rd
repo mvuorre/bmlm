@@ -13,7 +13,8 @@ isolate(d = NULL, by = NULL, value = NULL, z = FALSE,
 \item{by}{A vector of values by which the data is clustered.
 i.e. a vector of unique participant IDs.}
 
-\item{value}{A vector of values to transform.}
+\item{value}{Names of columns to isolate. Multiple values can be given by
+\code{value = c("var1", "var2", "var3")}}
 
 \item{z}{Should the new values be standardized (defaults to FALSE).}
 

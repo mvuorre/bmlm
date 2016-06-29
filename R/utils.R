@@ -131,7 +131,8 @@ getpps <- function(x){
 #' @param d A \code{data.frame}.
 #' @param by A vector of values by which the data is clustered.
 #' i.e. a vector of unique participant IDs.
-#' @param value A vector of values to transform.
+#' @param value Names of columns to isolate. Multiple values can be given by
+#' \code{value = c("var1", "var2", "var3")}
 #' @param z Should the new values be standardized (defaults to FALSE).
 #' @param which Which component to return. "within" (default) returns
 #' within-person deviations only; "between" returns between-person means only;
@@ -152,17 +153,19 @@ getpps <- function(x){
 #' @export
 isolate <- function(d = NULL, by = NULL, value = NULL,
                     z = FALSE, which = "within"){
-    oldnames <- names(d)
-    d$c <- as.numeric(scale(d[,value], scale = z))  # Mean centered (or Zd)
-    d <- within(d, {cb = stats::ave(c, d[,by], FUN = mean)})  # Between-person
-    d$cw <- d$c - d$cb  # Within-person
-    names(d) <- c(oldnames,
-                  paste0(value, "_c"),
-                  paste0(value, "_cb"),
-                  paste0(value, "_cw"))
-    N <- dim(d)[2]
-    if (which == "within") d <- d[,-c(N-1, N-2)]
-    else if (which == "between") d <- d[,-c(N, N-2)]
-    else d <- d[,-(N-2)]
+    for (val in value){
+        oldnames <- names(d)
+        d$c <- as.numeric(scale(d[,val], scale = z))  # Mean centered (or Zd)
+        d <- within(d, {cb = stats::ave(c, d[,by], FUN = mean)})  # Between-person
+        d$cw <- d$c - d$cb  # Within-person
+        names(d) <- c(oldnames,
+                      paste0(val, "_c"),
+                      paste0(val, "_cb"),
+                      paste0(val, "_cw"))
+        N <- dim(d)[2]
+        if (which == "within") d <- d[,-c(N-1, N-2)]
+        else if (which == "between") d <- d[,-c(N, N-2)]
+        else d <- d[,-(N-2)]
+    }
     return(d)
 }

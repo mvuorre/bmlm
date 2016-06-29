@@ -9,6 +9,7 @@
 #' @param border.width Size of node borders (defaults to 2).
 #' @param edge.label.cex Text size.
 #' @param fade Should edges fade to white? (Defaults to FALSE.)
+#' @param level "Confidence" level for credible intervals.
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
 #' @return A qgraph object.
@@ -16,13 +17,14 @@
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
 #' @details Experimental. Plots a path diagram of the mediation model,
-#' with estimated average parameter values and posterior probabilities.
+#' with estimated average parameter values and credible intervals.
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           border.width = 2,
                           edge.label.cex = 1.2,
                           fade = FALSE,
+                          level = .91,
                           ...){
 
     # Requires the qgraph package
@@ -34,19 +36,19 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
 
     # Get model summary
-    sfit <- mlm_summary(mod)
-    a <- round(as.numeric(sfit[1, c("Mean", "pprob")]), 2)
-    b <- round(as.numeric(sfit[2, c("Mean", "pprob")]), 2)
-    cp <- round(as.numeric(sfit[3, c("Mean", "pprob")]), 2)
-    ab <- round(as.numeric(sfit[5, c("Mean", "pprob")]), 2)
-    c <- round(as.numeric(sfit[6, c("Mean", "pprob")]), 2)
-    pme <- round(as.numeric(sfit[7, c("Mean", "pprob")]), 2)
+    sfit <- mlm_summary(mod, level = level)
+    a <- round(as.numeric(sfit[1, c("Mean", "ci_lwr", "ci_upr")]), 2)
+    b <- round(as.numeric(sfit[2, c("Mean", "ci_lwr", "ci_upr")]), 2)
+    cp <- round(as.numeric(sfit[3, c("Mean", "ci_lwr", "ci_upr")]), 2)
+    ab <- round(as.numeric(sfit[5, c("Mean", "ci_lwr", "ci_upr")]), 2)
+    c <- round(as.numeric(sfit[6, c("Mean", "ci_lwr", "ci_upr")]), 2)
+    pme <- round(as.numeric(sfit[7, c("Mean", "ci_lwr", "ci_upr")]), 2)
 
     # Specify plot layout and parameters
     edgelabels <- c(
-        paste0(" a \n (M = ", a[1], ") \n (p = ", a[2], ") \n"),
-        paste0(" b \n (M = ", b[1], ") \n (p = ", b[2], ") \n"),
-        paste0(" cp \n (M = ", cp[1], ") \n (p = ", cp[2], ") \n")
+        paste0("\n a \n M = ", a[1], " \n [", a[2], ", ", a[3], "] \n"),
+        paste0("\n b \n M = ", b[1], " \n [", b[2], ", ", b[3], "] \n"),
+        paste0("\n c' \n M = ", cp[1], " \n [", cp[2], ", ", cp[3], "] \n")
     )
     x <- matrix(c(1, b[1], 0,
                   0, 1, 0,
@@ -62,14 +64,14 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                          fade = FALSE,
                          ...)
     graphics::text(-1.2, 1.1,
-                   paste0("ab: M = ", ab[1], " (p = ", ab[2], ")"), pos=4)
+                   paste0("ab: M = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)
     graphics::text(-1.2, 0.9,
-                   paste0("c: M = ", c[1], " (p = ", c[2], ")"), pos=4)
+                   paste0("c: M = ", c[1], " [", c[2], ", ", c[3], "]"), pos=4)
     graphics::text(-1.2, 0.7,
-                   paste0("%me: M = ", pme[1], " (p = ", pme[2], ")"), pos=4)
+                   paste0("%me: M = ", pme[1], " [", pme[2], ", ", pme[3], "]"), pos=4)
 }
 
-#' Plot marginal posterior histograms
+#' Plot marginal posterior histograms or coefficients plots.
 #'
 #' Plot the model's estimated parameters as histograms or a coefficient plot.
 #'
@@ -78,13 +80,13 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #' @param level X level for Credible Intervals.
 #' @param color Color for plots.
 #' @param pars List of parameters to plot.
+#' @param nrow Number of rows for multiple histograms.
 #'
 #' @return A ggplot2 object.
 #'
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
-#' @details Experimental. Plots a path diagram of the mediation model,
-#' with estimated average parameter values and posterior probabilities.
+#' @details The point estimate for the coefficient plot is the posterior median.
 #'
 #'@import ggplot2
 #'
@@ -93,6 +95,7 @@ mlm_pars_plot <- function(mod = NULL,
                           type = "hist",
                           color = "black",
                           level = 0.91,
+                          nrow = 3,
                           pars = c("a", "b", "cp", "corrab", "ab", "c", "pme")){
 
     # Requires the reshape2 package
@@ -115,7 +118,7 @@ mlm_pars_plot <- function(mod = NULL,
             labs(x="", y="") +
             facet_wrap("variable",
                        scales = "free",
-                       ncol=3) +
+                       nrow=nrow) +
             theme_bw() +
             theme(axis.text.y = element_blank(),
                   axis.ticks.y = element_blank(),
@@ -128,7 +131,7 @@ mlm_pars_plot <- function(mod = NULL,
         d <- dplyr::group_by_(d, "variable")
         d <- dplyr::summarize_(
             d,
-            m = ~mean(value),  # Formulas allow non-standard evaluation
+            m = ~median(value),  # Formulas allow non-standard evaluation
             lwr = ~stats::quantile(value, probs = .5 - level/2),
             upr = ~stats::quantile(value, probs = .5 + level/2)
             )

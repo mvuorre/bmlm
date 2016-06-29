@@ -5,7 +5,7 @@
 \title{Bayesian parameter estimation for multilevel mediation models}
 \usage{
 mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
-  prior_scale = NULL, intrcpt_scale = NULL, ...)
+  prior_scale = NULL, tau_scale = NULL, intrcpt_scale = NULL, ...)
 }
 \arguments{
 \item{d}{A \code{data.frame}.}
@@ -21,8 +21,9 @@ mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
 \item{prior_scale}{Prior standard deviation on regression coefficients.
 See details.}
 
-\item{intrcpt_scale}{Prior standard deviation on regression intercepts.
-See details}
+\item{tau_scale}{Prior scale on \code{tau} parameters. See details.}
+
+\item{intrcpt_scale}{Prior standard deviation on intercepts.}
 
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
@@ -36,11 +37,15 @@ Easy Bayesian parameter estimation for multilevel mediation models.
 Draw samples from the joint posterior distribution of a
 multilevel mediation model using Stan.
 
-\code{mlm()} Allows the user to input standard deviation parameters for
-the regression coefficients. If no priors are provided,
-these are set to 100 (unless no_priors = TRUE).
-\code{mlm()} uses weakly regularizing priors by default,
-which help avoid overfitting.
+\subsection{Priors}{
+
+\code{prior_scale} inputs a standard deviation parameter to the prior
+distributions for the regression parameters in a, b, and cp paths. Users are
+recommended to adjust this to fit the scale of the data.
+\code{tau_scale} inputs a scale parameter to Cauchy distributions on
+the varying effects' standard deviation parameters.
+
+}
 
 Currently, we assume that the user inputs X, M, and Y as within-person
 deviated variables (Bolger & Laurenceau, 2013, ch.9). As a result, the

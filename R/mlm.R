@@ -9,8 +9,8 @@
 #' @param y Column of Y values in \code{data}.
 #' @param prior_scale Prior standard deviation on regression coefficients.
 #' See details.
-#' @param intrcpt_scale Prior standard deviation on regression intercepts.
-#' See details
+#' @param tau_scale Prior scale on \code{tau} parameters. See details.
+#' @param intrcpt_scale Prior standard deviation on intercepts.
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
@@ -20,11 +20,15 @@
 #' @details Draw samples from the joint posterior distribution of a
 #' multilevel mediation model using Stan.
 #'
-#' \code{mlm()} Allows the user to input standard deviation parameters for
-#' the regression coefficients. If no priors are provided,
-#' these are set to 100 (unless no_priors = TRUE).
-#' \code{mlm()} uses weakly regularizing priors by default,
-#' which help avoid overfitting.
+#' \subsection{Priors}{
+#'
+#' \code{prior_scale} inputs a standard deviation parameter to the prior
+#' distributions for the regression parameters in a, b, and cp paths. Users are
+#' recommended to adjust this to fit the scale of the data.
+#' \code{tau_scale} inputs a scale parameter to Cauchy distributions on
+#' the varying effects' standard deviation parameters.
+#'
+#' }
 #'
 #' Currently, we assume that the user inputs X, M, and Y as within-person
 #' deviated variables (Bolger & Laurenceau, 2013, ch.9). As a result, the
@@ -43,6 +47,7 @@
 
 mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
                 prior_scale = NULL,
+                tau_scale = NULL,
                 intrcpt_scale = NULL,
                 ...) {
 
@@ -51,7 +56,8 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
     # Check priors
     if (is.null(prior_scale)) prior_scale <- 100
-    if (is.null(intrcpt_scale)) intrcpt_scale <- .001
+    if (is.null(tau_scale)) tau_scale <- 1
+    if (is.null(intrcpt_scale)) intrcpt_scale <- 10
 
     # Create a data list for Stan
     ld <- list()
@@ -63,6 +69,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     ld$J <- length(unique(ld$id))
     ld$N <- nrow(d)
     ld$prior_scale <- prior_scale
+    ld$tau_scale <- tau_scale
     ld$intrcpt_scale <- intrcpt_scale
 
 
