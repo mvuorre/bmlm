@@ -81,7 +81,10 @@ mlm <- function(d = NULL, id = id, x = x, m = m, y = y,
     message("Estimating model, please wait.")
     fit <- rstan::stan(file = model_file,
                        model_name = "Multilevel mediation",
-                       data = ld, ...)
+                       data = ld,
+                       pars = c("U", "Sigma", "Omega"),
+                       include = FALSE,
+                       ...)
 
     # Return stanfit object
     return(fit)

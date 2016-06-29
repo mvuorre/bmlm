@@ -5,7 +5,7 @@
 \title{Display results of multilevel mediation model}
 \usage{
 mlm_summary(mod = NULL, level = 0.91, ref_val = 0, pars = c("a", "b",
-  "cp", "corrab", "ab", "c", "pme"), digits = 2)
+  "cp", "corrab", "ab", "c", "pme"), level1 = FALSE, digits = 2)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{bmlm::mlm()}}
@@ -15,6 +15,9 @@ mlm_summary(mod = NULL, level = 0.91, ref_val = 0, pars = c("a", "b",
 \item{ref_val}{Obtain posterior probabilities that parameters are in the observed direction from \code{ref_val}. Defaults to 0.}
 
 \item{pars}{Parameters to summarize. Defaults to main average-level parameters. See Details for more information.}
+
+\item{level1}{Should participant-specific mediation parameters be displayed?
+Defaults to FALSE.}
 
 \item{digits}{How many decimal points to display in the output. Defaults to 2.}
 }
@@ -44,7 +47,10 @@ the posterior mean, and limits of the Credible Interval as specified
  the marginal posterior distribution.
 
 \subsection{Parameters}{
-By default, \code{mlm()} estimates and returns a large number of parameters, including the varying effects, and their associated standard deviations. However, \code{mlm_summay()} only displays the most relevant subset of the estimated parameters:
+By default, \code{mlm()} estimates and returns a large number of parameters,
+including the varying effects, and their associated standard deviations.
+However, \code{mlm_summay()} by default only displays the most relevant
+subset of the estimated parameters:
 
 \describe{
  \item{a}{Regression slope of the X -> M relationship.}
@@ -57,9 +63,13 @@ By default, \code{mlm()} estimates and returns a large number of parameters, inc
  \item{c}{Total effect of X on Y. ( \eqn{cp + ab + \sigma_ab} )}
  \item{pme}{Percent mediated effect.}
 }
-}
+The user may specify \code{pars = NULL} to display all estimated parameters.
+Other options include \code{pars = "Tau"} to display the varying
+effects standard deviations. By specifying \code{level1 = TRUE}, the
+output includes estimated mediation parameters for all participants.
 
-To show all parameters, use \code{pars = NULL}. To learn more about the additional parameters, refer to the Stan code (\code{print_model(fit)}).
+To learn more about the additional parameters, refer to the Stan code (\code{print_model(fit)}).
+}
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}

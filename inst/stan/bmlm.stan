@@ -66,14 +66,29 @@ model {
     M ~ normal(mu_m, sigma_m);
 }
 generated quantities{
+    // Average mediation parameters
     real covab;                 // a-b covariance
     real corrab;                // a-b correlation
     real ab;                    // Indirect effect
     real c;                     // Total effect
     real pme;                   // % mediated effect
+
+    // Person-specific mediation parameters
+    vector[J] u_ab;
+    vector[J] u_cp;
+    vector[J] u_c;
+    vector[J] u_pme;
+
     covab = Sigma[5,3];
     corrab = Omega[5,3];
     ab = a*b + covab;
     c = cp + a*b + covab;
     pme = ab / c;
+
+    for (j in 1:J) {
+        u_ab[j] = (a + U[j, 5]) + (b + U[j, 3]);
+        u_cp[j] = cp + U[j, 2];
+        u_c[j] = u_cp[j] + u_ab[j];
+        u_pme[j] = u_ab[j] / u_c[j];
+    }
 }
