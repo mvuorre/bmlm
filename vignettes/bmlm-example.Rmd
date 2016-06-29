@@ -41,7 +41,7 @@ If something goes wrong during the installation process, you will receive a noti
 
 ```{r, echo = F, message=FALSE, results='hide'}
 # Loads pre-fitted model to save time building the vignette
-load("fit.rda")
+# load("fit.rda")
 library(knitr)
 opts_chunk$set(message = F, warning = F)
 ```
@@ -85,7 +85,7 @@ The `..._cw` variables now contain isolated within-person ("subject-mean deviate
 
 To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the two first lines below.
 
-```{r, eval = F}
+```{r, eval = T}
 rstan_options(auto_write = TRUE)  # These two lines are optional
 options(mc.cores = parallel::detectCores()) 
 
@@ -136,13 +136,13 @@ kable(mlm_summary(fit))
 
 ### Graphical summaries
 
-Currently, __bmlm__ provides two graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated posterior probabilities:
+Currently, __bmlm__ provides two graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`):
 
 ```{r, fig.width = 6, fig.height = 3.5, fig.cap="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
 mlm_path_plot(fit, level = .89)
 ```
 
-This figure offers a quick view of what the model suggests about the data: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship, and the color indicates if the relationship is positive (green) or negative (red). The latter option can be turned off by passing argument `edge.color = "black"`.
+This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship, and the color indicates if the relationship is positive (green) or negative (red). The latter option can be turned off by passing argument `edge.color = "black"`.
 
 For a more detailed investigation of the model's parameters, __bmlm__ offers two methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` for histograms, or `coefplot` for a coefficient plot. If plotting a coefficient plot, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 
