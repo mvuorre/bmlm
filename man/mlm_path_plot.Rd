@@ -4,7 +4,8 @@
 \alias{mlm_path_plot}
 \title{Plot multilevel mediation as a path diagram}
 \usage{
-mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M")
+mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
+  border.width = 2, edge.label.cex = 1.2, fade = FALSE, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -14,6 +15,14 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M")
 \item{ylab}{Label for Y}
 
 \item{mlab}{Label for M}
+
+\item{border.width}{Size of node borders (defaults to 2).}
+
+\item{edge.label.cex}{Text size.}
+
+\item{fade}{Should edges fade to white? (Defaults to FALSE.)}
+
+\item{...}{Other arguments passed on to \code{qgraph::qgraph()}.}
 }
 \value{
 A qgraph object.

@@ -12,6 +12,10 @@
 #' @format A data frame with 2100 rows and 4 variables:
 #' \describe{
 #'   \item{id}{ID of study participant}
+#'   \item{time}{Time}
+#'   \item{fwkstrs}{Number of work stressors}
+#'   \item{fwkdis}{Work dissatisfaction rating}
+#'   \item{freldis}{Relationship dissatisfaction}
 #'   \item{x}{Standardized number of work stressors}
 #'   \item{m}{Standardized work dissatisfaction rating}
 #'   \item{y}{Standardized relationship dissatisfaction}

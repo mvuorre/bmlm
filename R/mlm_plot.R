@@ -7,8 +7,9 @@
 #' @param ylab Label for Y
 #' @param mlab Label for M
 #' @param border.width Size of node borders (defaults to 2).
-#' @param edge.labels.cex Text size.
+#' @param edge.label.cex Text size.
 #' @param fade Should edges fade to white? (Defaults to FALSE.)
+#' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
 #' @return A qgraph object.
 #'
@@ -21,9 +22,9 @@
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           border.width = 2,
                           edge.label.cex = 1.2,
-                          fade = FALSE, 
+                          fade = FALSE,
                           ...){
-    
+
     # Requires the qgraph package
     if (!requireNamespace("qgraph", quietly = TRUE)) {
         stop("qgraph package needed for this function. Please install it.",
@@ -31,7 +32,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     }
     # Ensure suitable model object passed
     if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
-    
+
     # Get model summary
     sfit <- mlm_summary(mod)
     a <- round(as.numeric(sfit[1, c("Mean", "pprob")]), 2)
@@ -40,7 +41,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     ab <- round(as.numeric(sfit[5, c("Mean", "pprob")]), 2)
     c <- round(as.numeric(sfit[6, c("Mean", "pprob")]), 2)
     pme <- round(as.numeric(sfit[7, c("Mean", "pprob")]), 2)
-    
+
     # Specify plot layout and parameters
     edgelabels <- c(
         paste0(" a \n (M = ", a[1], ") \n (p = ", a[2], ") \n"),
@@ -50,7 +51,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     x <- matrix(c(1, b[1], 0,
                   0, 1, 0,
                   a[1], cp[1] ,1), byrow=T, nrow = 3)
-    
+
     # Create plot
     p2 <- qgraph::qgraph(x, layout = "circle",
                          shape = "square",
@@ -58,10 +59,10 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                          border.width = border.width,
                          edge.labels = edgelabels,
                          edge.label.cex = edge.label.cex,
-                         fade = FALSE, 
+                         fade = FALSE,
                          ...)
     graphics::text(-1.2, 1.1,
-                   paste0("ab: M = ", ab[1], " (p = ", a[2], ")"), pos=4)
+                   paste0("ab: M = ", ab[1], " (p = ", ab[2], ")"), pos=4)
     graphics::text(-1.2, 0.9,
                    paste0("c: M = ", c[1], " (p = ", c[2], ")"), pos=4)
     graphics::text(-1.2, 0.7,
@@ -105,12 +106,14 @@ mlm_pars_plot <- function(mod = NULL,
 
     d <- as.data.frame(mod, pars = pars)
     d <- reshape2::melt(d)
+
+    # Note that aes calls must be aes_string to avoid build notes
     if (type == "hist"){
-        p1 <- ggplot2::ggplot(d, aes(x=value)) +
-            stat_bin(aes(y=..ndensity..),
+        p1 <- ggplot2::ggplot(d, aes_string(x="value")) +
+            stat_bin(aes_string(y="..ndensity.."),
                      col="white", fill=color) +
             labs(x="", y="") +
-            facet_wrap(~variable,
+            facet_wrap("variable",
                        scales = "free",
                        ncol=3) +
             theme_bw() +
@@ -122,14 +125,16 @@ mlm_pars_plot <- function(mod = NULL,
                   strip.background = element_rect(fill = NA, colour = NA),
                   strip.text.x = element_text(face = "bold"))
     } else {
-        d <- dplyr::group_by(d, variable)
-        d <- dplyr::summarize(d,
-                              m = mean(value),
-                              lwr = stats::quantile(value, probs = .5 - level/2),
-                              upr = stats::quantile(value, probs = .5 + level/2))
-        p1 <- ggplot2::ggplot(d, aes(x = rev(variable), y = m)) +
+        d <- dplyr::group_by_(d, "variable")
+        d <- dplyr::summarize_(
+            d,
+            m = ~mean(value),  # Formulas allow non-standard evaluation
+            lwr = ~stats::quantile(value, probs = .5 - level/2),
+            upr = ~stats::quantile(value, probs = .5 + level/2)
+            )
+        p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
             geom_hline(yintercept = 0, lty = 2, size = .3) +
-            geom_pointrange(aes(y=m, ymin = lwr, ymax=upr)) +
+            geom_pointrange(aes_string(y="m", ymin = "lwr", ymax = "upr")) +
             coord_flip() +
             theme_bw() +
             theme(axis.title = element_blank(),

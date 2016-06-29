@@ -68,19 +68,6 @@ mlm_summary <- function(mod = NULL,
                               probs = c(lower_ci, upper_ci),
                               pars = pars)$summary[,-2]
 
-    # Function to calculate posterior probabilities
-    getpps <- function(x){
-        # Posterior probability density in observed direction from zero
-        if (sign(sum(x)) == 1) xpprob <- sum(x > 0) / length(x)
-        else if (sign(sum(x)) == -1) xpprob <- sum(x < 0) / length(x)
-        # Print a warning if parameter is zero
-        else {
-            xpprob <- 0
-            print("Warning calculating post. probs. (Par = 0?)")
-        }
-        return(xpprob)
-    }
-
     # Clean output to a data.frame with no row names
     mod_sum <- rstan::summary(object = mod,
                               probs = c(lower_ci, upper_ci),
@@ -102,21 +89,68 @@ mlm_summary <- function(mod = NULL,
     return(mod_sum)
 }
 
-#' Get Stan code for bmlm model
+#' Get posterior probability
 #'
-#' Prints Stan code for bmlm model that's used in calls to \code{bmlm::mlm()}
+#' Calculates the proportion of samples on the dominant side of a reference value.
 #'
-#' @return A text string including the Stan code.
+#' @param x A vector of MCMC samples.
+#'
+#' @return Posterior probability.
+#'
+#' @author Matti Vuorre \email{mv2521@columbia.edu}
+#'
+#' @export
+getpps <- function(x){
+    # Posterior probability density in observed direction from zero
+    if (sign(sum(x)) == 1) xpprob <- sum(x > 0) / length(x)
+    else if (sign(sum(x)) == -1) xpprob <- sum(x < 0) / length(x)
+    # Print a warning if parameter is zero
+    else {
+        xpprob <- 0
+        print("Warning calculating post. probs. (Par = 0?)")
+    }
+    return(xpprob)
+}
+
+#' Create within-person deviations and between-person means.
+#'
+#' Creates variables that represent pure within- and between-person predictors.
+#'
+#' @param d A \code{data.frame}.
+#' @param by A vector of values by which the data is clustered.
+#' i.e. a vector of unique participant IDs.
+#' @param value A vector of values to transform.
+#' @param z Should the new values be standardized (defaults to FALSE).
+#' @param which Which component to return. "within" (default) returns
+#' within-person deviations only; "between" returns between-person means only;
+#' "both" returns both.
+#'
+#' @return A \code{data.frame} with additional columns for the within- and
+#' between-person variables. The new columns are labelled _cw for
+#' centered-within and _cb for centered-between.
 #'
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
 #' @examples
-#' x <- print_model()
-#' cat(x)
-#' print(x)
+#' \dontrun{
+#' # Create within-person deviations of \code{x}.
+#' mydata <- isolate(mydata, by = "id", value = "x")  # Overwrites mydata
+#'}
+#'
 #' @export
-print_model <- function(){
-    model_file <- system.file("stan/bmlm.stan", package="bmlm")
-    model_string <-readLines(model_file)
-    return(model_string)
+isolate <- function(d = NULL, by = NULL, value = NULL,
+                    z = FALSE, which = "within"){
+    oldnames <- names(d)
+    d$c <- as.numeric(scale(d[,value], scale = z))  # Mean centered (or Zd)
+    d <- within(d, {cb = stats::ave(c, d[,by], FUN = mean)})  # Between-person
+    d$cw <- d$c - d$cb  # Within-person
+    names(d) <- c(oldnames,
+                  paste0(value, "_c"),
+                  paste0(value, "_cb"),
+                  paste0(value, "_cw"))
+    N <- dim(d)[2]
+    if (which == "within") d <- d[,-c(N-1, N-2)]
+    else if (which == "between") d <- d[,-c(N, N-2)]
+    else d <- d[,-(N-2)]
+    return(d)
 }

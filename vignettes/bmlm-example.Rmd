@@ -152,9 +152,9 @@ pars <- c("a", "ab", "cp", "c", "corrab")
 traceplot(fit, pars = pars)
 ```
 
-Further modification of the model is possible through modifying the Stan code underlying `mlm()`. To obtain the Stan code for the multilevel mediation model, run `print_model()`
+Further modification of the model is possible through modifying the Stan code underlying `mlm()`. To obtain the Stan code for the multilevel mediation model, run `get_stancode()`
 
 ```{r}
-print_model()  # Note, user doesn't need to provide a model object
+cat(get_stancode(fit))  # Wrap inside cat() for nicer printing
 ```
 

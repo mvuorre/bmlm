@@ -9,7 +9,7 @@ data {
     vector[N] Y;                // Outcome
     real prior_scale;           // Prior scale for regression params
     real intrcpt_scale;         // Prior scale for intercepts
-    real y_mean;                // Mean of Y
+    real y_mean;                // Mean of Y when X and M = 0
 }
 
 parameters{
@@ -39,16 +39,6 @@ model {
     // Means of likelihoods for regression models
     vector[N] mu_y;
     vector[N] mu_m;
-    // Priors
-    // Regression parameters
-    dm ~ normal(y_mean, intrcpt_scale);
-    dy ~ normal(y_mean, intrcpt_scale);
-    a ~ normal(0, prior_scale);
-    b ~ normal(0, prior_scale);
-    cp ~ normal(0, prior_scale);
-    // RE SDs and correlation matrix
-    Tau ~ cauchy(0, 1);
-    Omega ~ lkj_corr(2);
 
     // Sample random effects
     for (j in 1:J) { U[j] ~ multi_normal(rep_vector(0, 5), Sigma); }
