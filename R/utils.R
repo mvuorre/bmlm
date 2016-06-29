@@ -27,7 +27,7 @@
 #' The function shows, for each parameter specified in \code{pars},
 #' the posterior mean, and limits of the Credible Interval as specified
 #'  in \code{level}. For example, \code{level = .91} shows a
-#'  91% Credible Interval, which summarizes the central mass of
+#'  91\% Credible Interval, which summarizes the central 91\% mass of
 #'  the marginal posterior distribution.
 #'
 #' \subsection{Parameters}{
@@ -76,28 +76,28 @@ mlm_summary <- function(mod = NULL,
     # Obtain model summary from Stanfit
     lower_ci <- .5 - (level/2)
     upper_ci <- .5 + (level/2)
-    mod_sum <- rstan::summary(object = mod,
-                              probs = c(lower_ci, upper_ci),
-                              pars = pars)$summary[,-2]
 
-    # Clean output to a data.frame with no row names
     mod_sum <- rstan::summary(object = mod,
-                              probs = c(lower_ci, upper_ci),
+                              probs = c(lower_ci, .5, upper_ci),
                               pars = pars)$summary[,-2]
-    descriptors <- as.data.frame(round(mod_sum, digits = digits))[,1:4]
-    diagnostics <- as.data.frame(round(mod_sum, digits = digits))[,5:6]
-    mod_sum <- cbind(parameter = as.character(row.names(mod_sum)),
-                     descriptors,
-                     pprob = sapply(as.data.frame(mod, pars = pars), getpps),
-                     diagnostics)
-    row.names(mod_sum) <- NULL
+    # Clean and get post. probs
+    if (is.null(dim(mod_sum))) {  # If only one param entered
+        mod_sum <- data.frame(t(mod_sum))
+        mod_sum <- data.frame(t(apply(mod_sum, 2, round, digits = 2)))
+        Names <- pars
+    } else {
+        mod_sum <- data.frame(mod_sum)
+        mod_sum <- data.frame(apply(mod_sum, 2, round, digits = 2))
+        Names <- row.names(mod_sum)
+        }
+    mod_sum$pprob <- apply(as.data.frame(mod, pars = pars), 2, FUN = getpps)
+    mod_sum$n_eff <- floor(mod_sum$n_eff)
+    mod_sum$Parameter <- Names
+    mod_sum <- mod_sum[,c(9,1,2,4,3,5,8,6,7)]
     names(mod_sum) <- c("Parameter", "Mean", "SD",
-                        paste0("CI_", lower_ci*100),
-                        paste0("CI_", upper_ci*100),
+                        "Median", "ci_lwr", "ci_upr",
                         "pprob", "n_eff", "Rhat")
-
-    mod_sum
-
+    row.names(mod_sum) <- NULL
     return(mod_sum)
 }
 

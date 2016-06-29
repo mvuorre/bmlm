@@ -11,8 +11,6 @@
 #' See details.
 #' @param intrcpt_scale Prior standard deviation on regression intercepts.
 #' See details
-#' @param no_priors Estimates the model with no priors. Not recommended,
-#' see details.
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
@@ -23,13 +21,10 @@
 #' multilevel mediation model using Stan.
 #'
 #' \code{mlm()} Allows the user to input standard deviation parameters for
-#' the regression coefficients and intercepts. If no priors are provided,
+#' the regression coefficients. If no priors are provided,
 #' these are set to 100 (unless no_priors = TRUE).
-#'
-#' If the user sets no_priors = TRUE, all parameters are estimated with
-#' uniform priors. This is generally not recommended, but in some cases
-#' the default priors might not be suitable to the data. \code{mlm()} uses
-#' weakly regularizing priors by default, which help avoid overfitting.
+#' \code{mlm()} uses weakly regularizing priors by default,
+#' which help avoid overfitting.
 #'
 #' Currently, we assume that the user inputs X, M, and Y as within-person
 #' deviated variables (Bolger & Laurenceau, 2013, ch.9). As a result, the
@@ -49,7 +44,6 @@
 mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
                 prior_scale = NULL,
                 intrcpt_scale = NULL,
-                no_priors = FALSE,
                 ...) {
 
     # Check for data and quit if not suitable
@@ -57,7 +51,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
     # Check priors
     if (is.null(prior_scale)) prior_scale <- 100
-    if (is.null(intrcpt_scale)) intrcpt_scale <- 100
+    if (is.null(intrcpt_scale)) intrcpt_scale <- .001
 
     # Create a data list for Stan
     ld <- list()
@@ -73,16 +67,12 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
 
     # Sample from model
-    if (no_priors == FALSE) {
-        model_file <- system.file("stan/bmlm.stan", package="bmlm")
-    } else {
-        model_file <- system.file("stan/bmlm_nopriors.stan", package="bmlm")
-    }
+    model_file <- system.file("stan/bmlm.stan", package="bmlm")
     message("Estimating model, please wait.")
     fit <- rstan::stan(file = model_file,
                        model_name = "Multilevel mediation",
                        data = ld,
-                       pars = c("U", "Sigma", "Omega"),
+                       pars = c("U", "z_U", "L_Omega"),
                        include = FALSE,
                        ...)
 

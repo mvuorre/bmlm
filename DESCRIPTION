@@ -1,6 +1,6 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 0.0.0.9900
+Version: 0.0.1.0
 Authors@R: person("Matti", "Vuorre", email = "mv2521@columbia.edu",
                   role = c("aut", "cre"))
 Description: Easy fitting of Bayesian multilevel mediation models in R.

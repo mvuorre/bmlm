@@ -43,7 +43,7 @@ After estimating a model (drawing samples from the join posterior probability di
 The function shows, for each parameter specified in \code{pars},
 the posterior mean, and limits of the Credible Interval as specified
  in \code{level}. For example, \code{level = .91} shows a
- 91% Credible Interval, which summarizes the central mass of
+ 91\% Credible Interval, which summarizes the central 91\% mass of
  the marginal posterior distribution.
 
 \subsection{Parameters}{
@@ -68,7 +68,8 @@ Other options include \code{pars = "Tau"} to display the varying
 effects standard deviations. By specifying \code{level1 = TRUE}, the
 output includes estimated mediation parameters for all participants.
 
-To learn more about the additional parameters, refer to the Stan code (\code{print_model(fit)}).
+To learn more about the additional parameters, refer to the Stan code
+(\code{get_stancode(fit)}).
 }
 }
 \author{

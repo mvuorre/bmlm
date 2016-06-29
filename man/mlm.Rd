@@ -4,8 +4,8 @@
 \alias{mlm}
 \title{Bayesian parameter estimation for multilevel mediation models}
 \usage{
-mlm(d = NULL, id = id, x = x, m = m, y = y, prior_scale = NULL,
-  intrcpt_scale = NULL, no_priors = FALSE, ...)
+mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
+  prior_scale = NULL, intrcpt_scale = NULL, ...)
 }
 \arguments{
 \item{d}{A \code{data.frame}.}
@@ -24,9 +24,6 @@ See details.}
 \item{intrcpt_scale}{Prior standard deviation on regression intercepts.
 See details}
 
-\item{no_priors}{Estimates the model with no priors. Not recommended,
-see details.}
-
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
 \value{
@@ -40,13 +37,10 @@ Draw samples from the joint posterior distribution of a
 multilevel mediation model using Stan.
 
 \code{mlm()} Allows the user to input standard deviation parameters for
-the regression coefficients and intercepts. If no priors are provided,
+the regression coefficients. If no priors are provided,
 these are set to 100 (unless no_priors = TRUE).
-
-If the user sets no_priors = TRUE, all parameters are estimated with
-uniform priors. This is generally not recommended, but in some cases
-the default priors might not be suitable to the data. \code{mlm()} uses
-weakly regularizing priors by default, which help avoid overfitting.
+\code{mlm()} uses weakly regularizing priors by default,
+which help avoid overfitting.
 
 Currently, we assume that the user inputs X, M, and Y as within-person
 deviated variables (Bolger & Laurenceau, 2013, ch.9). As a result, the

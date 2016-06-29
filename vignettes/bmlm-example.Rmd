@@ -62,15 +62,18 @@ head(BLch9)
 ```{r, eval = T, echo = F}
 # Hack to show tabulated output instead of raw print
 data(BLch9)
-kable(head(BLch9))
+kable(head(BLch9), digits = 2)
 ```
 
 ## Fit model
 
-To estimate the multilevel mediation model, simply run the following command:
+To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the two first lines below.
 
 ```{r, eval = F}
-fit <- mlm(d = BLch9, iter = 1000)
+rstan_options(auto_write = TRUE)  # These two lines are optional
+options(mc.cores = parallel::detectCores()) 
+
+fit <- mlm(d = BLch9, iter = 4000)
 ```
 
 The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
@@ -82,7 +85,9 @@ The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `B
 
 We didn't need to specify these in this example, because the defaults point to those names, and the example data already contained columns with these names.
 
-There are various additional arguments to the above command. Most notably, the `iter = 1000` specified that Stan should draw 1000 samples from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. So we have a total of $1000 / 2 * 4 = 2000$ samples from the joint posterior distribution. In practice, for this model we recommend obtaining more samples to ensure precision in parameter estimates. For this example, 2000 samples is sufficient.
+There are various additional arguments to the above command. Most notably, the `iter = 4000` specified that Stan should draw 2000 samples from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. So we have a total of $4000 / 2 * 4 = 8000$ samples from the joint posterior distribution. In practice, for this model we recommend obtaining more samples to ensure precision in parameter estimates. For this example, 4000 samples is sufficient.
+
+Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example model (2100 rows of data and a total of 16000 MCMC iterations) takes about 35 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
 
 ## Summarize fitted model
 
@@ -105,6 +110,7 @@ kable(mlm_summary(fit))
 
 * Posterior _Mean_: This can be used as a point estimate of parameter
 * Posterior _SD_: The standard deviation of the marginal posterior distribution of plausible parameter values. 
+* Posterior _Median_: If the posterior distribution is skewed, the median might be used as a more accurate point estimate.
 * Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.91, but users may supply any value they desire.
 * Posterior probability (_pprob_), which summarizes the probability density at the observed side of 0. For example, if the estimate (_Mean_) is -0.55, the posterior probability is defined as the proportion of probability density _below zero_.
 * n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see `?mlm` or `?stan` for details.
