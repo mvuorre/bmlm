@@ -46,9 +46,9 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
     # Specify plot layout and parameters
     edgelabels <- c(
-        paste0("\n a \n M = ", a[1], " \n [", a[2], ", ", a[3], "] \n"),
-        paste0("\n b \n M = ", b[1], " \n [", b[2], ", ", b[3], "] \n"),
-        paste0("\n c' \n M = ", cp[1], " \n [", cp[2], ", ", cp[3], "] \n")
+        paste0("\n a = ", a[1], " \n [", a[2], ", ", a[3], "] \n"),
+        paste0("\n b = ", b[1], " \n [", b[2], ", ", b[3], "] \n"),
+        paste0("\n c' = ", cp[1], " \n [", cp[2], ", ", cp[3], "] \n")
     )
     x <- matrix(c(1, b[1], 0,
                   0, 1, 0,
@@ -64,11 +64,11 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                          fade = FALSE,
                          ...)
     graphics::text(-1.2, 1.1,
-                   paste0("ab: M = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)
+                   paste0("ab = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)
     graphics::text(-1.2, 0.9,
-                   paste0("c: M = ", c[1], " [", c[2], ", ", c[3], "]"), pos=4)
+                   paste0("c = ", c[1], " [", c[2], ", ", c[3], "]"), pos=4)
     graphics::text(-1.2, 0.7,
-                   paste0("%me: M = ", pme[1], " [", pme[2], ", ", pme[3], "]"), pos=4)
+                   paste0("%me = ", pme[1], " [", pme[2], ", ", pme[3], "]"), pos=4)
 }
 
 #' Plot marginal posterior histograms or coefficients plots.

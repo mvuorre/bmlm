@@ -41,7 +41,7 @@ If something goes wrong during the installation process, you will receive a noti
 
 ```{r, echo = F, message=FALSE, results='hide'}
 # Loads pre-fitted model to save time building the vignette
-# load("fit.rda")
+load("fit.rda")
 library(knitr)
 opts_chunk$set(message = F, warning = F)
 ```
@@ -85,7 +85,7 @@ The `..._cw` variables now contain isolated within-person ("subject-mean deviate
 
 To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the two first lines below.
 
-```{r, eval = T}
+```{r, eval = F}
 rstan_options(auto_write = TRUE)  # These two lines are optional
 options(mc.cores = parallel::detectCores()) 
 
