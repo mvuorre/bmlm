@@ -11,6 +11,8 @@
 #' See details.
 #' @param tau_scale Prior scale on \code{tau} parameters. See details.
 #' @param intrcpt_scale Prior standard deviation on intercepts.
+#' @param binary Which response variables should be modelled as binary with
+#' logistic regression. Defaults to NULL (M and Y treated as continuous.)
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
@@ -49,10 +51,12 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
                 prior_scale = NULL,
                 tau_scale = NULL,
                 intrcpt_scale = NULL,
+                binary = NULL,
                 ...) {
 
-    # Check for data and quit if not suitable
+    # Check for data
     if (is.null(d)) stop("No data entered")
+    if (class(d)[1] == "tbl_df") d <- as.data.frame(d)  # Allow tibbles
 
     # Check priors
     if (is.null(prior_scale)) prior_scale <- 100
@@ -72,9 +76,15 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     ld$tau_scale <- tau_scale
     ld$intrcpt_scale <- intrcpt_scale
 
+    # Choose model
+    if (is.null(binary)) {
+        model_file <- system.file("stan/bmlm.stan", package="bmlm")
+    } else if (binary == "y" || binary == y) {
+        model_file <- system.file("stan/bmlm_binary_y.stan", package="bmlm")
+    } else { stop("Unsupported variables defined as binary.") }
+
 
     # Sample from model
-    model_file <- system.file("stan/bmlm.stan", package="bmlm")
     message("Estimating model, please wait.")
     fit <- rstan::stan(file = model_file,
                        model_name = "Multilevel mediation",
