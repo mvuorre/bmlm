@@ -41,7 +41,7 @@ If something goes wrong during the installation process, you will receive a noti
 
 ```{r, echo = F, message=FALSE, results='hide'}
 # Loads pre-fitted model to save time building the vignette
-load("fit.rda")
+load("~$fit.rda")
 library(knitr)
 opts_chunk$set(message = F, warning = F)
 ```
@@ -76,7 +76,7 @@ BLch9 <- isolate(BLch9,
 ```
 
 ```{r, echo = F}
-kable(head(BLch9), digits = 2)
+knitr::kable(head(BLch9), digits = 2)
 ```
 
 The `..._cw` variables now contain isolated within-person ("subject-mean deviated") pieces of each variable. We'll use these for the mediation analysis.
@@ -139,7 +139,10 @@ kable(mlm_summary(fit))
 Currently, __bmlm__ provides two graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`):
 
 ```{r, fig.width = 6, fig.height = 3.5, fig.cap="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
-mlm_path_plot(fit, level = .89)
+mlm_path_plot(fit, level = .89, 
+              xlab = "Work\nstressors",
+              mlab = "Work\ndissatisfaction",
+              ylab = "Relationship\ndissatisfaction")
 ```
 
 This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship, and the color indicates if the relationship is positive (green) or negative (red). The latter option can be turned off by passing argument `edge.color = "black"`.
