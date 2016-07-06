@@ -8,8 +8,11 @@
 #' @param mlab Label for M
 #' @param border.width Size of node borders (defaults to 2).
 #' @param edge.label.cex Text size.
+#' @param edge.color Color of the edges.
 #' @param fade Should edges fade to white? (Defaults to FALSE.)
 #' @param level "Confidence" level for credible intervals.
+#' @param text Should additional parameter values be displayed?
+#' @param template Should an empty template diagram be plotted?
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
 #' @return A qgraph object.
@@ -17,16 +20,18 @@
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
 #' @details Experimental. Plots a path diagram of the mediation model,
-#' with estimated average parameter values and credible intervals.
+#' with estimated average parameter values and credible intervals. Can also
+#' be used to draw a template diagram of the mediation model.
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           border.width = 2,
                           edge.label.cex = 1,
+                          edge.color = "black",
                           fade = FALSE,
                           level = .91,
-                          text = NULL,
-                          pars = c("a", "b", "cp", "ab", "c", "pme"),
+                          text = FALSE,
+                          template = FALSE,
                           ...){
 
     # Requires the qgraph package
@@ -34,45 +39,52 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         stop("qgraph package needed for this function. Please install it.",
              call. = TRUE)
     }
-    # Ensure suitable model object passed
-    if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
+    if (template) {
+        # Draw template diagram
+        edgelabels <- c(" \n  a  \n ", " \n  b  \n ", " \n  c'  \n ")
+        x <- matrix(c(1, 1, 0,
+                      0, 1, 0,
+                      1, 1 ,1), byrow=T, nrow = 3)
+    } else {
+        if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
 
-    # Get model summary
-    sfit <- mlm_summary(mod, pars = pars, level = level)
-    sfit <- subset(sfit, select = c("Parameter", "Mean", "ci_lwr", "ci_upr"))
-    a <- round(subset(sfit, Parameter == "a", select = -Parameter), digits = 2)
-    b <- round(subset(sfit, Parameter == "b", select = -Parameter), digits = 2)
-    cp <- round(subset(sfit, Parameter == "cp", select = -Parameter), digits = 2)
-    ab <- round(subset(sfit, Parameter == "ab", select = -Parameter), digits = 2)
-    c <- round(subset(sfit, Parameter == "c", select = -Parameter), digits = 2)
-    pme <- round(subset(sfit, Parameter == "pme", select = -Parameter), digits = 2)
+        sfit <- mlm_summary(mod,
+                            pars = c("a", "b", "cp", "ab", "c", "pme"),
+                            level = level)
+        sfit <- subset(sfit, select = c("Parameter", "Mean", "ci_lwr", "ci_upr"))
+        a <- sfit[sfit$Parameter == "a", c("Mean", "ci_lwr", "ci_upr")]
+        b <- sfit[sfit$Parameter == "b", c("Mean", "ci_lwr", "ci_upr")]
+        cp <- sfit[sfit$Parameter == "cp", c("Mean", "ci_lwr", "ci_upr")]
+        ab <- sfit[sfit$Parameter == "ab", c("Mean", "ci_lwr", "ci_upr")]
+        c <- sfit[sfit$Parameter == "c", c("Mean", "ci_lwr", "ci_upr")]
+        pme <- sfit[sfit$Parameter == "pme", c("Mean", "ci_lwr", "ci_upr")]
 
-    # Specify plot layout and parameters
-    edgelabels <- c(
-        paste0("\n", a[1], " \n   [", a[2], ", ", a[3], "]   \n"),
-        paste0("\n", b[1], " \n  [", b[2], ", ", b[3], "]   \n"),
-        paste0("\n", cp[1], " \n   [", cp[2], ", ", cp[3], "]   \n")
-    )
-    x <- matrix(as.numeric(c(1, b[1], 0,
-                  0, 1, 0,
-                  a[1], cp[1] ,1)), byrow=T, nrow = 3)
-
+        edgelabels <- c(
+            paste0("\n", a[1], " \n   [", a[2], ", ", a[3], "]   \n"),
+            paste0("\n", b[1], " \n  [", b[2], ", ", b[3], "]   \n"),
+            paste0("\n", cp[1], " \n   [", cp[2], ", ", cp[3], "]   \n")
+        )
+        x <- matrix(as.numeric(c(1, b[1], 0,
+                                 0, 1, 0,
+                                 a[1], cp[1] ,1)), byrow=T, nrow = 3)
+    }
     # Create plot
-    p2 <- qgraph::qgraph(x, layout = "circle",
-                         shape = "rectangle",
-                         vsize = 16,
-                         vsize2 = 12,
-                         labels = c(mlab, ylab, xlab),
-                         label.norm = "OOOOOO",
-                         border.width = border.width,
-                         edge.labels = edgelabels,
-                         edge.label.cex = edge.label.cex,
-                         fade = FALSE,
-                         asize = 10,
-                         esize = 10,
-                         mar = c(4, 4, 4, 4),
-                         ...)
-    if (!(is.null(text))){
+    qgraph::qgraph(x, layout = "circle",
+                   shape = "rectangle",
+                   vsize = 16,
+                   vsize2 = 12,
+                   labels = c(mlab, ylab, xlab),
+                   label.norm = "OOOOOO",
+                   border.width = border.width,
+                   edge.labels = edgelabels,
+                   edge.label.cex = edge.label.cex,
+                   fade = FALSE,
+                   asize = 10,
+                   esize = 10,
+                   mar = c(4, 4, 4, 4),
+                   edge.color = edge.color,
+                   ...)
+    if (text & !template){
         graphics::text(
             -1.2, 1.1,
             paste0("ab = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)

@@ -5,7 +5,7 @@
 \title{Display results of multilevel mediation model}
 \usage{
 mlm_summary(mod = NULL, level = 0.91, ref_val = 0, pars = c("a", "b",
-  "cp", "corrab", "ab", "c", "pme"), level1 = FALSE, digits = 2)
+  "cp", "ab", "c", "pme", "covab", "corrab"), level1 = FALSE, digits = 2)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{bmlm::mlm()}}
@@ -49,27 +49,29 @@ the posterior mean, and limits of the Credible Interval as specified
 \subsection{Parameters}{
 By default, \code{mlm()} estimates and returns a large number of parameters,
 including the varying effects, and their associated standard deviations.
-However, \code{mlm_summay()} by default only displays the most relevant
-subset of the estimated parameters:
+However, \code{mlm_summay()} by default only displays a subset of the
+estimated parameters:
 
 \describe{
  \item{a}{Regression slope of the X -> M relationship.}
  \item{b}{Regression slope of the M -> Y relationship.}
  \item{cp}{Regression slope of the X -> Y relationship.
- (Unmediated part of X to Y relation.)}
- \item{corrab}{Estimated correlation of the
- participant-level a_j and b_j parameters.}
+ (The direct effect.)}
  \item{ab}{Mediated effect (\code{a * b}).}
  \item{c}{Total effect of X on Y. ( \eqn{cp + ab + \sigma_ab} )}
  \item{pme}{Percent mediated effect.}
+ \item{covab}{Estimated covariance of the
+ participant-level a_j and b_j parameters.}
+ \item{corrab}{Estimated correlation of the
+ participant-level a_j and b_j parameters.}
 }
 The user may specify \code{pars = NULL} to display all estimated parameters.
-Other options include \code{pars = "Tau"} to display the varying
+Other options include \code{pars = "tau"} to display the varying
 effects standard deviations. By specifying \code{level1 = TRUE}, the
 output includes estimated mediation parameters for all participants.
 
 To learn more about the additional parameters, refer to the Stan code
-(\code{get_stancode(fit)}).
+(\code{cat(get_stancode(fit))}).
 }
 }
 \author{

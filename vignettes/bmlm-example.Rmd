@@ -41,7 +41,7 @@ If something goes wrong during the installation process, you will receive a noti
 
 ```{r, echo = F, message=FALSE, results='hide'}
 # Loads pre-fitted model to save time building the vignette
-load("~$fit.rda")
+load("fit.rda")
 library(knitr)
 opts_chunk$set(message = F, warning = F)
 ```

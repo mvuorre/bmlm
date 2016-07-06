@@ -5,8 +5,8 @@
 \title{Plot multilevel mediation as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  border.width = 2, edge.label.cex = 1.2, fade = FALSE, level = 0.91,
-  ...)
+  border.width = 2, edge.label.cex = 1, edge.color = "black",
+  fade = FALSE, level = 0.91, text = FALSE, template = FALSE, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -21,9 +21,15 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
 \item{edge.label.cex}{Text size.}
 
+\item{edge.color}{Color of the edges.}
+
 \item{fade}{Should edges fade to white? (Defaults to FALSE.)}
 
 \item{level}{"Confidence" level for credible intervals.}
+
+\item{text}{Should additional parameter values be displayed?}
+
+\item{template}{Should an empty template diagram be plotted?}
 
 \item{...}{Other arguments passed on to \code{qgraph::qgraph()}.}
 }
@@ -35,7 +41,8 @@ Plots a path diagram from a multilevel mediation model.
 }
 \details{
 Experimental. Plots a path diagram of the mediation model,
-with estimated average parameter values and credible intervals.
+with estimated average parameter values and credible intervals. Can also
+be used to draw a template diagram of the mediation model.
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}

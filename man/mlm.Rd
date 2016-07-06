@@ -5,7 +5,8 @@
 \title{Bayesian parameter estimation for multilevel mediation models}
 \usage{
 mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
-  prior_scale = NULL, tau_scale = NULL, intrcpt_scale = NULL, ...)
+  prior_scale = NULL, tau_scale = NULL, intrcpt_scale = NULL,
+  binary = NULL, ...)
 }
 \arguments{
 \item{d}{A \code{data.frame}.}
@@ -24,6 +25,9 @@ See details.}
 \item{tau_scale}{Prior scale on \code{tau} parameters. See details.}
 
 \item{intrcpt_scale}{Prior standard deviation on intercepts.}
+
+\item{binary}{Which response variables should be modelled as binary with
+logistic regression. Defaults to NULL (M and Y treated as continuous.)}
 
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
