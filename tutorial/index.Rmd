@@ -3,12 +3,16 @@ title: "bmlm: Multilevel Mediation Modeling with Stan"
 author: "Matti Vuorre"
 date: "`r Sys.Date()`"
 output: 
-  rmarkdown::html_vignette:
-    fig_caption: yes
-vignette: >
-  %\VignetteIndexEntry{bmlm: Multilevel mediation modeling with Stan}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+  html_document:
+    theme: cosmo
+    highlight: kate
+    toc: true
+    toc_float: true
+    fig_caption: true
+    number_section: false
+    self_contained: true
+bibliography: bibliography.bib
+csl: apa.csl
 ---
 
 # Introduction
@@ -40,8 +44,8 @@ If something goes wrong during the installation process, you will receive a noti
 # Example
 
 ```{r, echo = F, message=FALSE, results='hide'}
-# Loads pre-fitted model to save time building the vignette
-load("fit.rda")
+# Loads pre-fitted model to save time building the tutorial
+load("~$fit.rda")
 library(knitr)
 opts_chunk$set(message = F, warning = F)
 ```
@@ -52,7 +56,7 @@ After installing the required software, load the __bmlm__ package to your curren
 library(bmlm)
 ```
 
-__bmlm__ contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) (Bolger & Laurenceau, 2013). We'll use this data set in the example, and first load it into the workspace from the package, and display what the data looks like:
+__bmlm__ contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) [@bolger_intensive_2013]. We'll use this data set in the example, and first load it into the workspace from the package, and display what the data looks like:
 
 ```{r, eval = F, echo = T}
 data(BLch9)
@@ -142,22 +146,24 @@ Currently, __bmlm__ provides two graphical summaries of the estimated model. The
 mlm_path_plot(fit, level = .89, 
               xlab = "Work\nstressors",
               mlab = "Work\ndissatisfaction",
-              ylab = "Relationship\ndissatisfaction")
+              ylab = "Relationship\ndissatisfaction",
+              edge.color = NULL)  # Colors edges
 ```
 
-This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship, and the color indicates if the relationship is positive (green) or negative (red). The latter option can be turned off by passing argument `edge.color = "black"`.
+This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. The width of each arrow represents the magnitude of each relationship, and the color indicates if the relationship is positive (green) or negative (red). The latter option can be turned off by passing argument `edge.color = "black"`, or by leaving out the argument.
 
 For a more detailed investigation of the model's parameters, __bmlm__ offers two methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` for histograms, or `coefplot` for a coefficient plot. If plotting a coefficient plot, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 
-```{r, fig.cap = "Figure 2. A coefficient plot.", fig.show='hold'}
+```{r, fig.cap = "Figure 2. A coefficient plot.", fig.show='hold', fig.width=3, fig.height=3.5}
 mlm_pars_plot(fit, type = "coefplot", level = .50)
-mlm_pars_plot(fit, type = "coefplot", level = .99)
+mlm_pars_plot(fit, type = "coefplot", level = .99,
+              p_size = 3)  # Changes size of points
 ```
 
 The user can also specify the parameters to show on the plot, as illustrated in the next histograms:
 
 ```{r, fig.height = 4, fig.width = 4, fig.cap = "Histograms for a selection of parameters."}
-mlm_pars_plot(fit, type = "hist", pars = c("ab", "c", "pme", "corrab"))
+mlm_pars_plot(fit, type = "hist", pars = c("ab", "c", "pme", "covab"))
 ```
 
 The histograms are useful for visually assessing the shape of each marginal posterior distribution.
@@ -169,7 +175,7 @@ mlm_pars_plot(fit, type = "hist", pars = c(
     "tau[1]", "Omega[1,2]", "Omega[1,3]",
     "Omega[2,1]", "tau[2]", "Omega[2,3]",
     "Omega[3,1]", "Omega[3,2]", "tau[3]"),
-    nrow = 3)
+    nrow = 3, color = "skyblue4")
 ```
 
 The first three positions (1: path `c'`, 2: path `b`, 3: path `a`) of the varying effects SDs ($\tau$) and correlations ($\Omega$) are plotted as histograms. Each histogram represents the MCMC samples of plausible parameter values from the corresponding posterior distribution.
@@ -178,9 +184,9 @@ The first three positions (1: path `c'`, 2: path `b`, 3: path `a`) of the varyin
 
 It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have "u_" appended to them. 
 
-```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 67% Credible Intervals."}
+```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 75% Credible Intervals."}
 head(mlm_summary(fit, pars = "u_c"))
-mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .67) + 
+mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .75) + 
     theme(axis.text.y = element_blank(),
           axis.ticks.y = element_blank())
 ```
@@ -209,3 +215,4 @@ Further modification of the model is possible through modifying the Stan code un
 cat(get_stancode(fit))  # Wrap inside cat() for nicer printing
 ```
 
+# References 
