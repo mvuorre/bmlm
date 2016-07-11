@@ -10,7 +10,7 @@
 #' @param edge.label.cex Text size.
 #' @param edge.color Color of the edges.
 #' @param fade Should edges fade to white? (Defaults to FALSE.)
-#' @param level "Confidence" level for credible intervals.
+#' @param level "Confidence" level for credible intervals. (Defaults to .99.)
 #' @param text Should additional parameter values be displayed?
 #' @param template Should an empty template diagram be plotted?
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
@@ -29,7 +29,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           edge.label.cex = 1,
                           edge.color = "black",
                           fade = FALSE,
-                          level = .91,
+                          level = .99,
                           text = FALSE,
                           template = FALSE,
                           ...){
@@ -103,8 +103,10 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #'
 #' @param mod A Stanfit model estimated with \code{bmlm::mlm()}.
 #' @param type Type of the plot, \code{hist} or \code{coefplot}.
-#' @param level X level for Credible Intervals.
+#' @param level X level for Credible Intervals. (Defaults to .99.)
 #' @param color Color for plots.
+#' @param p_shape Shape of points for coefplot.
+#' @param p_size Size of points for coefplot.
 #' @param pars List of parameters to plot.
 #' @param nrow Number of rows for multiple histograms.
 #'
@@ -120,7 +122,9 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 mlm_pars_plot <- function(mod = NULL,
                           type = "hist",
                           color = "black",
-                          level = 0.91,
+                          p_shape = 15,
+                          p_size = 1.2,
+                          level = 0.99,
                           nrow = 3,
                           pars = c("a", "b", "cp", "corrab", "ab", "c", "pme")){
 
@@ -163,9 +167,9 @@ mlm_pars_plot <- function(mod = NULL,
             )
         p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
             geom_hline(yintercept = 0, lty = 2, size = .3) +
-            geom_point(aes_string(y="m"), shape = 15, size = 1.2) +
+            geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
             geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
-                           size = .4) +
+                           size = p_size / 3) +
             coord_flip() +
             theme_bw() +
             theme(axis.title = element_blank(),

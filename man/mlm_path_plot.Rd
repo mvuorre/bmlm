@@ -6,7 +6,7 @@
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
   border.width = 2, edge.label.cex = 1, edge.color = "black",
-  fade = FALSE, level = 0.91, text = FALSE, template = FALSE, ...)
+  fade = FALSE, level = 0.99, text = FALSE, template = FALSE, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -25,7 +25,7 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
 \item{fade}{Should edges fade to white? (Defaults to FALSE.)}
 
-\item{level}{"Confidence" level for credible intervals.}
+\item{level}{"Confidence" level for credible intervals. (Defaults to .99.)}
 
 \item{text}{Should additional parameter values be displayed?}
 

@@ -4,8 +4,9 @@
 \alias{mlm_pars_plot}
 \title{Plot marginal posterior histograms or coefficients plots.}
 \usage{
-mlm_pars_plot(mod = NULL, type = "hist", color = "black", level = 0.91,
-  nrow = 3, pars = c("a", "b", "cp", "corrab", "ab", "c", "pme"))
+mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
+  p_size = 1.2, level = 0.99, nrow = 3, pars = c("a", "b", "cp",
+  "corrab", "ab", "c", "pme"))
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -14,7 +15,11 @@ mlm_pars_plot(mod = NULL, type = "hist", color = "black", level = 0.91,
 
 \item{color}{Color for plots.}
 
-\item{level}{X level for Credible Intervals.}
+\item{p_shape}{Shape of points for coefplot.}
+
+\item{p_size}{Size of points for coefplot.}
+
+\item{level}{X level for Credible Intervals. (Defaults to .99.)}
 
 \item{nrow}{Number of rows for multiple histograms.}
 
