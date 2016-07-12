@@ -173,3 +173,44 @@ isolate <- function(d = NULL, by = NULL, value = NULL,
     }
     return(d)
 }
+
+#' Create a word document from a summary table.
+#'
+#' Copy-pasting individual values is error-prone. Use \code{tab2doc()} to
+#' create a word document containing a summary table.
+#'
+#' @param d A \code{data.frame}.
+#' @param name Name of file to create. Defaults to "Table.docx".
+#'
+#' @details Requires the ReporteRs R package.
+#'
+#' @return Saves a word document in the current working directory.
+#'
+#' @author Matti Vuorre \email{mv2521@columbia.edu}
+#'
+#' @examples
+#' \dontrun{
+#' tab2doc(mlm_summary(fit), name = "Fit_summary")
+#'}
+#'
+#' @export
+tab2doc <- function(d = NULL, name = NULL){
+
+    if (!requireNamespace("ReporteRs", quietly = TRUE)) {
+        stop("ReporteRs package needed for this function. Please install it.",
+             call. = TRUE)
+    }
+
+    if (is.null(d)) stop("Please provide a table.")
+    if (is.null(name)) name <- "Table"
+    name <- paste0(name, ".docx")
+
+    if (file.exists(name)) {
+        message("Overwriting previous file")
+        file.remove(name)
+    }
+    doc <- ReporteRs::docx()
+    tab <- ReporteRs::FlexTable(data = d)
+    doc <- ReporteRs::addFlexTable(doc, tab)
+    ReporteRs::writeDoc(doc, name)
+}
