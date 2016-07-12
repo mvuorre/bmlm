@@ -3,4 +3,5 @@
 .RData
 .Ruserdata
 data-raw/
-tutorial/~$fit.rda
+*_cache/
+*_files/
