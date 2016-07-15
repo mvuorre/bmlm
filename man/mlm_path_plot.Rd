@@ -6,7 +6,8 @@
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
   border.width = 2, edge.label.cex = 1, edge.color = "black",
-  fade = FALSE, level = 0.99, text = FALSE, template = FALSE, ...)
+  fade = FALSE, level = 0.99, text = FALSE, template = FALSE,
+  id = NULL, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
@@ -30,6 +31,8 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 \item{text}{Should additional parameter values be displayed?}
 
 \item{template}{Should an empty template diagram be plotted?}
+
+\item{id}{Plot an individual-level path diagram by specifying ID number.}
 
 \item{...}{Other arguments passed on to \code{qgraph::qgraph()}.}
 }

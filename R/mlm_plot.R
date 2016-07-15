@@ -13,6 +13,7 @@
 #' @param level "Confidence" level for credible intervals. (Defaults to .99.)
 #' @param text Should additional parameter values be displayed?
 #' @param template Should an empty template diagram be plotted?
+#' @param id Plot an individual-level path diagram by specifying ID number.
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
 #' @return A qgraph object.
@@ -32,6 +33,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           level = .99,
                           text = FALSE,
                           template = FALSE,
+                          id = NULL,
                           ...){
 
     # Requires the qgraph package
@@ -40,17 +42,28 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
              call. = TRUE)
     }
     if (template) {
-        # Draw template diagram
+        # If user wants a template diagram
         edgelabels <- c(" \n  a  \n ", " \n  b  \n ", " \n  c'  \n ")
         x <- matrix(c(1, 1, 0,
                       0, 1, 0,
                       1, 1 ,1), byrow=T, nrow = 3)
     } else {
         if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
+        params <- c("a", "b", "cp", "ab", "c", "pme")
+        # Specify whether person-specific or average params given
+        if (!is.null(id)){  # If person-specific model requested
+            if (id > mod@sim$dims_oi$u_a) stop("ID index greater than N IDs.")
+            sfit <- mlm_summary(
+                mod,
+                pars = paste0("u_", params, "[", id, "]"),
+                level = level)
+            sfit$Parameter <- params
+        } else {  # Give average model
+            sfit <- mlm_summary(mod,
+                                pars = params,
+                                level = level)
+        }
 
-        sfit <- mlm_summary(mod,
-                            pars = c("a", "b", "cp", "ab", "c", "pme"),
-                            level = level)
         sfit <- subset(sfit, select = c("Parameter", "Mean", "ci_lwr", "ci_upr"))
         a <- sfit[sfit$Parameter == "a", c("Mean", "ci_lwr", "ci_upr")]
         b <- sfit[sfit$Parameter == "b", c("Mean", "ci_lwr", "ci_upr")]
@@ -84,6 +97,10 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                    mar = c(4, 4, 4, 4),
                    edge.color = edge.color,
                    ...)
+    # If ID is specified, note this on plot
+    if (!is.null(id)) {
+        graphics::text(1.25, 1.25, paste0("ID: ", id), font = 2)
+    }
     if (text & !template){
         graphics::text(
             -1.2, 1.1,

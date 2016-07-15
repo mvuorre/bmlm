@@ -96,6 +96,8 @@ generated quantities{
     vector[J] u_cp;
     vector[J] u_c;
     vector[J] u_pme;
+    vector[J] u_a;
+    vector[J] u_b;
 
     Omega = L_Omega * L_Omega';
     Sigma = quad_form_diag(Omega, tau);
@@ -107,6 +109,8 @@ generated quantities{
     pme = ab / c;
 
     for (j in 1:J) {
+        u_a[j] = a + U[j, 3];
+        u_b[j] = b + U[j, 2];
         u_ab[j] = (a + U[j, 3]) * (b + U[j, 2]);
         u_cp[j] = cp + U[j, 1];
         u_c[j] = u_cp[j] + u_ab[j];
