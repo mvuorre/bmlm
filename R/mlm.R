@@ -24,11 +24,15 @@
 #'
 #' \subsection{Priors}{
 #'
-#' \code{prior_scale} inputs a standard deviation parameter to the prior
-#' distributions for the regression parameters in a, b, and cp paths. Users are
-#' recommended to adjust this to fit the scale of the data.
-#' \code{tau_scale} inputs a scale parameter to Cauchy distributions on
-#' the varying effects' standard deviation parameters.
+#' \code{prior_scale} Allows the user to input a standard deviation parameter
+#' to the prior distributions for the slope parameters in a, b, and cp
+#' paths. The default is 100, which is nearly uninformative for standardized
+#' data, but users are recommended to adjust this to fit the scale of the data.
+#' \code{inrtcpt_scale} The same as above, but for the regression intercepts.
+#' Defaults to 10.
+#' \code{tau_scale} Allows the user to input a scale parameter to Cauchy
+#' distributions on the varying effects' standard deviation parameters. The
+#' default is 10, which is very weakly regularizing for standardized variables.
 #'
 #' }
 #'
@@ -60,7 +64,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
     # Check priors
     if (is.null(prior_scale)) prior_scale <- 100
-    if (is.null(tau_scale)) tau_scale <- 1
+    if (is.null(tau_scale)) tau_scale <- 10
     if (is.null(intrcpt_scale)) intrcpt_scale <- 10
 
     # Create a data list for Stan
@@ -82,7 +86,6 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     } else if (binary == "y" || binary == y) {
         model_file <- system.file("stan/bmlm_binary_y.stan", package="bmlm")
     } else { stop("Unsupported variables defined as binary.") }
-
 
     # Sample from model
     message("Estimating model, please wait.")

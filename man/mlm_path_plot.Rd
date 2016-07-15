@@ -37,7 +37,7 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 A qgraph object.
 }
 \description{
-Plots a path diagram from a multilevel mediation model.
+Plots a path diagram for an estimated multilevel mediation model.
 }
 \details{
 Experimental. Plots a path diagram of the mediation model,

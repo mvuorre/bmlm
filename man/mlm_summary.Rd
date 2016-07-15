@@ -2,22 +2,22 @@
 % Please edit documentation in R/utils.R
 \name{mlm_summary}
 \alias{mlm_summary}
-\title{Display results of multilevel mediation model}
+\title{Display a summary of the estimated multilevel mediation model}
 \usage{
-mlm_summary(mod = NULL, level = 0.91, ref_val = 0, pars = c("a", "b",
-  "cp", "ab", "c", "pme", "covab", "corrab"), level1 = FALSE, digits = 2)
+mlm_summary(mod = NULL, level = 0.99, ref_val = 0, pars = c("a", "b",
+  "cp", "ab", "c", "pme", "covab", "corrab"), digits = 2)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{bmlm::mlm()}}
 
-\item{level}{"Confidence" level; quantiles to summarize posterior distributions. Defaults to 0.91.}
+\item{level}{"Confidence" level; Defines the limits of the credible intervals.
+Defaults to .99 (i.e. displays 99\% CIs.)}
 
-\item{ref_val}{Obtain posterior probabilities that parameters are in the observed direction from \code{ref_val}. Defaults to 0.}
+\item{ref_val}{Obtain posterior probabilities that parameters are in the
+observed direction from \code{ref_val}. Defaults to 0.}
 
-\item{pars}{Parameters to summarize. Defaults to main average-level parameters. See Details for more information.}
-
-\item{level1}{Should participant-specific mediation parameters be displayed?
-Defaults to FALSE.}
+\item{pars}{Parameters to summarize. Defaults to main average-level
+parameters. See Details for more information.}
 
 \item{digits}{How many decimal points to display in the output. Defaults to 2.}
 }
@@ -28,7 +28,8 @@ mediation model:
  \item{Parameter}{Name of parameter}
  \item{Mean}{Mean of parameter's posterior distribution.}
  \item{SD}{Standard deviation of parameter's posterior distribution.}
- \item{CI_\%}{The lower and upper limits of Credible Intervals.}
+ \item{ci_lwr}{The lower limit of Credible Intervals.}
+ \item{ci_upr}{The upper limit of Credible Intervals.}
  \item{pprob}{Posterior probability.}
  \item{n_eff}{Number of efficient samples.}
  \item{Rhat}{Should be 1.00.}
@@ -38,13 +39,16 @@ mediation model:
 Shows the relevant output of the Stan object obtained from \code{bmlm::mlm()}.
 }
 \details{
-After estimating a model (drawing samples from the join posterior probability distribution) with mlm(), show the estimated results by using mlm_summary(fit), where "fit" is an object containing the fitted model.
+After estimating a model (drawing samples from the joint posterior
+probability distribution) with \code{mlm()}, show the estimated results
+by using \code{mlm_summary(fit)}, where "fit" is an object containing
+the fitted model.
 
-The function shows, for each parameter specified in \code{pars},
+The function shows, for each parameter specified with \code{pars},
 the posterior mean, and limits of the Credible Interval as specified
- in \code{level}. For example, \code{level = .91} shows a
- 91\% Credible Interval, which summarizes the central 91\% mass of
- the marginal posterior distribution.
+by \code{level}. For example, \code{level = .91} shows a
+91\% Credible Interval, which summarizes the central 91\% mass of
+the marginal posterior distribution.
 
 \subsection{Parameters}{
 By default, \code{mlm()} estimates and returns a large number of parameters,
@@ -66,9 +70,8 @@ estimated parameters:
  participant-level a_j and b_j parameters.}
 }
 The user may specify \code{pars = NULL} to display all estimated parameters.
-Other options include \code{pars = "tau"} to display the varying
-effects standard deviations. By specifying \code{level1 = TRUE}, the
-output includes estimated mediation parameters for all participants.
+Other options include e.g. \code{pars = "tau"} to display the varying
+effects' standard deviations.
 
 To learn more about the additional parameters, refer to the Stan code
 (\code{cat(get_stancode(fit))}).

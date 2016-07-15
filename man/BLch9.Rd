@@ -5,7 +5,7 @@
 \alias{BLch9}
 \title{Relationship between work stressors, work dissatisfaction,
 and relationship dissatisfaction.}
-\format{A data frame with 2100 rows and 4 variables:
+\format{A data frame with 2100 rows and 8 variables:
 \describe{
   \item{id}{ID of study participant}
   \item{time}{Time}

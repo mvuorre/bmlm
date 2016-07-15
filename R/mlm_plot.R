@@ -1,6 +1,6 @@
 #' Plot multilevel mediation as a path diagram
 #'
-#' Plots a path diagram from a multilevel mediation model.
+#' Plots a path diagram for an estimated multilevel mediation model.
 #'
 #' @param mod A Stanfit model estimated with \code{bmlm::mlm()}.
 #' @param xlab Label for X
@@ -116,7 +116,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #'
 #' @details The point estimate for the coefficient plot is the posterior median.
 #'
-#'@import ggplot2
+#' @import ggplot2
 #'
 #' @export
 mlm_pars_plot <- function(mod = NULL,
@@ -169,7 +169,7 @@ mlm_pars_plot <- function(mod = NULL,
             geom_hline(yintercept = 0, lty = 2, size = .3) +
             geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
             geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
-                           size = p_size / 3) +
+                           size = p_size / 4.5) +
             coord_flip() +
             theme_bw() +
             theme(axis.title = element_blank(),

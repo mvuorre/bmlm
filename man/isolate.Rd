@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{isolate}
 \alias{isolate}
-\title{Create within-person deviations and between-person means.}
+\title{Create isolated within- (and optionally between-) person variables.}
 \usage{
 isolate(d = NULL, by = NULL, value = NULL, z = FALSE,
   which = "within")

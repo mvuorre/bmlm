@@ -43,11 +43,15 @@ multilevel mediation model using Stan.
 
 \subsection{Priors}{
 
-\code{prior_scale} inputs a standard deviation parameter to the prior
-distributions for the regression parameters in a, b, and cp paths. Users are
-recommended to adjust this to fit the scale of the data.
-\code{tau_scale} inputs a scale parameter to Cauchy distributions on
-the varying effects' standard deviation parameters.
+\code{prior_scale} Allows the user to input a standard deviation parameter
+to the prior distributions for the slope parameters in a, b, and cp
+paths. The default is 100, which is nearly uninformative for standardized
+data, but users are recommended to adjust this to fit the scale of the data.
+\code{inrtcpt_scale} The same as above, but for the regression intercepts.
+Defaults to 10.
+\code{tau_scale} Allows the user to input a scale parameter to Cauchy
+distributions on the varying effects' standard deviation parameters. The
+default is 10, which is very weakly regularizing for standardized variables.
 
 }
 

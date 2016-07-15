@@ -1,6 +1,6 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 0.0.1.01
+Version: 0.0.1.5
 Authors@R: person("Matti", "Vuorre", email = "mv2521@columbia.edu",
                   role = c("aut", "cre"))
 Description: Easy fitting of Bayesian multilevel mediation models in R.
@@ -18,6 +18,7 @@ Suggests:
     knitr,
     rmarkdown,
     reshape2,
-    dplyr
+    dplyr,
+    ReporteRs
 RoxygenNote: 5.0.1
 VignetteBuilder: knitr

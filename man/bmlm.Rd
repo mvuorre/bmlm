@@ -6,6 +6,6 @@
 \alias{bmlm-package}
 \title{bmlm: An R package for Bayesian multilevel mediation modeling with rstan.}
 \description{
-bmlm: An R package for Bayesian multilevel mediation modeling with rstan.
+See \url{https://mvuorre.github.io/bmlm/} for a short tutorial.
 }
 
