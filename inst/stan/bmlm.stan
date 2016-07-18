@@ -54,9 +54,9 @@ model {
     // Regression parameter priors
     dy ~ normal(0, intercept_scale);
     dm ~ normal(0, intercept_scale);
-    a ~ normal(0, prior_scale);
-    b ~ normal(0, prior_scale);
-    cp ~ normal(0, prior_scale);
+    a ~ normal(0, slope_scale);
+    b ~ normal(0, slope_scale);
+    cp ~ normal(0, slope_scale);
     // RE SDs and correlation matrix
     tau[1] ~ cauchy(0, tau_scale);      // u_cp
     tau[2] ~ cauchy(0, tau_scale);      // u_b
