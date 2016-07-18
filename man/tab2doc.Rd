@@ -15,11 +15,12 @@ tab2doc(d = NULL, name = NULL)
 Saves a word document in the current working directory.
 }
 \description{
-Copy-pasting individual values is error-prone. Use \code{tab2doc()} to
-create a word document containing a summary table.
+Saves a Word document to the current working directory.
 }
 \details{
-Requires the ReporteRs R package.
+Requires the ReporteRs R package. Copy-pasting individual values
+is error-prone. Use \code{tab2doc()} to create a word document containing
+a summary table.
 }
 \examples{
 \dontrun{

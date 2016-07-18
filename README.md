@@ -1,6 +1,6 @@
 # bmlm: An R package for Bayesian MultiLevel Mediation models
 
-__bmlm__ is an R package providing convenient methods for Bayesian estimation of multilevel mediation models.
+__bmlm__ is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
 For an example, please see [a short introduction to bmlm](https://mvuorre.github.io/bmlm/).
 
@@ -14,7 +14,7 @@ This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc
 
 ### Installing bmlm
 
-Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/web/packages/devtools/index.html) for installation. If you don't have the devtools package installed in R, first run this line:
+Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
 
 ```r
 install.packages(devtools)
@@ -28,7 +28,7 @@ devtools::install_github("mvuorre/bmlm")
 
 ## Example
 
-bmlm ships with an example data set from Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research (Bolger & Laurenceau, 2013, chapter 9). To estimate the multilevel mediation model presented in that chapter, run:
+bmlm ships with an example data set from Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research ([Bolger & Laurenceau, 2013, chapter 9](http://www.intensivelongitudinal.com/)). To estimate the multilevel mediation model presented in that chapter, run:
 
 ```r
 library(bmlm)

@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{mlm_summary}
 \alias{mlm_summary}
-\title{Display a summary of the estimated multilevel mediation model}
+\title{Print a summary of the estimated multilevel mediation model}
 \usage{
 mlm_summary(mod = NULL, level = 0.99, ref_val = 0, pars = c("a", "b",
   "cp", "ab", "c", "pme", "covab", "corrab"), digits = 2)
 }
 \arguments{
-\item{mod}{A \code{stanfit} object obtained from \code{bmlm::mlm()}}
+\item{mod}{A \code{stanfit} object obtained from \code{mlm()}}
 
 \item{level}{"Confidence" level; Defines the limits of the credible intervals.
 Defaults to .99 (i.e. displays 99\% CIs.)}
@@ -27,6 +27,7 @@ mediation model:
 \describe{
  \item{Parameter}{Name of parameter}
  \item{Mean}{Mean of parameter's posterior distribution.}
+ \item{Median}{Median of parameter's posterior distribution.}
  \item{SD}{Standard deviation of parameter's posterior distribution.}
  \item{ci_lwr}{The lower limit of Credible Intervals.}
  \item{ci_upr}{The upper limit of Credible Intervals.}
@@ -36,7 +37,8 @@ mediation model:
 }
 }
 \description{
-Shows the relevant output of the Stan object obtained from \code{bmlm::mlm()}.
+Prints the estimated parameters (numerical summaries of the marginal
+posterior distributions).
 }
 \details{
 After estimating a model (drawing samples from the joint posterior

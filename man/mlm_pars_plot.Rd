@@ -2,18 +2,18 @@
 % Please edit documentation in R/mlm_plot.R
 \name{mlm_pars_plot}
 \alias{mlm_pars_plot}
-\title{Plot marginal posterior histograms or coefficients plots.}
+\title{Plot estimated parameters of multilevel mediation model}
 \usage{
 mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
   p_size = 1.2, level = 0.99, nrow = 3, pars = c("a", "b", "cp",
   "corrab", "ab", "c", "pme"))
 }
 \arguments{
-\item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
+\item{mod}{A Stanfit model estimated with \code{mlm()}.}
 
 \item{type}{Type of the plot, \code{hist} or \code{coefplot}.}
 
-\item{color}{Color for plots.}
+\item{color}{Color (and fill) for plots.}
 
 \item{p_shape}{Shape of points for coefplot.}
 
@@ -23,7 +23,7 @@ mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
 
 \item{nrow}{Number of rows for multiple histograms.}
 
-\item{pars}{List of parameters to plot.}
+\item{pars}{Which parameters to plot.}
 }
 \value{
 A ggplot2 object.
