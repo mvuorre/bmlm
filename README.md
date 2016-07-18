@@ -1,8 +1,10 @@
 # bmlm: An R package for Bayesian MultiLevel Mediation models
 
-[A short introduction to bmlm](https://mvuorre.github.io/bmlm/).
+__bmlm__ is an R package providing convenient methods for Bayesian estimation of multilevel mediation models.
 
-## Install
+For an example, please see [a short introduction to bmlm](https://mvuorre.github.io/bmlm/).
+
+# Install
 
 ### Pre-requisites 
 

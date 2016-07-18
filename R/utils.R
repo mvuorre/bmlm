@@ -180,13 +180,14 @@ isolate <- function(d = NULL, by = NULL, value = NULL,
 
 #' Create a word document from a summary table.
 #'
-#' Copy-pasting individual values is error-prone. Use \code{tab2doc()} to
-#' create a word document containing a summary table.
+#' Saves a Word document to the current working directory.
 #'
 #' @param d A \code{data.frame}.
 #' @param name Name of file to create. Defaults to "Table.docx".
 #'
-#' @details Requires the ReporteRs R package.
+#' @details Requires the ReporteRs R package. Copy-pasting individual values
+#' is error-prone. Use \code{tab2doc()} to create a word document containing
+#' a summary table.
 #'
 #' @return Saves a word document in the current working directory.
 #'

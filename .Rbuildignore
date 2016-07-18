@@ -1,5 +1,6 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-cran-comments.md$
 ^_files\$
 ^_cache\$
+^cran-comments\.md$
+^NEWS\.md$
