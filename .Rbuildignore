@@ -1,5 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^data-raw$
+cran-comments.md$
 ^_files\$
 ^_cache\$

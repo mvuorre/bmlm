@@ -7,8 +7,9 @@ data {
     vector[N] X;                // Manipulated variable
     vector[N] M;                // Mediator
     vector[N] Y;                // Outcome
-    real prior_scale;           // Prior scale for regression params
-    real intrcpt_scale;         // Prior scale for intercepts
+    real slope_scale;           // Prior scale for regression params
+    real intercept_scale;       // Prior scale for intercepts
+    real tau_scale;             // Prior scale for RE SDs
 }
 transformed data{
     real y_mean;                // Mean of Y
@@ -51,22 +52,22 @@ model {
     // Cholesky factor of covariance matrix
     matrix[K, K] L_Sigma;
     // Regression parameter priors
-    dy ~ normal(0, intrcpt_scale);
-    dm ~ normal(0, intrcpt_scale);
+    dy ~ normal(0, intercept_scale);
+    dm ~ normal(0, intercept_scale);
     a ~ normal(0, prior_scale);
     b ~ normal(0, prior_scale);
     cp ~ normal(0, prior_scale);
     // RE SDs and correlation matrix
-    tau[1] ~ cauchy(0, 1);      // u_cp
-    tau[2] ~ cauchy(0, 1);      // u_b
-    tau[3] ~ cauchy(0, 1);      // u_a
-    tau[4] ~ cauchy(0, 1);      // u_intrcpt_y
-    tau[5] ~ cauchy(0, 1);      // u_intrcpt_m
+    tau[1] ~ cauchy(0, tau_scale);      // u_cp
+    tau[2] ~ cauchy(0, tau_scale);      // u_b
+    tau[3] ~ cauchy(0, tau_scale);      // u_a
+    tau[4] ~ cauchy(0, tau_scale);      // u_intercept_y
+    tau[5] ~ cauchy(0, tau_scale);      // u_intercept_m
     L_Omega ~ lkj_corr_cholesky(2);
     // Allow vectorized sampling of varying effects via stdzd z_U
     to_vector(z_U) ~ normal(0, 1);
 
-    // Regressions (No intercepts: assume within-person deviated variables)
+    // Regressions
     for (n in 1:N){
         mu_y[n] = (cp + U[id[n], 1]) * X[n] +
                   (b + U[id[n], 2]) * M[n] +

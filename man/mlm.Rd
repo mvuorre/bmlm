@@ -2,14 +2,14 @@
 % Please edit documentation in R/mlm.R
 \name{mlm}
 \alias{mlm}
-\title{Bayesian parameter estimation for multilevel mediation models}
+\title{Estimate a multilevel mediation model}
 \usage{
 mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
-  prior_scale = NULL, tau_scale = NULL, intrcpt_scale = NULL,
-  binary = NULL, ...)
+  slope_scale = NULL, tau_scale = NULL, intercept_scale = NULL,
+  binary_y = FALSE, ...)
 }
 \arguments{
-\item{d}{A \code{data.frame}.}
+\item{d}{A \code{data.frame} or a \code{data_frame}.}
 
 \item{id}{Column of participant IDs in \code{data}.}
 
@@ -19,15 +19,15 @@ mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
 \item{y}{Column of Y values in \code{data}.}
 
-\item{prior_scale}{Prior standard deviation on regression coefficients.
+\item{slope_scale}{Prior standard deviation on regression slope coefficients.
 See details.}
 
-\item{tau_scale}{Prior scale on \code{tau} parameters. See details.}
+\item{tau_scale}{Prior scale on varying effects' SDs. See details.}
 
-\item{intrcpt_scale}{Prior standard deviation on intercepts.}
+\item{intercept_scale}{Prior SD on regression intercept coefficients.}
 
-\item{binary}{Which response variables should be modelled as binary with
-logistic regression. Defaults to NULL (M and Y treated as continuous.)}
+\item{binary_y}{Set to TRUE if y is binary and should be modelled
+with logistic regression. Defaults to FALSE (y treated as continuous.)}
 
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
@@ -35,7 +35,7 @@ logistic regression. Defaults to NULL (M and Y treated as continuous.)}
 An object of S4 class stanfit, with all its available methods.
 }
 \description{
-Easy Bayesian parameter estimation for multilevel mediation models.
+Estimates a Bayesian multilevel mediation model using Stan.
 }
 \details{
 Draw samples from the joint posterior distribution of a
@@ -43,21 +43,17 @@ multilevel mediation model using Stan.
 
 \subsection{Priors}{
 
-\code{prior_scale} Allows the user to input a standard deviation parameter
+\code{slope_scale} Allows the user to input a standard deviation parameter
 to the prior distributions for the slope parameters in a, b, and cp
-paths. The default is 100, which is nearly uninformative for standardized
+paths. The default is 100, which is only very weakly informative for standardized
 data, but users are recommended to adjust this to fit the scale of the data.
-\code{inrtcpt_scale} The same as above, but for the regression intercepts.
+\code{intercept_scale} The same as above, but for the regression intercepts.
 Defaults to 10.
 \code{tau_scale} Allows the user to input a scale parameter to Cauchy
 distributions on the varying effects' standard deviation parameters. The
 default is 10, which is very weakly regularizing for standardized variables.
 
 }
-
-Currently, we assume that the user inputs X, M, and Y as within-person
-deviated variables (Bolger & Laurenceau, 2013, ch.9). As a result, the
-regression intercepts will be zero.
 }
 \examples{
 \dontrun{

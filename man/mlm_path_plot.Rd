@@ -2,7 +2,7 @@
 % Please edit documentation in R/mlm_plot.R
 \name{mlm_path_plot}
 \alias{mlm_path_plot}
-\title{Plot multilevel mediation as a path diagram}
+\title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
   border.width = 2, edge.label.cex = 1, edge.color = "black",
@@ -10,7 +10,7 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
   id = NULL, ...)
 }
 \arguments{
-\item{mod}{A Stanfit model estimated with \code{bmlm::mlm()}.}
+\item{mod}{A Stanfit model estimated with \code{mlm()}.}
 
 \item{xlab}{Label for X}
 
@@ -22,15 +22,18 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
 \item{edge.label.cex}{Text size.}
 
-\item{edge.color}{Color of the edges.}
+\item{edge.color}{Color of the path arrows. (Set NULL to color negative paths
+red, and positive paths green.)}
 
 \item{fade}{Should edges fade to white? (Defaults to FALSE.)}
 
 \item{level}{"Confidence" level for credible intervals. (Defaults to .99.)}
 
-\item{text}{Should additional parameter values be displayed?}
+\item{text}{Should additional parameter values be displayed?
+(Defaults to FALSE.)}
 
-\item{template}{Should an empty template diagram be plotted?}
+\item{template}{Should an empty template diagram be plotted?
+(Defaults to FALSE.)}
 
 \item{id}{Plot an individual-level path diagram by specifying ID number.}
 
@@ -43,9 +46,10 @@ A qgraph object.
 Plots a path diagram for an estimated multilevel mediation model.
 }
 \details{
-Experimental. Plots a path diagram of the mediation model,
-with estimated average parameter values and credible intervals. Can also
-be used to draw a template diagram of the mediation model.
+Plots a path diagram of the mediation model,
+with estimated parameter values and credible intervals. Can also
+be used to draw a template diagram of the mediation model by setting
+\code{template = TRUE}.
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}

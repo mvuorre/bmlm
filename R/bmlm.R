@@ -1,4 +1,4 @@
-#' bmlm: An R package for Bayesian multilevel mediation modeling with rstan.
+#' bmlm: Easy estimation of Bayesian multilevel mediation models with Stan.
 #'
 #' See \url{https://mvuorre.github.io/bmlm/} for a short tutorial.
 #'

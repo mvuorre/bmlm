@@ -2,6 +2,7 @@
 .Rhistory
 .RData
 .Ruserdata
+..Rcheck*
 data-raw/
 *_cache/
 *_files/

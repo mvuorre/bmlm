@@ -1,18 +1,21 @@
-#' Plot multilevel mediation as a path diagram
+#' Plot \code{bmlm}'s mediation model as a path diagram
 #'
 #' Plots a path diagram for an estimated multilevel mediation model.
 #'
-#' @param mod A Stanfit model estimated with \code{bmlm::mlm()}.
+#' @param mod A Stanfit model estimated with \code{mlm()}.
 #' @param xlab Label for X
 #' @param ylab Label for Y
 #' @param mlab Label for M
 #' @param border.width Size of node borders (defaults to 2).
 #' @param edge.label.cex Text size.
-#' @param edge.color Color of the edges.
+#' @param edge.color Color of the path arrows. (Set NULL to color negative paths
+#' red, and positive paths green.)
 #' @param fade Should edges fade to white? (Defaults to FALSE.)
 #' @param level "Confidence" level for credible intervals. (Defaults to .99.)
 #' @param text Should additional parameter values be displayed?
+#' (Defaults to FALSE.)
 #' @param template Should an empty template diagram be plotted?
+#' (Defaults to FALSE.)
 #' @param id Plot an individual-level path diagram by specifying ID number.
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
@@ -20,9 +23,10 @@
 #'
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
-#' @details Experimental. Plots a path diagram of the mediation model,
-#' with estimated average parameter values and credible intervals. Can also
-#' be used to draw a template diagram of the mediation model.
+#' @details Plots a path diagram of the mediation model,
+#' with estimated parameter values and credible intervals. Can also
+#' be used to draw a template diagram of the mediation model by setting
+#' \code{template = TRUE}.
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
@@ -39,7 +43,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     # Requires the qgraph package
     if (!requireNamespace("qgraph", quietly = TRUE)) {
         stop("qgraph package needed for this function. Please install it.",
-             call. = TRUE)
+             call. = FALSE)
     }
     if (template) {
         # If user wants a template diagram
@@ -48,11 +52,15 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                       0, 1, 0,
                       1, 1 ,1), byrow=T, nrow = 3)
     } else {
-        if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
+        if (!(class(mod) == "stanfit")) {
+            stop("Model is not a stanfit object.", call. = FALSE)
+        }
         params <- c("a", "b", "cp", "ab", "c", "pme")
         # Specify whether person-specific or average params given
         if (!is.null(id)){  # If person-specific model requested
-            if (id > mod@sim$dims_oi$u_a) stop("ID index greater than N IDs.")
+            if (id > mod@sim$dims_oi$u_a) {
+                stop("ID index out of bounds.", call. = FALSE)
+            }
             sfit <- mlm_summary(
                 mod,
                 pars = paste0("u_", params, "[", id, "]"),
@@ -91,7 +99,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                    border.width = border.width,
                    edge.labels = edgelabels,
                    edge.label.cex = edge.label.cex,
-                   fade = FALSE,
+                   fade = fade,
                    asize = 10,
                    esize = 10,
                    mar = c(4, 4, 4, 4),
@@ -114,17 +122,17 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     }
 }
 
-#' Plot marginal posterior histograms or coefficients plots.
+#' Plot estimated parameters of multilevel mediation model
 #'
 #' Plot the model's estimated parameters as histograms or a coefficient plot.
 #'
-#' @param mod A Stanfit model estimated with \code{bmlm::mlm()}.
+#' @param mod A Stanfit model estimated with \code{mlm()}.
 #' @param type Type of the plot, \code{hist} or \code{coefplot}.
 #' @param level X level for Credible Intervals. (Defaults to .99.)
-#' @param color Color for plots.
+#' @param color Color (and fill) for plots.
 #' @param p_shape Shape of points for coefplot.
 #' @param p_size Size of points for coefplot.
-#' @param pars List of parameters to plot.
+#' @param pars Which parameters to plot.
 #' @param nrow Number of rows for multiple histograms.
 #'
 #' @return A ggplot2 object.
@@ -148,16 +156,17 @@ mlm_pars_plot <- function(mod = NULL,
     # Requires the reshape2 package
     if (!requireNamespace("reshape2", quietly = TRUE)) {
         stop("reshape2 package needed for this function. Please install it.",
-             call. = TRUE)
+             call. = FALSE)
     }
 
     # Ensure suitable model object passed
-    if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
+    if (!(class(mod) == "stanfit")) {
+        stop("Model is not a stanfit object.", call. = FALSE)
+    }
 
     d <- as.data.frame(mod, pars = pars)
     d <- reshape2::melt(d)
 
-    # Note that aes calls must be aes_string to avoid build notes
     if (type == "hist"){
         p1 <- ggplot2::ggplot(d, aes_string(x="value")) +
             stat_bin(aes_string(y="..ndensity.."),
@@ -193,7 +202,6 @@ mlm_pars_plot <- function(mod = NULL,
                   axis.ticks = element_line(size = .3),
                   panel.background = element_rect(color="gray50"),
                   panel.grid = element_blank())
-        p1
     }
     return(p1)
 }

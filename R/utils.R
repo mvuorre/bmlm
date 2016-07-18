@@ -1,8 +1,9 @@
-#' Display a summary of the estimated multilevel mediation model
+#' Print a summary of the estimated multilevel mediation model
 #'
-#' Shows the relevant output of the Stan object obtained from \code{bmlm::mlm()}.
+#' Prints the estimated parameters (numerical summaries of the marginal
+#' posterior distributions).
 #'
-#' @param mod A \code{stanfit} object obtained from \code{bmlm::mlm()}
+#' @param mod A \code{stanfit} object obtained from \code{mlm()}
 #' @param level "Confidence" level; Defines the limits of the credible intervals.
 #' Defaults to .99 (i.e. displays 99\% CIs.)
 #' @param ref_val Obtain posterior probabilities that parameters are in the
@@ -16,6 +17,7 @@
 #' \describe{
 #'  \item{Parameter}{Name of parameter}
 #'  \item{Mean}{Mean of parameter's posterior distribution.}
+#'  \item{Median}{Median of parameter's posterior distribution.}
 #'  \item{SD}{Standard deviation of parameter's posterior distribution.}
 #'  \item{ci_lwr}{The lower limit of Credible Intervals.}
 #'  \item{ci_upr}{The upper limit of Credible Intervals.}
@@ -135,11 +137,11 @@ getpps <- function(x){
 #' Creates variables that represent pure within- and between-person predictors.
 #'
 #' @param d A \code{data.frame}.
-#' @param by A vector of values by which the data is clustered.
+#' @param by A vector of values in \code{d} by which the data is clustered.
 #' i.e. a vector of unique participant IDs.
-#' @param value Names of columns to isolate. Multiple values can be given by
-#' \code{value = c("var1", "var2", "var3")}
-#' @param z Should the new values be standardized (defaults to FALSE).
+#' @param value Names of columns in \code{d} to isolate. Multiple values can be
+#' given by \code{value = c("var1", "var2", "var3")}
+#' @param z Should the created values be standardized (defaults to FALSE).
 #' @param which Which component to return. "within" (default) returns
 #' within-person deviations only; "between" returns between-person means only;
 #' "both" returns both.
@@ -200,10 +202,10 @@ tab2doc <- function(d = NULL, name = NULL){
 
     if (!requireNamespace("ReporteRs", quietly = TRUE)) {
         stop("ReporteRs package needed for this function. Please install it.",
-             call. = TRUE)
+             call. = FALSE)
     }
 
-    if (is.null(d)) stop("Please provide a table.")
+    if (is.null(d)) stop("Please provide a table.", call. = FALSE)
     if (is.null(name)) name <- "Table"
     name <- paste0(name, ".docx")
 
