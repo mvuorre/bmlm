@@ -28,6 +28,10 @@
 #' be used to draw a template diagram of the mediation model by setting
 #' \code{template = TRUE}.
 #'
+#' @examples
+#' # Draw a template path diagram of the mediation model
+#' mlm_path_plot(template = TRUE)
+#'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           border.width = 2,

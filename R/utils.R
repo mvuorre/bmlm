@@ -98,7 +98,8 @@ mlm_summary <- function(
         mod_sum <- data.frame(apply(mod_sum, 2, round, digits = digits))
         Names <- row.names(mod_sum)
         }
-    mod_sum$pprob <- apply(as.data.frame(mod, pars = pars), 2, FUN = getpps)
+    mod_sum$pprob <- apply(as.data.frame(mod, pars = pars), 2,
+                           FUN = getpps, ref_val = ref_val)
     mod_sum$n_eff <- floor(mod_sum$n_eff)
     mod_sum$Parameter <- Names
     mod_sum <- mod_sum[,c(9,1,2,4,3,5,8,6,7)]
@@ -114,16 +115,22 @@ mlm_summary <- function(
 #' Calculates the proportion of samples on the dominant side of a reference value.
 #'
 #' @param x A vector of MCMC samples.
+#' @param ref_val Reference value, i.e. if samples are greater/smaller than
+#' this. (Defaults to 0.)
 #'
 #' @return Posterior probability.
 #'
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
+#' @examples
+#' # Probability that standard normal deviates are greater than 1
+#' getpps(rnorm(1000), ref_val = 1)
+#'
 #' @export
-getpps <- function(x){
+getpps <- function(x, ref_val = 0){
     # Posterior probability density in observed direction from zero
-    if (sign(sum(x)) == 1) xpprob <- sum(x > 0) / length(x)
-    else if (sign(sum(x)) == -1) xpprob <- sum(x < 0) / length(x)
+    if (sign(sum(x)) == 1) xpprob <- sum(x > ref_val) / length(x)
+    else if (sign(sum(x)) == -1) xpprob <- sum(x < ref_val) / length(x)
     # Print a warning if parameter is zero
     else {
         xpprob <- 0
@@ -153,10 +160,10 @@ getpps <- function(x){
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
 #' @examples
-#' \dontrun{
-#' # Create within-person deviations of \code{x}.
-#' mydata <- isolate(mydata, by = "id", value = "x")  # Overwrites mydata
-#'}
+#' # Create within-person deviations of work stressors in BLch9.
+#' data(BLch9)
+#' BLch9 <- isolate(BLch9, by = "id", value = "fwkstrs")
+#' head(BLch9)  # Now has new column for within-person work stressors.
 #'
 #' @export
 isolate <- function(d = NULL, by = NULL, value = NULL,

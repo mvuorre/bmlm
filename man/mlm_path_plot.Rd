@@ -51,6 +51,11 @@ with estimated parameter values and credible intervals. Can also
 be used to draw a template diagram of the mediation model by setting
 \code{template = TRUE}.
 }
+\examples{
+# Draw a template path diagram of the mediation model
+mlm_path_plot(template = TRUE)
+
+}
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
