@@ -10,9 +10,10 @@ BugReports: http://github.com/mvuorre/bmlm/issues/
 License: GPL (>= 3)
 LazyData: true
 Depends:
-    R (>= 3.1.2),
-    rstan
+    R (>= 3.0.2),
+    Rcpp (>= 0.11.0)
 Imports:
+    rstan (>= 2.8.1),
     ggplot2 (>= 2.1.0)
 Suggests:
     qgraph,
@@ -21,4 +22,10 @@ Suggests:
     reshape2,
     dplyr,
     ReporteRs
+LinkingTo:
+    StanHeaders (>= 2.9.0),
+    rstan (>= 2.9.0),
+    BH (>= 1.60.0),
+    Rcpp (>= 0.12.0),
+    RcppEigen
 RoxygenNote: 5.0.1
