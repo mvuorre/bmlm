@@ -2,9 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-..Rcheck*
+src/*
+!src/Makevars
 data-raw/
 *_cache/
 *_files/
-src/
-!src/Makevars
