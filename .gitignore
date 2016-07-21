@@ -6,3 +6,5 @@
 data-raw/
 *_cache/
 *_files/
+src/
+!src/Makevars

@@ -3,5 +3,4 @@
 ^_files\$
 ^_cache\$
 ^cran-comments\.md$
-^\cleanup*
-^\stanskeleton*
+cleanup*

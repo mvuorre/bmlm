@@ -77,19 +77,21 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
     # Choose model
     if (binary_y) {
-        model_file <- system.file("stan/bmlm_binary_y.stan", package="bmlm")
+        # model_file <- system.file("stan/bmlm_binary_y.stan", package="bmlm")
+        model_s <- stanmodels$bmlm_binary_y
     } else {
-        model_file <- system.file("stan/bmlm.stan", package="bmlm")
+        # model_file <- system.file("stan/bmlm.stan", package="bmlm")
+        model_s <- stanmodels$bmlm
     }
 
     # Sample from model
     message("Estimating model, please wait.")
-    fit <- rstan::stan(file = model_file,
-                       model_name = "Multilevel mediation",
-                       data = ld,
-                       pars = c("U", "z_U", "L_Omega"),
-                       include = FALSE,
-                       ...)
+    fit <- rstan::sampling(
+        object = model_s,
+        data = ld,
+        pars = c("U", "z_U", "L_Omega"),
+        include = FALSE,
+        ...)
 
     return(fit)
 }
