@@ -6,15 +6,7 @@ For an example, please see [a short introduction to bmlm](https://mvuorre.github
 
 # Install
 
-### Pre-requisites 
-
-Please ensure you have the latest version of R installed.
-
-This package depends on [Stan](http://mc-stan.org/). Please see [here](http://mc-stan.org/interfaces/rstan.html) for how to install the R Stan interface.
-
-### Installing bmlm
-
-Currently, bmlm is only available on GitHub, and therefore requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
+Currently, bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
 
 ```r
 install.packages(devtools)
@@ -23,8 +15,10 @@ install.packages(devtools)
 Then proceed to install bmlm:
 
 ```r
-devtools::install_github("mvuorre/bmlm")
+devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
+
+(Additional installation instructions [here](https://mvuorre.github.io/bmlm/index.html#installing_bmlm).)
 
 ## Example
 
