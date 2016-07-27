@@ -6,7 +6,7 @@
 #' @param xlab Label for X
 #' @param ylab Label for Y
 #' @param mlab Label for M
-#' @param level "Confidence" level for credible intervals. (Defaults to .99.)
+#' @param level "Confidence" level for credible intervals. (Defaults to .95.)
 #' @param text Should additional parameter values be displayed?
 #' (Defaults to FALSE.)
 #' @param template Should an empty template diagram be plotted?
@@ -32,7 +32,7 @@
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-                          level = .99,
+                          level = .95,
                           text = FALSE,
                           template = FALSE,
                           id = NULL,
@@ -134,7 +134,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #'
 #' @param mod A Stanfit model estimated with \code{mlm()}.
 #' @param type Type of the plot, \code{hist} or \code{coefplot}.
-#' @param level X level for Credible Intervals. (Defaults to .99.)
+#' @param level X level for Credible Intervals. (Defaults to .95.)
 #' @param color Color (and fill) for plots.
 #' @param p_shape Shape of points for coefplot.
 #' @param p_size Size of points for coefplot.
@@ -145,7 +145,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #'
 #' @author Matti Vuorre \email{mv2521@columbia.edu}
 #'
-#' @details The point estimate for the coefficient plot is the posterior median.
+#' @details The point estimate for the coefficient plot is the posterior mean.
 #'
 #' @import ggplot2
 #'
@@ -155,7 +155,7 @@ mlm_pars_plot <- function(mod = NULL,
                           color = "black",
                           p_shape = 15,
                           p_size = 1.2,
-                          level = 0.99,
+                          level = 0.95,
                           nrow = 3,
                           pars = c("a", "b", "cp", "corrab", "ab", "c", "pme")){
 
@@ -193,21 +193,48 @@ mlm_pars_plot <- function(mod = NULL,
         d <- dplyr::group_by_(d, "variable")
         d <- dplyr::summarize_(
             d,
-            m = ~median(value),  # Formulas allow non-standard evaluation
+            m = ~mean(value),
             lwr = ~stats::quantile(value, probs = .5 - level/2),
             upr = ~stats::quantile(value, probs = .5 + level/2)
             )
-        p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
-            geom_hline(yintercept = 0, lty = 2, size = .3) +
-            geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
-            geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
-                           size = p_size / 4.5) +
-            coord_flip() +
-            theme_bw() +
-            theme(axis.title = element_blank(),
-                  axis.ticks = element_line(size = .3),
-                  panel.background = element_rect(color="gray50"),
-                  panel.grid = element_blank())
+        d <- as.data.frame(d)
+        # If parameter is varying, do stuff
+        d$var <- grepl("u_", d[, "variable"])
+        par_var <- any(d$var)
+        if (par_var) {
+            # Reorder estimates on value
+            d[, "variable"] <- reorder(d[, "variable"], d[, "m"], mean)
+            # Highlight average effect if present
+            d$hl <- ifelse(d$var, "a", "b")
+            p1 <- ggplot2::ggplot(d, aes_string(x = "variable",
+                                                y = "m",
+                                                color = "hl")) +
+                scale_color_manual(values = c(color, "tomato2"), guide = "none") +
+                geom_hline(yintercept = 0, lty = 2, size = .3) +
+                geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
+                geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
+                               size = p_size / 4.5) +
+                coord_flip() +
+                theme_bw() +
+                theme(axis.title = element_blank(),
+                      axis.ticks = element_line(size = .3),
+                      panel.background = element_rect(color="gray50"),
+                      panel.grid = element_blank(),
+                      axis.text.y = element_blank(),
+                      axis.ticks.y = element_blank())
+        } else {
+            p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
+                geom_hline(yintercept = 0, lty = 2, size = .3) +
+                geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
+                geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
+                               size = p_size / 4.5) +
+                coord_flip() +
+                theme_bw() +
+                theme(axis.title = element_blank(),
+                      axis.ticks = element_line(size = .3),
+                      panel.background = element_rect(color="gray50"),
+                      panel.grid = element_blank())
+        }
     }
     return(p1)
 }

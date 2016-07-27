@@ -5,7 +5,7 @@
 \title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  level = 0.99, text = FALSE, template = FALSE, id = NULL, ...)
+  level = 0.95, text = FALSE, template = FALSE, id = NULL, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}
@@ -16,7 +16,7 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
 \item{mlab}{Label for M}
 
-\item{level}{"Confidence" level for credible intervals. (Defaults to .99.)}
+\item{level}{"Confidence" level for credible intervals. (Defaults to .95.)}
 
 \item{text}{Should additional parameter values be displayed?
 (Defaults to FALSE.)}

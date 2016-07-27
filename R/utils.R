@@ -5,7 +5,7 @@
 #'
 #' @param mod A \code{stanfit} object obtained from \code{mlm()}
 #' @param level "Confidence" level; Defines the limits of the credible intervals.
-#' Defaults to .99 (i.e. displays 99\% CIs.)
+#' Defaults to .95 (i.e. displays 95\% CIs.)
 #' @param ref_val Obtain posterior probabilities that parameters are in the
 #' observed direction from \code{ref_val}. Defaults to 0.
 #' @param pars Parameters to summarize. Defaults to main average-level
@@ -69,7 +69,7 @@
 #' @export
 mlm_summary <- function(
     mod = NULL,
-    level = .99,
+    level = .95,
     ref_val = 0,
     pars = c("a", "b", "cp", "ab", "c", "pme", "covab", "corrab"),
     digits = 2

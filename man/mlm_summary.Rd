@@ -4,14 +4,14 @@
 \alias{mlm_summary}
 \title{Print a summary of the estimated multilevel mediation model}
 \usage{
-mlm_summary(mod = NULL, level = 0.99, ref_val = 0, pars = c("a", "b",
+mlm_summary(mod = NULL, level = 0.95, ref_val = 0, pars = c("a", "b",
   "cp", "ab", "c", "pme", "covab", "corrab"), digits = 2)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{mlm()}}
 
 \item{level}{"Confidence" level; Defines the limits of the credible intervals.
-Defaults to .99 (i.e. displays 99\% CIs.)}
+Defaults to .95 (i.e. displays 95\% CIs.)}
 
 \item{ref_val}{Obtain posterior probabilities that parameters are in the
 observed direction from \code{ref_val}. Defaults to 0.}

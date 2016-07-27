@@ -5,7 +5,7 @@
 \title{Plot estimated parameters of multilevel mediation model}
 \usage{
 mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
-  p_size = 1.2, level = 0.99, nrow = 3, pars = c("a", "b", "cp",
+  p_size = 1.2, level = 0.95, nrow = 3, pars = c("a", "b", "cp",
   "corrab", "ab", "c", "pme"))
 }
 \arguments{
@@ -19,7 +19,7 @@ mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
 
 \item{p_size}{Size of points for coefplot.}
 
-\item{level}{X level for Credible Intervals. (Defaults to .99.)}
+\item{level}{X level for Credible Intervals. (Defaults to .95.)}
 
 \item{nrow}{Number of rows for multiple histograms.}
 
@@ -32,7 +32,7 @@ A ggplot2 object.
 Plot the model's estimated parameters as histograms or a coefficient plot.
 }
 \details{
-The point estimate for the coefficient plot is the posterior median.
+The point estimate for the coefficient plot is the posterior mean.
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
