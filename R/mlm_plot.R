@@ -6,11 +6,6 @@
 #' @param xlab Label for X
 #' @param ylab Label for Y
 #' @param mlab Label for M
-#' @param border.width Size of node borders (defaults to 2).
-#' @param edge.label.cex Text size.
-#' @param edge.color Color of the path arrows. (Set NULL to color negative paths
-#' red, and positive paths green.)
-#' @param fade Should edges fade to white? (Defaults to FALSE.)
 #' @param level "Confidence" level for credible intervals. (Defaults to .99.)
 #' @param text Should additional parameter values be displayed?
 #' (Defaults to FALSE.)
@@ -28,16 +23,15 @@
 #' be used to draw a template diagram of the mediation model by setting
 #' \code{template = TRUE}.
 #'
+#' To modify various settings of the underlying qgraph object, see
+#' \code{\link[qgraph]{qgraph}}.
+#'
 #' @examples
 #' # Draw a template path diagram of the mediation model
 #' mlm_path_plot(template = TRUE)
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-                          border.width = 2,
-                          edge.label.cex = 1,
-                          edge.color = "black",
-                          fade = FALSE,
                           level = .99,
                           text = FALSE,
                           template = FALSE,
@@ -49,6 +43,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         stop("qgraph package needed for this function. Please install it.",
              call. = FALSE)
     }
+
     if (template) {
         # If user wants a template diagram
         edgelabels <- c(" \n  a  \n ", " \n  b  \n ", " \n  c'  \n ")
@@ -93,22 +88,29 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                                  0, 1, 0,
                                  a[1], cp[1] ,1)), byrow=T, nrow = 3)
     }
+
+    # Set bmlm default args to qgraph
+    qargs <- list(...)
+    qargs$input <- x
+    qargs$labels <- c(mlab, ylab, xlab)
+    if (is.null(qargs$border.width)) qargs$border.width <- 2
+    if (is.null(qargs$edge.label.cex)) qargs$edge.label.cex <- 1.2
+    if (is.null(qargs$edge.color)) qargs$edge.color <- "black"
+    if (is.null(qargs$vsize)) qargs$vsize <- 16
+    if (is.null(qargs$vsize2)) qargs$vsize2 <- 12
+    if (is.null(qargs$asize)) qargs$asize <- 4
+    if (is.null(qargs$esize)) qargs$esize <- 4
+    if (is.null(qargs$label.norm)) qargs$label.norm <- "OOOOOO"
+    if (is.null(qargs$edge.labels)) qargs$edge.labels <- edgelabels
+    if (is.null(qargs$mar)) qargs$mar <- c(4, 4, 4, 4)
+    if (is.null(qargs$fade)) qargs$fade <- FALSE
+    if (is.null(qargs$layout)) qargs$layout <- "circle"
+    if (is.null(qargs$shape)) qargs$shape <- "rectangle"
+    if (is.null(qargs$weighted)) qargs$weighted <- FALSE
+
     # Create plot
-    qgraph::qgraph(x, layout = "circle",
-                   shape = "rectangle",
-                   vsize = 16,
-                   vsize2 = 12,
-                   labels = c(mlab, ylab, xlab),
-                   label.norm = "OOOOOO",
-                   border.width = border.width,
-                   edge.labels = edgelabels,
-                   edge.label.cex = edge.label.cex,
-                   fade = fade,
-                   asize = 10,
-                   esize = 10,
-                   mar = c(4, 4, 4, 4),
-                   edge.color = edge.color,
-                   ...)
+    do.call(qgraph::qgraph, qargs)
+
     # If ID is specified, note this on plot
     if (!is.null(id)) {
         graphics::text(1.25, 1.25, paste0("ID: ", id), font = 2)

@@ -5,9 +5,7 @@
 \title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  border.width = 2, edge.label.cex = 1, edge.color = "black",
-  fade = FALSE, level = 0.99, text = FALSE, template = FALSE,
-  id = NULL, ...)
+  level = 0.99, text = FALSE, template = FALSE, id = NULL, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}
@@ -17,15 +15,6 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 \item{ylab}{Label for Y}
 
 \item{mlab}{Label for M}
-
-\item{border.width}{Size of node borders (defaults to 2).}
-
-\item{edge.label.cex}{Text size.}
-
-\item{edge.color}{Color of the path arrows. (Set NULL to color negative paths
-red, and positive paths green.)}
-
-\item{fade}{Should edges fade to white? (Defaults to FALSE.)}
 
 \item{level}{"Confidence" level for credible intervals. (Defaults to .99.)}
 
@@ -50,6 +39,9 @@ Plots a path diagram of the mediation model,
 with estimated parameter values and credible intervals. Can also
 be used to draw a template diagram of the mediation model by setting
 \code{template = TRUE}.
+
+To modify various settings of the underlying qgraph object, see
+\code{\link[qgraph]{qgraph}}.
 }
 \examples{
 # Draw a template path diagram of the mediation model
