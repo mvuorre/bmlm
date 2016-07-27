@@ -203,7 +203,7 @@ mlm_pars_plot <- function(mod = NULL,
         par_var <- any(d$var)
         if (par_var) {
             # Reorder estimates on value
-            d[, "variable"] <- reorder(d[, "variable"], d[, "m"], mean)
+            d[, "variable"] <- stats::reorder(d[, "variable"], d[, "m"], mean)
             # Highlight average effect if present
             d$hl <- ifelse(d$var, "a", "b")
             p1 <- ggplot2::ggplot(d, aes_string(x = "variable",
