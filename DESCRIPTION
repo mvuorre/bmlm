@@ -1,6 +1,6 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 1.1.0
+Version: 1.1.1
 Date: 2016-07-18
 Authors@R: person("Matti", "Vuorre", email = "mv2521@columbia.edu",
                   role = c("aut", "cre"))

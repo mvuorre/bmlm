@@ -1,3 +1,9 @@
+# bmlm 1.1.1
+
+Coefficient plots now reorder parameter estimates, if user has requested varying effects.
+
+Path plot now by default does not scale the edges.
+
 # bmlm 1.1.0
 
 ## Major update
