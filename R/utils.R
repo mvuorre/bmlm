@@ -171,7 +171,11 @@ isolate <- function(d = NULL, by = NULL, value = NULL,
     for (val in value){
         oldnames <- names(d)
         d$c <- as.numeric(scale(d[,val], scale = z))  # Mean centered (or Zd)
-        d <- within(d, {cb = stats::ave(c, d[,by], FUN = mean)})  # Between-person
+        d <- within(d,
+                    {cb = stats::ave(
+                        c, d[,by],
+                        FUN = function(x) mean(x, na.rm = T))
+                    })
         d$cw <- d$c - d$cb  # Within-person
         names(d) <- c(oldnames,
                       paste0(val, "_c"),
