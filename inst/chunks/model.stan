@@ -4,18 +4,18 @@
     // Cholesky factor of covariance matrix
     matrix[K, K] L_Sigma;
     // Regression parameter priors
-    dy ~ normal(0, intercept_scale);
-    dm ~ normal(0, intercept_scale);
-    a ~ normal(0, slope_scale);
-    b ~ normal(0, slope_scale);
-    cp ~ normal(0, slope_scale);
+    dy ~ normal(0, prior_dy);
+    dm ~ normal(0, prior_dm);
+    a ~ normal(0, prior_a);
+    b ~ normal(0, prior_b);
+    cp ~ normal(0, prior_cp);
     // RE SDs and correlation matrix
-    tau[1] ~ cauchy(0, tau_scale);      // u_cp
-    tau[2] ~ cauchy(0, tau_scale);      // u_b
-    tau[3] ~ cauchy(0, tau_scale);      // u_a
-    tau[4] ~ cauchy(0, tau_scale);      // u_intercept_y
-    tau[5] ~ cauchy(0, tau_scale);      // u_intercept_m
-    L_Omega ~ lkj_corr_cholesky(lkj_shape);
+    tau[1] ~ cauchy(0, prior_tau_cp);   // u_cp
+    tau[2] ~ cauchy(0, prior_tau_b);    // u_b
+    tau[3] ~ cauchy(0, prior_tau_a);    // u_a
+    tau[4] ~ cauchy(0, prior_tau_dy);   // u_intercept_y
+    tau[5] ~ cauchy(0, prior_tau_dm);   // u_intercept_m
+    L_Omega ~ lkj_corr_cholesky(prior_lkj_shape);
     // Allow vectorized sampling of varying effects via stdzd z_U
     to_vector(z_U) ~ normal(0, 1);
 

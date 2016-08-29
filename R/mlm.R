@@ -7,11 +7,8 @@
 #' @param x Column of X values in \code{data}.
 #' @param m Column of M values in \code{data}.
 #' @param y Column of Y values in \code{data}.
-#' @param slope_scale Prior standard deviation on regression slope coefficients.
-#' See details.
-#' @param tau_scale Prior scale on varying effects' SDs. See details.
-#' @param intercept_scale Prior SD on regression intercept coefficients.
-#' @param lkj_shape The shape parameter of the LKJ prior on RE correlations .
+#' @param priors A list of named values to be used as the prior scale and shape
+#' parameters. See details.
 #' @param binary_y Set to TRUE if y is binary and should be modelled
 #' with logistic regression. Defaults to FALSE (y treated as continuous.)
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
@@ -25,16 +22,19 @@
 #'
 #' \subsection{Priors}{
 #'
-#' \code{slope_scale} Allows the user to input a standard deviation parameter
-#' to the prior distributions for the slope parameters in a, b, and cp
-#' paths. The default is 100, which is only very weakly informative for standardized
-#' data, but users are recommended to adjust this to fit the scale of the data.
-#' \code{intercept_scale} The same as above, but for the regression intercepts.
-#' Defaults to 10.
-#' \code{tau_scale} Allows the user to input a scale parameter to Cauchy
-#' distributions on the varying effects' standard deviation parameters. The
-#' default is 10, which is very weakly regularizing for standardized variables.
+#' Users may pass a list of named values for the \code{priors} argument. This
+#' list may specify some or all of the following parameters:
 #'
+#' \describe{
+#'  \item{dy, dm}{Regression intercepts (for Y and M as outcomes, respectively.)}
+#'  \item{a, b, cp}{Regression slopes.}
+#'  \item{tau_x}{Varying effects SDs for above parameters (e.g replace x with a.)}
+#'  \item{lkj_shape}{Shape parameter for the LKJ prior.}
+#' }
+#' See examples for specifying the following: Gaussian distributions with SD = 10
+#' as priors for the intercepts, Gaussians with SD = 2 for the slopes,
+#' Half-Cauchy distributions with scale parameters 1 for the varying effects
+#' SDs, and an LKJ prior of 2.
 #' }
 #'
 #' @examples
@@ -43,15 +43,18 @@
 #' data(BLch9)
 #' fit <- mlm(BLch9)
 #' mlm_summary(fit)
+#'
+#' ### With priors
+#' Priors <- list(dy = 10, dm = 10, a = 2, b = 2, cp = 2,
+#'                tau_dy = 1, tau_dm = 1, tau_a = 1, tau_b = 1, tau_cp = 1,
+#'                lkj_shape = 2)
+#' fit <- mlm(BLch9, priors = Priors)
 #' }
 #'
 #' @import rstan
 #' @export
 mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
-                slope_scale = NULL,
-                tau_scale = NULL,
-                intercept_scale = NULL,
-                lkj_shape = NULL,
+                priors = NULL,
                 binary_y = FALSE,
                 ...) {
 
@@ -60,24 +63,37 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     if (class(d)[1] == "tbl_df") d <- as.data.frame(d)  # Allow tibbles
 
     # Check priors
-    if (is.null(slope_scale)) slope_scale <- 100
-    if (is.null(tau_scale)) tau_scale <- 10
-    if (is.null(intercept_scale)) intercept_scale <- 100
-    if (is.null(lkj_shape)) lkj_shape <- 1
+    default_priors <- list(
+        dm = 100, tau_dm = 10,
+        dy = 100, tau_dy = 10,
+        a = 100, tau_a = 10,
+        b = 100, tau_b = 10,
+        cp = 100, tau_cp = 10,
+        lkj_shape = 1
+    )
+    if (is.null(priors$dm)) priors$dm <- default_priors$dm
+    if (is.null(priors$dy)) priors$dy <- default_priors$dy
+    if (is.null(priors$a)) priors$a <- default_priors$a
+    if (is.null(priors$b)) priors$b <- default_priors$b
+    if (is.null(priors$cp)) priors$cp <- default_priors$cp
+    if (is.null(priors$tau_dm)) priors$tau_dm <- default_priors$tau_dm
+    if (is.null(priors$tau_dy)) priors$tau_dy <- default_priors$tau_dy
+    if (is.null(priors$tau_a)) priors$tau_a <- default_priors$tau_a
+    if (is.null(priors$tau_b)) priors$tau_b <- default_priors$tau_b
+    if (is.null(priors$tau_cp)) priors$tau_cp <- default_priors$tau_cp
+    if (is.null(priors$lkj_shape)) priors$lkj_shape <- default_priors$lkj_shape
+    names(priors) <- lapply(names(priors), function(x) paste0("prior_", x))
 
     # Create a data list for Stan
     ld <- list()
-    # Coerce IDs to 1:J sequential
-    ld$id = as.integer(as.factor(as.character(d[,id])))
+    ld$id = as.integer(as.factor(as.character(d[,id])))  # Sequential IDs
     ld$X = d[,x]
     ld$M = d[,m]
     ld$Y = d[,y]
     ld$J <- length(unique(ld$id))
     ld$N <- nrow(d)
-    ld$slope_scale <- slope_scale
-    ld$tau_scale <- tau_scale
-    ld$intercept_scale <- intercept_scale
-    ld$lkj_shape <- lkj_shape
+    ld <- append(ld, priors)
+    print(ld[7:length(ld)])
 
     # Choose model
     if (binary_y) {

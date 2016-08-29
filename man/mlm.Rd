@@ -4,8 +4,7 @@
 \alias{mlm}
 \title{Estimate a multilevel mediation model}
 \usage{
-mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
-  slope_scale = NULL, tau_scale = NULL, intercept_scale = NULL,
+mlm(d = NULL, id = "id", x = "x", m = "m", y = "y", priors = NULL,
   binary_y = FALSE, ...)
 }
 \arguments{
@@ -19,12 +18,8 @@ mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
 \item{y}{Column of Y values in \code{data}.}
 
-\item{slope_scale}{Prior standard deviation on regression slope coefficients.
-See details.}
-
-\item{tau_scale}{Prior scale on varying effects' SDs. See details.}
-
-\item{intercept_scale}{Prior SD on regression intercept coefficients.}
+\item{priors}{A list of named values to be used as the prior scale and shape
+parameters. See details.}
 
 \item{binary_y}{Set to TRUE if y is binary and should be modelled
 with logistic regression. Defaults to FALSE (y treated as continuous.)}
@@ -43,16 +38,19 @@ multilevel mediation model using Stan.
 
 \subsection{Priors}{
 
-\code{slope_scale} Allows the user to input a standard deviation parameter
-to the prior distributions for the slope parameters in a, b, and cp
-paths. The default is 100, which is only very weakly informative for standardized
-data, but users are recommended to adjust this to fit the scale of the data.
-\code{intercept_scale} The same as above, but for the regression intercepts.
-Defaults to 10.
-\code{tau_scale} Allows the user to input a scale parameter to Cauchy
-distributions on the varying effects' standard deviation parameters. The
-default is 10, which is very weakly regularizing for standardized variables.
+Users may pass a list of named values for the \code{priors} argument. This
+list may specify some or all of the following parameters:
 
+\describe{
+ \item{dy, dm}{Regression intercepts (for Y and M as outcomes, respectively.)}
+ \item{a, b, cp}{Regression slopes.}
+ \item{tau_x}{Varying effects SDs for above parameters (e.g replace x with a.)}
+ \item{lkj_shape}{Shape parameter for the LKJ prior.}
+}
+See examples for specifying the following: Gaussian distributions with SD = 10
+as priors for the intercepts, Gaussians with SD = 2 for the slopes,
+Half-Cauchy distributions with scale parameters 1 for the varying effects
+SDs, and an LKJ prior of 2.
 }
 }
 \examples{
@@ -61,6 +59,12 @@ default is 10, which is very weakly regularizing for standardized variables.
 data(BLch9)
 fit <- mlm(BLch9)
 mlm_summary(fit)
+
+### With priors
+Priors <- list(dy = 10, dm = 10, a = 2, b = 2, cp = 2,
+               tau_dy = 1, tau_dm = 1, tau_a = 1, tau_b = 1, tau_cp = 1,
+               lkj_shape = 2)
+fit <- mlm(BLch9, priors = Priors)
 }
 
 }

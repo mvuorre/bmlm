@@ -3,7 +3,15 @@
     int<lower=1,upper=J> id[N]; // Participant IDs
     vector[N] X;                // Manipulated variable
     vector[N] M;                // Mediator
-    real slope_scale;           // Prior scale for regression params
-    real intercept_scale;       // Prior scale for intercepts
-    real tau_scale;             // Prior scale for RE SDs
-    real lkj_shape;             // Shape for LKJ prior
+    // Priors
+    real prior_dm;
+    real prior_dy;
+    real prior_a;
+    real prior_b;
+    real prior_cp;
+    real prior_tau_dm;
+    real prior_tau_dy;
+    real prior_tau_a;
+    real prior_tau_b;
+    real prior_tau_cp;
+    real prior_lkj_shape;

@@ -1,3 +1,9 @@
+# bmlm 1.2.0
+
+Users may now change each individual regression parameter's prior, instead of classes of priors.
+
+Users may now change the shape parameter of the LKJ prior.
+
 # bmlm 1.1.1
 
 Coefficient plots now reorder parameter estimates, if user has requested varying effects.
