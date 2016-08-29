@@ -6,3 +6,4 @@
     real slope_scale;           // Prior scale for regression params
     real intercept_scale;       // Prior scale for intercepts
     real tau_scale;             // Prior scale for RE SDs
+    real lkj_shape;             // Shape for LKJ prior

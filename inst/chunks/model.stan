@@ -15,7 +15,7 @@
     tau[3] ~ cauchy(0, tau_scale);      // u_a
     tau[4] ~ cauchy(0, tau_scale);      // u_intercept_y
     tau[5] ~ cauchy(0, tau_scale);      // u_intercept_m
-    L_Omega ~ lkj_corr_cholesky(2);
+    L_Omega ~ lkj_corr_cholesky(lkj_shape);
     // Allow vectorized sampling of varying effects via stdzd z_U
     to_vector(z_U) ~ normal(0, 1);
 

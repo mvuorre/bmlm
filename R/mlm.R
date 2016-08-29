@@ -11,6 +11,7 @@
 #' See details.
 #' @param tau_scale Prior scale on varying effects' SDs. See details.
 #' @param intercept_scale Prior SD on regression intercept coefficients.
+#' @param lkj_shape The shape parameter of the LKJ prior on RE correlations .
 #' @param binary_y Set to TRUE if y is binary and should be modelled
 #' with logistic regression. Defaults to FALSE (y treated as continuous.)
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
@@ -50,6 +51,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
                 slope_scale = NULL,
                 tau_scale = NULL,
                 intercept_scale = NULL,
+                lkj_shape = NULL,
                 binary_y = FALSE,
                 ...) {
 
@@ -60,7 +62,8 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     # Check priors
     if (is.null(slope_scale)) slope_scale <- 100
     if (is.null(tau_scale)) tau_scale <- 10
-    if (is.null(intercept_scale)) intercept_scale <- 10
+    if (is.null(intercept_scale)) intercept_scale <- 100
+    if (is.null(lkj_shape)) lkj_shape <- 1
 
     # Create a data list for Stan
     ld <- list()
@@ -74,6 +77,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     ld$slope_scale <- slope_scale
     ld$tau_scale <- tau_scale
     ld$intercept_scale <- intercept_scale
+    ld$lkj_shape <- lkj_shape
 
     # Choose model
     if (binary_y) {
