@@ -6,8 +6,6 @@
 #' @param mod A \code{stanfit} object obtained from \code{mlm()}
 #' @param level "Confidence" level; Defines the limits of the credible intervals.
 #' Defaults to .95 (i.e. displays 95\% CIs.)
-#' @param ref_val Obtain posterior probabilities that parameters are in the
-#' observed direction from \code{ref_val}. Defaults to 0.
 #' @param pars Parameters to summarize. Defaults to main average-level
 #' parameters. See Details for more information.
 #' @param digits How many decimal points to display in the output. Defaults to 2.
@@ -21,7 +19,6 @@
 #'  \item{SD}{Standard deviation of parameter's posterior distribution.}
 #'  \item{ci_lwr}{The lower limit of Credible Intervals.}
 #'  \item{ci_upr}{The upper limit of Credible Intervals.}
-#'  \item{pprob}{Posterior probability.}
 #'  \item{n_eff}{Number of efficient samples.}
 #'  \item{Rhat}{Should be 1.00.}
 #'}
@@ -70,7 +67,6 @@
 mlm_summary <- function(
     mod = NULL,
     level = .95,
-    ref_val = 0,
     pars = c("a", "b", "cp", "ab", "c", "pme", "covab", "corrab"),
     digits = 2
     ){
@@ -98,8 +94,6 @@ mlm_summary <- function(
         mod_sum <- data.frame(apply(mod_sum, 2, round, digits = digits))
         Names <- row.names(mod_sum)
         }
-    mod_sum$pprob <- apply(as.data.frame(mod, pars = pars), 2,
-                           FUN = getpps, ref_val = ref_val)
     mod_sum$n_eff <- floor(mod_sum$n_eff)
     mod_sum$Parameter <- Names
     mod_sum <- mod_sum[,c(9,1,2,4,3,5,8,6,7)]
@@ -108,35 +102,6 @@ mlm_summary <- function(
                         "pprob", "n_eff", "Rhat")
     row.names(mod_sum) <- NULL
     return(mod_sum)
-}
-
-#' Get posterior probability
-#'
-#' Calculates the proportion of samples on the dominant side of a reference value.
-#'
-#' @param x A vector of MCMC samples.
-#' @param ref_val Reference value, i.e. if samples are greater/smaller than
-#' this. (Defaults to 0.)
-#'
-#' @return Posterior probability.
-#'
-#' @author Matti Vuorre \email{mv2521@columbia.edu}
-#'
-#' @examples
-#' # Probability that standard normal deviates are greater than 1
-#' getpps(rnorm(1000), ref_val = 1)
-#'
-#' @export
-getpps <- function(x, ref_val = 0){
-    # Posterior probability density in observed direction from zero
-    if (sign(sum(x)) == 1) xpprob <- sum(x > ref_val) / length(x)
-    else if (sign(sum(x)) == -1) xpprob <- sum(x < ref_val) / length(x)
-    # Print a warning if parameter is zero
-    else {
-        xpprob <- 0
-        print("Warning calculating post. probs. (Par = 0?)")
-    }
-    return(xpprob)
 }
 
 #' Create isolated within- (and optionally between-) person variables.
