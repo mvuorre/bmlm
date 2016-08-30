@@ -71,13 +71,13 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                                 level = level)
         }
 
-        sfit <- subset(sfit, select = c("Parameter", "Mean", "ci_lwr", "ci_upr"))
-        a <- sfit[sfit$Parameter == "a", c("Mean", "ci_lwr", "ci_upr")]
-        b <- sfit[sfit$Parameter == "b", c("Mean", "ci_lwr", "ci_upr")]
-        cp <- sfit[sfit$Parameter == "cp", c("Mean", "ci_lwr", "ci_upr")]
-        ab <- sfit[sfit$Parameter == "ab", c("Mean", "ci_lwr", "ci_upr")]
-        c <- sfit[sfit$Parameter == "c", c("Mean", "ci_lwr", "ci_upr")]
-        pme <- sfit[sfit$Parameter == "pme", c("Mean", "ci_lwr", "ci_upr")]
+        sfit <- subset(sfit, select = c(1,2,5,6))
+        a <- sfit[sfit$Parameter == "a", c(2:4)]
+        b <- sfit[sfit$Parameter == "b", c(2:4)]
+        cp <- sfit[sfit$Parameter == "cp", c(2:4)]
+        ab <- sfit[sfit$Parameter == "ab", c(2:4)]
+        c <- sfit[sfit$Parameter == "c", c(2:4)]
+        pme <- sfit[sfit$Parameter == "pme", c(2:4)]
 
         edgelabels <- c(
             paste0("\n", a[1], " \n   [", a[2], ", ", a[3], "]   \n"),

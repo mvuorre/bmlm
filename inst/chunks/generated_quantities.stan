@@ -17,6 +17,19 @@
     vector[J] u_a;
     vector[J] u_b;
 
+    // Re-named tau parameters for easy output
+    real tau_cp;
+    real tau_b;
+    real tau_a;
+    real tau_dy;
+    real tau_dm;
+
+    tau_cp = tau[1];
+    tau_b = tau[2];
+    tau_a = tau[3];
+    tau_dy = tau[4];
+    tau_dm = tau[5];
+
     Omega = L_Omega * L_Omega';
     Sigma = quad_form_diag(Omega, tau);
 
