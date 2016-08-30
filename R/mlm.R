@@ -93,7 +93,6 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     ld$J <- length(unique(ld$id))
     ld$N <- nrow(d)
     ld <- append(ld, priors)
-    print(ld[7:length(ld)])
 
     # Choose model
     if (binary_y) {

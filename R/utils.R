@@ -96,10 +96,10 @@ mlm_summary <- function(
         }
     mod_sum$n_eff <- floor(mod_sum$n_eff)
     mod_sum$Parameter <- Names
-    mod_sum <- mod_sum[,c(9,1,2,4,3,5,8,6,7)]
-    names(mod_sum) <- c("Parameter", "Mean", "SD",
-                        "Median", "ci_lwr", "ci_upr",
-                        "pprob", "n_eff", "Rhat")
+    mod_sum <- mod_sum[,c(8,1,2,4,3,5,6,7)]
+    names(mod_sum) <- c("Parameter", "Mean", "SD", "Median",
+                        paste0(lower_ci*100, "%"), paste0(upper_ci*100, "%"),
+                        "n_eff", "Rhat")
     row.names(mod_sum) <- NULL
     return(mod_sum)
 }
