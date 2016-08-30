@@ -170,6 +170,12 @@ mlm_pars_plot <- function(mod = NULL,
         stop("Model is not a stanfit object.", call. = FALSE)
     }
 
+    Theme <- theme_bw() +
+        theme(axis.title = element_blank(),
+              axis.ticks = element_line(size = .3),
+              panel.background = element_rect(color="gray50"),
+              panel.grid = element_blank())
+
     d <- as.data.frame(mod, pars = pars)
     d <- reshape2::melt(d)
 
@@ -189,7 +195,8 @@ mlm_pars_plot <- function(mod = NULL,
                   panel.grid = element_blank(),
                   strip.background = element_rect(fill = NA, colour = NA),
                   strip.text.x = element_text(face = "bold"))
-    } else {
+    } else if (type == "coef") {
+        td <- d
         d <- dplyr::group_by_(d, "variable")
         d <- dplyr::summarize_(
             d,
@@ -214,26 +221,40 @@ mlm_pars_plot <- function(mod = NULL,
                 geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
                 geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
                                size = p_size / 4.5) +
-                coord_flip() +
-                theme_bw() +
-                theme(axis.title = element_blank(),
-                      axis.ticks = element_line(size = .3),
-                      panel.background = element_rect(color="gray50"),
-                      panel.grid = element_blank(),
-                      axis.text.y = element_blank(),
-                      axis.ticks.y = element_blank())
+                Theme + theme(axis.text.x = element_blank(),
+                              axis.ticks.x = element_blank())
         } else {
             p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
                 geom_hline(yintercept = 0, lty = 2, size = .3) +
                 geom_point(aes_string(y="m"), shape = p_shape, size = p_size) +
                 geom_linerange(aes_string(y="m", ymin = "lwr", ymax = "upr"),
                                size = p_size / 4.5) +
-                coord_flip() +
-                theme_bw() +
-                theme(axis.title = element_blank(),
-                      axis.ticks = element_line(size = .3),
-                      panel.background = element_rect(color="gray50"),
-                      panel.grid = element_blank())
+                Theme
+        }
+    } else {  # Violin plot
+        # If parameter is varying, do stuff
+        d$var <- grepl("u_", d[, "variable"])
+        par_var <- any(d$var)
+        if (par_var) {
+            # Reorder estimates on value
+            d[, "variable"] <- stats::reorder(d[, "variable"], d[, "value"], mean)
+            # Highlight average effect if present
+            d$hl <- ifelse(d$var, "a", "b")
+            p1 <- ggplot2::ggplot(d, aes_string(x = "variable",
+                                                y = "value",
+                                                fill = "hl")) +
+                scale_fill_manual(values = c(color, "tomato2"), guide = "none") +
+                geom_hline(yintercept = 0, lty = 2, size = .3) +
+                geom_violin(data = d, aes_string(y="value"),
+                            col = NA) +
+                Theme + theme(axis.text.x = element_blank(),
+                              axis.ticks.x = element_blank())
+        } else {
+            p1 <- ggplot2::ggplot(d, aes_string(x = "variable", y = "m")) +
+                geom_hline(yintercept = 0, lty = 2, size = .3) +
+                geom_violin(data = d, aes_string(y="value"),
+                            col = NA, fill = color) +
+                Theme
         }
     }
     return(p1)

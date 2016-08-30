@@ -4,17 +4,14 @@
 \alias{mlm_summary}
 \title{Print a summary of the estimated multilevel mediation model}
 \usage{
-mlm_summary(mod = NULL, level = 0.95, ref_val = 0, pars = c("a", "b",
-  "cp", "ab", "c", "pme", "covab", "corrab"), digits = 2)
+mlm_summary(mod = NULL, level = 0.95, pars = c("a", "b", "cp", "ab", "c",
+  "pme", "covab", "corrab"), digits = 2)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{mlm()}}
 
 \item{level}{"Confidence" level; Defines the limits of the credible intervals.
 Defaults to .95 (i.e. displays 95\% CIs.)}
-
-\item{ref_val}{Obtain posterior probabilities that parameters are in the
-observed direction from \code{ref_val}. Defaults to 0.}
 
 \item{pars}{Parameters to summarize. Defaults to main average-level
 parameters. See Details for more information.}
@@ -31,7 +28,6 @@ mediation model:
  \item{SD}{Standard deviation of parameter's posterior distribution.}
  \item{ci_lwr}{The lower limit of Credible Intervals.}
  \item{ci_upr}{The upper limit of Credible Intervals.}
- \item{pprob}{Posterior probability.}
  \item{n_eff}{Number of efficient samples.}
  \item{Rhat}{Should be 1.00.}
 }

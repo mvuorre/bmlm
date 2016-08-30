@@ -1,3 +1,9 @@
+# bmlm 1.2.1
+
+Removed posterior probabilities from default outputs.
+
+Added type = "violin" as option for plotting coefficients.
+
 # bmlm 1.2.0
 
 Users may now change each individual regression parameter's prior, instead of classes of priors.
