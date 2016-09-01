@@ -6,7 +6,13 @@ For an example, please see [a short introduction to bmlm](https://mvuorre.github
 
 # Install
 
-Currently, bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
+To install the latest stable version of bmlm, run 
+
+```r
+install.packages("bmlm")
+```
+
+The latest version (with possible added functionality) of bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
 
 ```r
 install.packages(devtools)

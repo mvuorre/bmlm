@@ -2,7 +2,7 @@
 
 Removed posterior probabilities from default outputs.
 
-Added type = "violin" as option for plotting coefficients.
+Added type = "violin" as option for plotting coefficients with mlm_pars_plot().
 
 # bmlm 1.2.0
 
