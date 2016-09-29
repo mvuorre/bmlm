@@ -6,7 +6,7 @@ For an example, please see [a short introduction to bmlm](https://mvuorre.github
 
 # Install
 
-To install the latest stable version of bmlm, run 
+To install the latest stable version of bmlm from CRAN, run 
 
 ```r
 install.packages("bmlm")
@@ -44,5 +44,5 @@ mlm_summary(fit)
 
 # Information
 
-bmlm is in active development, please contact the author of the package for questions and suggestions.
+Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
 

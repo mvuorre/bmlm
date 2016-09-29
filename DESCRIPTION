@@ -1,7 +1,7 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
 Version: 1.2.1
-Date: 2016-07-18
+Date: 2016-09-29
 Authors@R: person("Matti", "Vuorre", email = "mv2521@columbia.edu",
                   role = c("aut", "cre"))
 Description: Easy estimation of Bayesian multilevel mediation models with Stan.
@@ -12,9 +12,9 @@ LazyData: true
 NeedsCompilation: yes
 Depends:
     R (>= 3.0.2),
-    Rcpp (>= 0.11.0)
+    Rcpp (>= 0.12.0)
 Imports:
-    rstan (>= 2.8.1),
+    rstan (>= 2.11.1),
     ggplot2 (>= 2.1.0),
     methods
 Suggests:
@@ -25,8 +25,8 @@ Suggests:
     dplyr,
     ReporteRs
 LinkingTo:
-    StanHeaders (>= 2.9.0),
-    rstan (>= 2.9.0),
+    StanHeaders (>= 2.11.0),
+    rstan (>= 2.11.1),
     BH (>= 1.60.0),
     Rcpp (>= 0.12.0),
     RcppEigen
