@@ -18,19 +18,16 @@ write to stdout/stderr instead of to the console, nor the system RNG.
 
 ## Win-builder results
 
-Installation time in seconds: 197
-Check time in seconds: 108
-Status: 1 WARNING
+Installation time in seconds: 126
+Check time in seconds: 64
+Status: 1 NOTE
+R Under development (unstable) (2016-09-29 r71397)
 
-* checking whether package 'bmlm' can be installed ... WARNING  
-
-Found the following significant warnings:
-
-d:/RCompile/CRANpkg/lib/3.4/BH/include/boost/math/special_functions/detail/bernoulli_details.hpp:127:36: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
-
-d:/RCompile/CRANpkg/lib/3.4/BH/include/boost/math/special_functions/detail/bernoulli_details.hpp:151:9: warning: ISO C++ 1998 does not support 'long long' [-Wlong-long]
-
-See 'd:/RCompile/CRANguest/R-devel/bmlm.Rcheck/00install.out' for details.
+* checking top-level files ... NOTE
+Non-standard file/directory found at top level:
+  'win-builder-notes'
+  
+(This directory is now removed so I expect a successful build)
 
 ## Reverse dependencies
 

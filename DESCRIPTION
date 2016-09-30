@@ -14,8 +14,8 @@ Depends:
     R (>= 3.0.2),
     Rcpp (>= 0.12.0)
 Imports:
-    rstan (>= 2.11.1),
-    ggplot2 (>= 2.1.0),
+    rstan (>= 2.12.1),
+    ggplot2 (>= 2.0.0),
     methods
 Suggests:
     qgraph,
@@ -25,8 +25,8 @@ Suggests:
     dplyr,
     ReporteRs
 LinkingTo:
-    StanHeaders (>= 2.11.0),
-    rstan (>= 2.11.1),
+    StanHeaders (>= 2.12.0),
+    rstan (>= 2.12.1),
     BH (>= 1.60.0),
     Rcpp (>= 0.12.0),
     RcppEigen
