@@ -1,42 +1,50 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-bmlm: An R package for Bayesian MultiLevel Mediation models
-===========================================================
 
-**bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# bmlm: An R package for Bayesian MultiLevel Mediation models
+
+__bmlm__ is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
 For more details, visit the [package's website](https://mvuorre.github.io/bmlm/).
 
-Install
-=======
+# Install
 
-To install the latest stable version of bmlm from CRAN, run
+To install the latest stable version of bmlm from CRAN, run 
 
-``` r
+```r
 install.packages("bmlm")
 ```
 
-Development version
--------------------
+## Development version
 
 The latest development version of bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
 
-``` r
+```r
 install.packages("devtools")
 ```
 
 Then proceed to install bmlm:
 
-``` r
+```r
 devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
 
-Example
--------
+## Example
 
 bmlm ships with an example data set from Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research ([Bolger & Laurenceau, 2013, chapter 9](http://www.intensivelongitudinal.com/)). To estimate the multilevel mediation model presented in that chapter, run:
 
-``` r
+```r
 library(bmlm)
 data(BLch9)
 fit <- mlm(BLch9)
@@ -44,11 +52,10 @@ fit <- mlm(BLch9)
 
 After a while, you will have a joint posterior distribution of plausible parameter values from the model applied to this data. Inspect the model:
 
-``` r
+```r
 mlm_summary(fit)
 ```
 
-Information
-===========
+# Information
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.

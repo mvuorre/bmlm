@@ -1,0 +1,241 @@
+---
+title: "bmlm: Multilevel Mediation Modeling with Stan"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: bibliography.bib
+csl: apa.csl
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, echo = F, message=FALSE, results='hide'}
+library(knitr)
+opts_chunk$set(message = F, warning = F)
+```
+
+# Introduction
+
+[__bmlm__](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. __bmlm__ uses the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful [Stan](http://mc-stan.org/) Bayesian inference engine [@stan_development_team_stan:_2016]. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with __bmlm__. This document explains how to install __bmlm__ and its required components, and then walks through an example of how to use it in practice.
+
+# Installing __bmlm__
+
+Please ensure you have the [latest version of R](https://cran.r-project.org/) installed [@r_core_team_r:_2016]. The latest stable version of **bmlm** is [available on CRAN](https://cran.r-project.org/package=bmlm):
+
+```{r, eval = F}
+install.packages("bmlm")
+```
+
+## Development version.
+
+The latest development version of __bmlm__ is available on [GitHub](https://github.com/mvuorre/bmlm). If you don't know what a development version is, don't use one. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install __bmlm__ using devtools:
+
+```{r, eval = F}
+install.packages("devtools")
+# Install from GitHub using the devtools package
+devtools::install_github("mvuorre/bmlm", args = "--preclean")
+```
+
+If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me or open an issue on [GitHub](https://github.com/mvuorre/bmlm/issues).
+
+### Note for Windows users
+
+Some Windows users may get an error message during the installation process, asking to install [Rtools33](https://cran.r-project.org/bin/windows/Rtools/). If this happens, install Rtools33, and retry installing __bmlm__. See [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) if problems persist.
+
+# Example
+
+After installing the required software, load the __bmlm__ package to your current R workspace:
+
+```{r, message=FALSE}
+library(bmlm)
+```
+
+__bmlm__ contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) [@bolger_intensive_2013]. We'll use this data set in the example, and first load it into the workspace from the package, and display what the data looks like:
+
+```{r, eval = F, echo = T}
+data(BLch9)
+head(BLch9)
+```
+
+```{r, eval = T, echo = F}
+# Hack to show tabulated output instead of raw print
+data(BLch9)
+kable(head(BLch9), digits = 2)
+```
+
+## Data preprocessing
+
+The goal of multilevel mediation modeling, in this case, is to assess the _within-person_ relationships between X, M and Y. To this end, it is important to isolate the within- and between-person components of X, M, and Y. The `isolate()` function in __bmlm__ allows the user to create within- and between-person centered values of variables, and additionally to standardize them. The example dataset `BLch9` already contains subject-mean deviated components, but here we illustrate how to obtain these using the `isolate()` function. The key inputs to this function are `d`, a data frame; `by` a column of values that identifies individuals; and `value`, which variable(s) should be transformed.
+
+```{r}
+BLch9 <- isolate(BLch9, 
+                 by = "id", 
+                 value = c("fwkstrs", "fwkdis", "freldis"))
+```
+
+```{r, echo = F}
+knitr::kable(head(BLch9), digits = 2)
+```
+
+The `..._cw` variables now contain isolated within-person ("subject-mean deviated") pieces of each variable. We'll use these for the mediation analysis.
+
+## Fit model
+
+To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the first line below.
+
+```{r, eval = T, cache = TRUE}
+options(mc.cores = parallel::detectCores()) 
+
+fit <- mlm(d = BLch9, 
+           id = "id",
+           x = "fwkstrs_cw",
+           m = "fwkdis_cw",
+           y = "freldis_cw",
+           iter = 2000)
+```
+
+The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
+
+* `id` is a column of participant IDs in the provided `data.frame`.
+* `x` is the manipulated variable.
+* `m` is the mediator variable.
+* `y` is the outcome variable.
+
+There are various additional arguments to the above command. Most notably, the `iter = 2000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
+
+Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 25 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
+
+## Summarize fitted model
+
+After the samples have been obtained, __bmlm__'s helper functions can be used to obtain summaries of the results. For more options, all [rstan](https://cran.r-project.org/web/packages/rstan/index.html) methods are also available.
+
+### Numerical summary
+
+A numerical summary can be obtained by `mlm_summary(fit)`:
+
+```{r, eval = F, echo = T}
+mlm_summary(fit)
+```
+
+```{r, eval = T, echo = F}
+# Hack to show tabulated output instead of raw print
+knitr::kable(mlm_summary(fit))
+```
+
+`mlm_summary()` returns, for each parameter, the following information:
+
+* Posterior _Mean_: This can be used as a point estimate of parameter
+* Posterior _SD_: The standard deviation of the marginal posterior distribution of plausible parameter values. 
+* Posterior _Median_: If the posterior distribution is skewed, the median might be used as a more accurate point estimate.
+* Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.91, but users may supply any value they desire.
+* n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see `?mlm` or `?stan` for details.
+
+### Graphical summaries
+
+__bmlm__ provides a couple of graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`):
+
+```{r, fig.width = 6, fig.height = 3.5, fig.cap="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
+mlm_path_plot(fit, level = .95, text = T,
+              xlab = "Work\nstressors",
+              mlab = "Work\ndissatisfaction",
+              ylab = "Relationship\ndissatisfaction",
+              edge.color = NULL)  # Colors edges
+```
+
+This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
+
+For a more detailed investigation of the model's parameters, __bmlm__ offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. If plotting a coefficient, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
+
+```{r, fig.cap = "Figure 2. Coefficient plots.", fig.show='hold', fig.width=3, fig.height=3.5}
+mlm_pars_plot(fit, pars = "ab")
+mlm_pars_plot(fit, type = "coef", level = .99)
+mlm_pars_plot(fit, type = "violin")
+```
+
+The user can also specify the parameters to show on the plot, as illustrated in the next histograms:
+
+```{r, fig.height = 4, fig.width = 4, fig.cap = "Histograms for a selection of parameters."}
+mlm_pars_plot(fit, type = "hist", pars = c("ab", "c", "pme", "covab"))
+```
+
+The histograms are useful for visually assessing the shape of each marginal posterior distribution.
+
+More complex plots are also possible:
+
+```{r, fig.height = 5, fig.width = 5, fig.cap = "Varying effects standard deviations (tau) and correlations (Omega)."}
+mlm_pars_plot(fit, type = "hist", pars = c(
+    "tau[1]", "Omega[1,2]", "Omega[1,3]",
+    "Omega[2,1]", "tau[2]", "Omega[2,3]",
+    "Omega[3,1]", "Omega[3,2]", "tau[3]"),
+    nrow = 3, color = "skyblue4")
+```
+
+The first three positions (1: path `c'`, 2: path `b`, 3: path `a`) of the varying effects SDs ($\tau$) and correlations ($\Omega$) are plotted as histograms. Each histogram represents the MCMC samples of plausible parameter values from the corresponding posterior distribution. These parameters are also found with their names in the posterior samples matrix:
+
+```{r}
+mlm_pars_plot(fit, pars = c("tau_a", "tau_b", "tau_cp"), nrow=1)
+```
+
+# Tips and tricks
+
+Users can investigate person-specific effects by modifying the input to the functions above.
+
+## Person-specific effects
+
+It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have "u_" appended to them. 
+
+```{r, fig.width = 4, fig.height = 5, fig.cap = "Participant-specific c' path values with 80% Credible Intervals."}
+library(ggplot2)
+head(mlm_summary(fit, pars = "u_c"))
+mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .8)
+```
+
+Path diagrams can also be plotted for specific individuals:
+
+```{r indiv-path-plots, echo = -6}
+par(mfrow = c(2, 2))
+mlm_path_plot(fit, id = 1)
+mlm_path_plot(fit, id = 25)
+mlm_path_plot(fit, id = 50)
+mlm_path_plot(fit, id = 75)
+par(mfrow = c(1, 1))
+```
+
+## Avoid copy-pasting
+
+Copy-pasting results from the R console to manuscripts and reports is error prone. Users may export summary tables automatically to a Word document by using `tab2doc()`. Note that this function requires the [__ReporteRs__ package](https://cran.r-project.org/web/packages/ReporteRs/index.html) [@gohel_reporters:_2016].
+
+```{r, echo = -2, message = F, warning = F}
+tab2doc(mlm_summary(fit))
+file.remove("Table.docx")
+```
+
+This function saves a word document with a table of the model's results. Users may further edit the table's aesthetics manually in Word.
+
+ <img src="table.png" width="800" alt="Summary table exported to Word using tab2doc()"> 
+
+# Further information
+
+The functions contained in __bmlm__ have various options available for the user. Inspect these options by looking at the functions' help pages:
+
+```{r, eval = F}
+?mlm
+?mlm_summary
+?mlm_path_plot
+?mlm_pars_plot
+```
+
+Users can also input any valid `stan()` arguments to `mlm()`; see `?stan` for details. The fitted object from `mlm()` is a valid `Stanfit` object, so all `Stanfit` methods are available as well. Functions in the recent **bayesplot** package [@gabry_bayesplot_2016] are supported as well, because the returned models are Stanfit objects. For example, it is important to assess the performance of Stan's MCMC algorithms after estimating a model by inspecting traceplots for convergence problems:
+
+```{r}
+library(bayesplot)
+pars <- c("a", "b", "cp", "corrab")
+mcmc_trace(as.data.frame(fit), pars = pars)
+```
+
+Further modification of the model is possible through modifying the Stan code underlying `mlm()`.
+
+# References 
+
