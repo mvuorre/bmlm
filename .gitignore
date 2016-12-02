@@ -8,3 +8,4 @@ src/*
 data-raw/
 *_cache/
 *_files/
+inst/doc

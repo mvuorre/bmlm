@@ -5,3 +5,6 @@
 ^cran-comments\.md$
 ^\cleanup*
 ^.*\.o$
+^README\.Rmd$
+^README-.*\.png$
+^docs$
