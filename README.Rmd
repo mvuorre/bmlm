@@ -64,4 +64,6 @@ Please contact the author of the package for questions and suggestions. I recomm
 
 If you use this software, please cite it:
 
-```r citation("bmlm")```
+```{r}
+citation("bmlm")
+```

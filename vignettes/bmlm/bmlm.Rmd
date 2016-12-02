@@ -241,7 +241,9 @@ Further modification of the model is possible through modifying the Stan code un
 
 If you use this software, please cite it:
 
-```r citation("bmlm")```
+```{r}
+citation("bmlm")
+```
 
 # References 
 

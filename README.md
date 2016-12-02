@@ -58,4 +58,20 @@ Citation
 
 If you use this software, please cite it:
 
-`list(title = "bmlm: Bayesian Multilevel Mediation", author = list(list(given = "Matti", family = "Vuorre", role = NULL, email = NULL, comment = NULL)), year = "2016", url = "https://cran.r-project.org/package=bmlm")`
+``` r
+citation("bmlm")
+#> 
+#> To cite package bmlm in publications, please use:
+#> 
+#>   Vuorre, M., (2016). bmlm: Bayesian Multilevel Mediation. R
+#>   package version 1.2.1. https://cran.r-project.org/package=bmlm
+#> 
+#> A BibTeX entry for LaTeX users is
+#> 
+#>   @Manual{,
+#>     title = {bmlm: Bayesian Multilevel Mediation},
+#>     author = {Matti Vuorre},
+#>     year = {2016},
+#>     url = {https://cran.r-project.org/package=bmlm},
+#>   }
+```
