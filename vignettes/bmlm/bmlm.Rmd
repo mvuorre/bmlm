@@ -237,5 +237,11 @@ mcmc_trace(as.data.frame(fit), pars = pars)
 
 Further modification of the model is possible through modifying the Stan code underlying `mlm()`.
 
+# Citation
+
+If you use this software, please cite it:
+
+```r citation("bmlm")```
+
 # References 
 

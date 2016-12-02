@@ -52,3 +52,10 @@ Information
 ===========
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
+
+Citation
+========
+
+If you use this software, please cite it:
+
+`list(title = "bmlm: Bayesian Multilevel Mediation", author = list(list(given = "Matti", family = "Vuorre", role = NULL, email = NULL, comment = NULL)), year = "2016", url = "https://cran.r-project.org/package=bmlm")`

@@ -59,3 +59,9 @@ mlm_summary(fit)
 # Information
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
+
+# Citation
+
+If you use this software, please cite it:
+
+```r citation("bmlm")```
