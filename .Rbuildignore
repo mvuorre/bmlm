@@ -1,10 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^_files\$
-^_cache\$
-^cran-comments\.md$
-^\cleanup*
-^.*\.o$
 ^README\.Rmd$
 ^README-.*\.png$
 ^docs$
+^_pkgdown\.yml$
+^cran-comments\.md$
+^\cleanup*
+^.*\.o$
