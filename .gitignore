@@ -2,9 +2,9 @@
 .Rhistory
 .RData
 .Ruserdata
+inst/doc
 src/*
 !src/Makevars
 !src/Makevars.win
 data-raw/
 *_cache/
-inst/doc
