@@ -9,6 +9,7 @@ transformed data{
 }
 parameters{
     #include "parameters.stan"
+    real<lower=0> sigma_y;      // Residual
 }
 transformed parameters {
     #include "transformed_parameters.stan"

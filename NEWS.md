@@ -1,3 +1,7 @@
+# bmlm 1.2.9
+
+Removed sigma_y from being modeled when binary_y = TRUE. 
+
 # bmlm 1.2.1
 
 Removed posterior probabilities from default outputs.
