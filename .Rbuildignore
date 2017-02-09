@@ -8,3 +8,4 @@
 ^\cleanup*
 ^.*\.o$
 ^vignettes/bmlm/*
+^TODO*
