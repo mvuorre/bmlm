@@ -7,6 +7,7 @@
 #' @param ylab Label for Y
 #' @param mlab Label for M
 #' @param level "Confidence" level for credible intervals. (Defaults to .95.)
+#' @param random Should the "random" effects SDs be displayed? (Default = TRUE)
 #' @param text Should additional parameter values be displayed?
 #' (Defaults to FALSE.)
 #' @param template Should an empty template diagram be plotted?
@@ -33,6 +34,7 @@
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           level = .95,
+                          random = TRUE,
                           text = FALSE,
                           template = FALSE,
                           id = NULL,
@@ -54,7 +56,8 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         if (!(class(mod) == "stanfit")) {
             stop("Model is not a stanfit object.", call. = FALSE)
         }
-        params <- c("a", "b", "cp", "ab", "c", "pme")
+        params <- c("a", "b", "cp", "me", "c", "pme",
+                    "tau_a", "tau_b", "tau_cp")
         # Specify whether person-specific or average params given
         if (!is.null(id)){  # If person-specific model requested
             if (id > mod@sim$dims_oi$u_a) {
@@ -75,15 +78,31 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         a <- sfit[sfit$Parameter == "a", c(2:4)]
         b <- sfit[sfit$Parameter == "b", c(2:4)]
         cp <- sfit[sfit$Parameter == "cp", c(2:4)]
-        ab <- sfit[sfit$Parameter == "ab", c(2:4)]
+        me <- sfit[sfit$Parameter == "me", c(2:4)]
         c <- sfit[sfit$Parameter == "c", c(2:4)]
         pme <- sfit[sfit$Parameter == "pme", c(2:4)]
+        tau_a <- sfit[sfit$Parameter == "tau_a", c(2:4)]
+        tau_b <- sfit[sfit$Parameter == "tau_b", c(2:4)]
+        tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:4)]
 
+        lv <- level*100
         edgelabels <- c(
-            paste0("\n", a[1], " \n   [", a[2], ", ", a[3], "]   \n"),
-            paste0("\n", b[1], " \n  [", b[2], ", ", b[3], "]   \n"),
-            paste0("\n", cp[1], " \n   [", cp[2], ", ", cp[3], "]   \n")
+            paste0("\na = ", a[1], " (", lv, "%CI: [", a[2], ", ", a[3], "]) \n"),
+            paste0("\nb = ", b[1], " (", lv, "%CI: [", b[2], ", ", b[3], "]) \n"),
+            paste0("\ncp = ", cp[1], " (", lv, "%CI: [", cp[2], ", ", cp[3], "]) \n")
         )
+
+        if (random == TRUE) {
+            edgelabels <- c(
+                paste0("\na = ", a[1], " (", lv, "%CI: [", a[2], ", ", a[3], "]) \n",
+                       "SD = ", tau_a[1], " (", lv, "%CI: [", tau_a[2], ", ", tau_a[3], "]) \n"),
+                paste0("\nb = ", b[1], " (", lv, "%CI: [", b[2], ", ", b[3], "]) \n",
+                       "SD = ", tau_b[1], " (", lv, "%CI: [", tau_b[2], ", ", tau_b[3], "]) \n"),
+                paste0("\ncp = ", cp[1], " (", lv, "%CI: [", cp[2], ", ", cp[3], "]) \n",
+                       "SD = ", tau_cp[1], " (", lv, "%CI: [", tau_cp[2], ", ", tau_cp[3], "]) \n")
+            )
+        }
+
         x <- matrix(as.numeric(c(1, b[1], 0,
                                  0, 1, 0,
                                  a[1], cp[1] ,1)), byrow=T, nrow = 3)
