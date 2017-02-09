@@ -34,7 +34,6 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           level = .95,
                           random = TRUE,
                           text = FALSE,
-                          template = FALSE,
                           id = NULL,
                           ...){
 
@@ -55,7 +54,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
             stop("Model is not a stanfit object.", call. = FALSE)
         }
         params <- c("a", "b", "cp", "me", "c", "pme",
-                    "tau_a", "tau_b", "tau_cp")
+                    "tau_a", "tau_b", "tau_cp", "covab")
         # Specify whether person-specific or average params given
         if (!is.null(id)){  # If person-specific model requested
             if (id > mod@sim$dims_oi$u_a) {
@@ -82,22 +81,23 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         tau_a <- sfit[sfit$Parameter == "tau_a", c(2:4)]
         tau_b <- sfit[sfit$Parameter == "tau_b", c(2:4)]
         tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:4)]
+        covab <- sfit[sfit$Parameter == "covab", c(2:4)]
 
         lv <- level*100
         edgelabels <- c(
-            paste0("\na = ", a[1], " (", lv, "%CI: [", a[2], ", ", a[3], "]) \n"),
-            paste0("\nb = ", b[1], " (", lv, "%CI: [", b[2], ", ", b[3], "]) \n"),
-            paste0("\ncp = ", cp[1], " (", lv, "%CI: [", cp[2], ", ", cp[3], "]) \n")
+            paste0("\na = ", a[1], " [", a[2], ", ", a[3], "] \n"),
+            paste0("\nb = ", b[1], " [", b[2], ", ", b[3], "] \n"),
+            paste0("\n c' = ", cp[1], " [", cp[2], ", ", cp[3], "] \n")
         )
 
-        if (random == TRUE) {
+        if (random) {
             edgelabels <- c(
-                paste0("\na = ", a[1], " (", lv, "%CI: [", a[2], ", ", a[3], "]) \n",
-                       "SD = ", tau_a[1], " (", lv, "%CI: [", tau_a[2], ", ", tau_a[3], "]) \n"),
-                paste0("\nb = ", b[1], " (", lv, "%CI: [", b[2], ", ", b[3], "]) \n",
-                       "SD = ", tau_b[1], " (", lv, "%CI: [", tau_b[2], ", ", tau_b[3], "]) \n"),
-                paste0("\ncp = ", cp[1], " (", lv, "%CI: [", cp[2], ", ", cp[3], "]) \n",
-                       "SD = ", tau_cp[1], " (", lv, "%CI: [", tau_cp[2], ", ", tau_cp[3], "]) \n")
+                paste0("\na = ", a[1], " [", a[2], ", ", a[3], "] \n",
+                       "SD(a) = ", tau_a[1], " [", tau_a[2], ", ", tau_a[3], "] \n"),
+                paste0("\nb = ", b[1], " [", b[2], ", ", b[3], "] \n",
+                       "SD(b) = ", tau_b[1], " [", tau_b[2], ", ", tau_b[3], "] \n"),
+                paste0("\n c' = ", cp[1], " [", cp[2], ", ", cp[3], "] \n",
+                       " SD(c') = ", tau_cp[1], " [", tau_cp[2], ", ", tau_cp[3], "] \n")
             )
         }
 
@@ -134,14 +134,17 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     }
     if (text & !is.null(mod)){
         graphics::text(
-            -1.2, 1.1,
-            paste0("ab = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)
+            -1.2, 1.2,
+            paste0("me = ", me[1], " [", me[2], ", ", me[3], "]"), pos=4)
         graphics::text(
-            -1.2, 0.9,
+            -1.2, 1.05,
             paste0("c = ", c[1], " [", c[2], ", ", c[3], "]"), pos=4)
         graphics::text(
-            -1.2, 0.7,
+            -1.2, 0.9,
             paste0("%me = ", pme[1], " [", pme[2], ", ", pme[3], "]"), pos=4)
+        graphics::text(
+            -1.2, 0.75,
+            paste0("cov(a,b) = ", covab[1], " [", covab[2], ", ", covab[3], "]"), pos=4)
     }
 }
 
@@ -174,7 +177,7 @@ mlm_pars_plot <- function(mod = NULL,
                           p_size = 1.2,
                           level = 0.95,
                           nrow = 3,
-                          pars = c("a", "b", "cp", "corrab", "ab", "c", "pme")){
+                          pars = c("a", "b", "cp", "covab", "me", "c", "pme")){
 
     # Requires the reshape2 package
     if (!requireNamespace("reshape2", quietly = TRUE)) {

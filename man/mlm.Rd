@@ -18,11 +18,12 @@ mlm(d = NULL, id = "id", x = "x", m = "m", y = "y", priors = NULL,
 
 \item{y}{Column of Y values in \code{data}.}
 
-\item{priors}{A list of named values to be used as the prior scale and shape
+\item{priors}{A list of named values to be used as the prior scale
 parameters. See details.}
 
 \item{binary_y}{Set to TRUE if y is binary and should be modelled
-with logistic regression. Defaults to FALSE (y treated as continuous.)}
+with logistic regression. Defaults to FALSE (y treated as continuous.)
+This feature is experimental.}
 
 \item{...}{Other optional parameters passed to \code{rstan::stan()}.}
 }
@@ -38,8 +39,10 @@ multilevel mediation model using Stan.
 
 \subsection{Priors}{
 
-Users may pass a list of named values for the \code{priors} argument. This
-list may specify some or all of the following parameters:
+Users may pass a list of named values for the \code{priors} argument.
+The values will be used to define the scale parameter of the
+respective prior distributions.
+This list may specify some or all of the following parameters:
 
 \describe{
  \item{dy, dm}{Regression intercepts (for Y and M as outcomes, respectively.)}

@@ -83,17 +83,15 @@ The `..._cw` variables now contain isolated within-person ("subject-mean deviate
 
 ## Fit model
 
-To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer), as shown by the first line below.
+To estimate the multilevel mediation model, run `mlm()` and save its output to an object. Here we'll call it `fit`. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer).
 
 ```{r, eval = T, cache = TRUE}
-options(mc.cores = parallel::detectCores()) 
-
 fit <- mlm(d = BLch9, 
            id = "id",
            x = "fwkstrs_cw",
            m = "fwkdis_cw",
            y = "freldis_cw",
-           iter = 2000)
+           iter = 2000, cores = 4)
 ```
 
 The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
@@ -127,7 +125,7 @@ knitr::kable(mlm_summary(fit))
 `mlm_summary()` returns, for each parameter, the following information:
 
 * Posterior _Mean_: This can be used as a point estimate of parameter
-* Posterior _SD_: The standard deviation of the marginal posterior distribution of plausible parameter values. 
+* *SE*: The standard deviation of the marginal posterior distribution of plausible parameter values. 
 * Posterior _Median_: If the posterior distribution is skewed, the median might be used as a more accurate point estimate.
 * Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.91, but users may supply any value they desire.
 * n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see `?mlm` or `?stan` for details.
@@ -140,8 +138,7 @@ __bmlm__ provides a couple of graphical summaries of the estimated model. The fi
 mlm_path_plot(fit, level = .95, text = T,
               xlab = "Work\nstressors",
               mlab = "Work\ndissatisfaction",
-              ylab = "Relationship\ndissatisfaction",
-              edge.color = NULL)  # Colors edges
+              ylab = "Relationship\ndissatisfaction")
 ```
 
 This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
@@ -149,7 +146,7 @@ This figure offers a quick view of the estimated model: All paths (`a, b, c'`) a
 For a more detailed investigation of the model's parameters, __bmlm__ offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. If plotting a coefficient, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 
 ```{r, fig.cap = "Figure 2. Coefficient plots.", fig.show='hold', fig.width=3, fig.height=3.5}
-mlm_pars_plot(fit, pars = "ab")
+mlm_pars_plot(fit, pars = "me")
 mlm_pars_plot(fit, type = "coef", level = .99)
 mlm_pars_plot(fit, type = "violin")
 ```

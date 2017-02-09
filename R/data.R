@@ -46,6 +46,6 @@
 #'
 #' @source Metcalfe, J., Eich, T. S., & Castel, A. D. (2010).
 #' Metacognition of agency across the lifespan.
-#' Cognition, 116(2), 267–282.
+#' Cognition, 116(2), 267-282.
 #' \url{https://doi.org/10.1016/j.cognition.2010.05.009}
 "MEC2010"

@@ -5,7 +5,7 @@
 \title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  level = 0.95, text = FALSE, template = FALSE, id = NULL, ...)
+  level = 0.95, random = TRUE, text = FALSE, id = NULL, ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}
@@ -18,10 +18,9 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 
 \item{level}{"Confidence" level for credible intervals. (Defaults to .95.)}
 
-\item{text}{Should additional parameter values be displayed?
-(Defaults to FALSE.)}
+\item{random}{Should the "random" effects SDs be displayed? (Default = TRUE)}
 
-\item{template}{Should an empty template diagram be plotted?
+\item{text}{Should additional parameter values be displayed?
 (Defaults to FALSE.)}
 
 \item{id}{Plot an individual-level path diagram by specifying ID number.}
@@ -37,15 +36,15 @@ Plots a path diagram for an estimated multilevel mediation model.
 \details{
 Plots a path diagram of the mediation model,
 with estimated parameter values and credible intervals. Can also
-be used to draw a template diagram of the mediation model by setting
-\code{template = TRUE}.
+be used to draw a template diagram of the mediation model by not
+specifying input to the \code{mod} argument.
 
 To modify various settings of the underlying qgraph object, see
 \code{\link[qgraph]{qgraph}}.
 }
 \examples{
 # Draw a template path diagram of the mediation model
-mlm_path_plot(template = TRUE)
+mlm_path_plot()
 
 }
 \author{

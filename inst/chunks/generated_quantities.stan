@@ -33,7 +33,7 @@
     tau_dm = Tau[5];
 
     Omega = L_Omega * L_Omega';
-    Sigma = quad_form_diag(Omega, tau);
+    Sigma = quad_form_diag(Omega, Tau);
 
     covab = Sigma[3,2];
     corrab = Omega[3,2];
@@ -48,6 +48,6 @@
         u_cp[j] = cp + U[j, 1];
         u_dy[j] = dy + U[j, 4];
         u_dm[j] = dm + U[j, 5];
-        u_c[j] = u_cp[j] + u_ab[j];
-        u_pme[j] = u_ab[j] / u_c[j];
+        u_c[j] = u_cp[j] + u_me[j];
+        u_pme[j] = u_me[j] / u_c[j];
     }
