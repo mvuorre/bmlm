@@ -16,7 +16,8 @@
 #'  \item{Parameter}{Name of parameter}
 #'  \item{Mean}{Mean of parameter's posterior distribution.}
 #'  \item{Median}{Median of parameter's posterior distribution.}
-#'  \item{SD}{Standard deviation of parameter's posterior distribution.}
+#'  \item{SE}{Standard deviation of parameter's posterior distribution.
+#'  This is analogous to a standard error in frequentist estimation.}
 #'  \item{ci_lwr}{The lower limit of Credible Intervals.}
 #'  \item{ci_upr}{The upper limit of Credible Intervals.}
 #'  \item{n_eff}{Number of efficient samples.}
@@ -45,8 +46,8 @@
 #'  \item{b}{Regression slope of the M -> Y relationship.}
 #'  \item{cp}{Regression slope of the X -> Y relationship.
 #'  (The direct effect.)}
-#'  \item{ab}{Mediated effect (\code{a * b}).}
-#'  \item{c}{Total effect of X on Y. ( \eqn{cp + ab + \sigma_ab} )}
+#'  \item{me}{Mediated effect (\eqn{a * b + \sigma_{{a_j}{b_j}}}}).}
+#'  \item{c}{Total effect of X on Y. ( \eqn{cp + me} )}
 #'  \item{pme}{Percent mediated effect.}
 #'}
 #' The user may specify \code{pars = NULL} to display all estimated parameters.
@@ -75,7 +76,7 @@
 mlm_summary <- function(
     mod = NULL,
     level = .95,
-    pars = c("a", "b", "cp", "ab", "c", "pme"),
+    pars = c("a", "b", "cp", "me", "c", "pme"),
     digits = 2
     ){
 
@@ -108,7 +109,7 @@ mlm_summary <- function(
     mod_sum$n_eff <- floor(mod_sum$n_eff)
     mod_sum$Parameter <- Names
     mod_sum <- mod_sum[,c(8,1,2,4,3,5,6,7)]
-    names(mod_sum) <- c("Parameter", "Mean", "SD", "Median",
+    names(mod_sum) <- c("Parameter", "Mean", "SE", "Median",
                         paste0(lower_ci*100, "%"), paste0(upper_ci*100, "%"),
                         "n_eff", "Rhat")
     row.names(mod_sum) <- NULL

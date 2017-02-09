@@ -132,7 +132,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     if (!is.null(id)) {
         graphics::text(1.25, 1.25, paste0("ID: ", id), font = 2)
     }
-    if (text & !template){
+    if (text & !is.null(mod)){
         graphics::text(
             -1.2, 1.1,
             paste0("ab = ", ab[1], " [", ab[2], ", ", ab[3], "]"), pos=4)

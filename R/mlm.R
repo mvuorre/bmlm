@@ -11,7 +11,7 @@
 #' parameters. See details.
 #' @param binary_y Set to TRUE if y is binary and should be modelled
 #' with logistic regression. Defaults to FALSE (y treated as continuous.)
-#' This feature is experimental, use with caution.
+#' This feature is experimental.
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
