@@ -39,7 +39,7 @@
     corrab = Omega[3,2];
     me = a*b + covab;
     c = cp + me;
-    pme = (a*b) / c;
+    pme = me / c;
 
     for (j in 1:J) {
         u_a[j] = a + U[j, 3];
