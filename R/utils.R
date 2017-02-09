@@ -48,14 +48,22 @@
 #'  \item{ab}{Mediated effect (\code{a * b}).}
 #'  \item{c}{Total effect of X on Y. ( \eqn{cp + ab + \sigma_ab} )}
 #'  \item{pme}{Percent mediated effect.}
-#'  \item{covab}{Estimated covariance of the
-#'  participant-level a_j and b_j parameters.}
-#'  \item{corrab}{Estimated correlation of the
-#'  participant-level a_j and b_j parameters.}
 #'}
 #' The user may specify \code{pars = NULL} to display all estimated parameters.
 #' Other options include e.g. \code{pars = "tau"} to display the varying
-#' effects' standard deviations.
+#' effects' standard deviations. To display all the group-level parameters
+#' (also known as random effects) only, specify \code{pars = "random"}.
+#' With this argument, \code{mlm_summary()} prints the following parameters:
+#'
+#' \describe{
+#'  \item{tau_a}{Standard deviation of subject-level \code{a_j}s.}
+#'  \item{tau_b}{Standard deviation of subject-level \code{b_j}s.}
+#'  \item{tau_cp}{Standard deviation of subject-level \code{c'_j}s.}
+#'  \item{covab}{Estimated covariance of the
+#'  participant-level \code{a_j} and \code{b_j} parameters.}
+#'  \item{corrab}{Estimated correlation of the
+#'  participant-level \code{a_j} and \code{b_j} parameters.}
+#'}
 #'
 #' To learn more about the additional parameters, refer to the Stan code
 #' (\code{cat(get_stancode(fit))}).
@@ -67,7 +75,7 @@
 mlm_summary <- function(
     mod = NULL,
     level = .95,
-    pars = c("a", "b", "cp", "ab", "c", "pme", "covab", "corrab"),
+    pars = c("a", "b", "cp", "ab", "c", "pme"),
     digits = 2
     ){
 
@@ -76,6 +84,9 @@ mlm_summary <- function(
 
     # Choose which parameters to display
     if (is.null(pars)) pars <- mod@sim$pars_oi  # Return all parameters
+    if (pars == "random") pars <- c(
+        "tau_a", "tau_b", "tau_cp", "covab", "corrab"
+    )
 
     # Obtain model summary from Stanfit
     lower_ci <- .5 - (level/2)
