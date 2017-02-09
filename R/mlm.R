@@ -111,7 +111,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     fit <- rstan::sampling(
         object = model_s,
         data = ld,
-        pars = c("U", "z_U", "L_Omega", "Tau"),
+        pars = c("U", "z_U", "L_Omega", "Tau", "Sigma"),
         include = FALSE,
         ...)
 
