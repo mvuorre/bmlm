@@ -10,8 +10,6 @@
 #' @param random Should the "random" effects SDs be displayed? (Default = TRUE)
 #' @param text Should additional parameter values be displayed?
 #' (Defaults to FALSE.)
-#' @param template Should an empty template diagram be plotted?
-#' (Defaults to FALSE.)
 #' @param id Plot an individual-level path diagram by specifying ID number.
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
@@ -21,15 +19,15 @@
 #'
 #' @details Plots a path diagram of the mediation model,
 #' with estimated parameter values and credible intervals. Can also
-#' be used to draw a template diagram of the mediation model by setting
-#' \code{template = TRUE}.
+#' be used to draw a template diagram of the mediation model by not
+#' specifying input to the \code{mod} argument.
 #'
 #' To modify various settings of the underlying qgraph object, see
 #' \code{\link[qgraph]{qgraph}}.
 #'
 #' @examples
 #' # Draw a template path diagram of the mediation model
-#' mlm_path_plot(template = TRUE)
+#' mlm_path_plot()
 #'
 #' @export
 mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
@@ -46,7 +44,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
              call. = FALSE)
     }
 
-    if (template) {
+    if (is.null(mod)) {
         # If user wants a template diagram
         edgelabels <- c(" \n  a  \n ", " \n  b  \n ", " \n  c'  \n ")
         x <- matrix(c(1, 1, 0,
