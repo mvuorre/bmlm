@@ -9,7 +9,7 @@
 
     // Correlation matrix and SDs of participant-level varying effects
     cholesky_factor_corr[K] L_Omega;
-    vector<lower=0>[K] tau;
+    vector<lower=0>[K] Tau;
 
     // Standardized varying effects
     matrix[K, J] z_U;
