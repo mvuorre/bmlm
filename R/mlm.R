@@ -7,10 +7,11 @@
 #' @param x Column of X values in \code{data}.
 #' @param m Column of M values in \code{data}.
 #' @param y Column of Y values in \code{data}.
-#' @param priors A list of named values to be used as the prior scale and shape
+#' @param priors A list of named values to be used as the prior scale
 #' parameters. See details.
 #' @param binary_y Set to TRUE if y is binary and should be modelled
 #' with logistic regression. Defaults to FALSE (y treated as continuous.)
+#' This feature is experimental, use with caution.
 #' @param ... Other optional parameters passed to \code{rstan::stan()}.
 #'
 #' @return An object of S4 class stanfit, with all its available methods.
@@ -22,8 +23,10 @@
 #'
 #' \subsection{Priors}{
 #'
-#' Users may pass a list of named values for the \code{priors} argument. This
-#' list may specify some or all of the following parameters:
+#' Users may pass a list of named values for the \code{priors} argument.
+#' The values will be used to define the scale parameter of the
+#' respective prior distributions.
+#' This list may specify some or all of the following parameters:
 #'
 #' \describe{
 #'  \item{dy, dm}{Regression intercepts (for Y and M as outcomes, respectively.)}
@@ -64,11 +67,11 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
 
     # Check priors
     default_priors <- list(
-        dm = 100, tau_dm = 10,
-        dy = 100, tau_dy = 10,
-        a = 100, tau_a = 10,
-        b = 100, tau_b = 10,
-        cp = 100, tau_cp = 10,
+        dm = 1000, tau_dm = 50,
+        dy = 1000, tau_dy = 50,
+        a = 1000, tau_a = 50,
+        b = 1000, tau_b = 50,
+        cp = 1000, tau_cp = 50,
         lkj_shape = 1
     )
     if (is.null(priors$dm)) priors$dm <- default_priors$dm
@@ -108,7 +111,7 @@ mlm <- function(d = NULL, id = "id", x = "x", m = "m", y = "y",
     fit <- rstan::sampling(
         object = model_s,
         data = ld,
-        pars = c("U", "z_U", "L_Omega"),
+        pars = c("U", "z_U", "L_Omega", "Tau"),
         include = FALSE,
         ...)
 
