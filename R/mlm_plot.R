@@ -88,19 +88,19 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         covab <- sfit[sfit$Parameter == "covab", c(2:5)]
 
         edgelabels <- c(
-            paste0("\na = ", a[1], " (", a[2], ") \n"),
-            paste0("\nb = ", b[1], " [", b[2], "] \n"),
-            paste0("\n c' = ", cp[1], " (", cp[2], ") \n")
+            paste0("\na = ", a[1], "\n [", a[3], ", ", a[4], "] \n"),
+            paste0("\nb = ", b[1], "\n [", b[3], ", ", b[4], "] \n"),
+            paste0("\nc' = ", cp[1], "\n [", cp[3], ", ", cp[4], "] \n")
         )
 
         if (random) {
             edgelabels <- c(
-                paste0("\na = ", a[1], " (", a[2], ") \n",
-                       "SD(a) = ", tau_a[1], " (", tau_a[2], ") \n"),
-                paste0("\nb = ", b[1], " (", b[2], ") \n",
-                       "SD(b) = ", tau_b[1], " (", tau_b[2], ") \n"),
-                paste0("\n c' = ", cp[1], " (", cp[2], ") \n",
-                       " SD(c') = ", tau_cp[1], " (", tau_cp[2], ") \n")
+                paste0("\na = ", a[1], "\n [", a[3], ", ", a[4], "] \n",
+                       "SD = ", tau_a[1], "\n [", tau_a[3], ", ", tau_a[4], "] \n"),
+                paste0("\nb = ", b[1], "\n [", b[3], ", ", b[4], "] \n",
+                       "SD = ", tau_b[1], "\n [", tau_b[3], ", ", tau_b[4], "] \n"),
+                paste0("\nc' = ", cp[1], "\n [", cp[3], ", ", cp[4], "] \n",
+                       "SD = ", tau_cp[1], "\n [", tau_cp[3], ", ", tau_cp[4], "] \n")
             )
         }
 
@@ -114,12 +114,13 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     qargs$input <- x
     qargs$labels <- c(mlab, ylab, xlab)
     if (is.null(qargs$border.width)) qargs$border.width <- 2
-    if (is.null(qargs$edge.label.cex)) qargs$edge.label.cex <- 1.2
+    if (is.null(qargs$edge.label.cex)) qargs$edge.label.cex <- 1.1
     if (is.null(qargs$edge.color)) qargs$edge.color <- "black"
     if (is.null(qargs$vsize)) qargs$vsize <- 16
     if (is.null(qargs$vsize2)) qargs$vsize2 <- 12
     if (is.null(qargs$asize)) qargs$asize <- 4
     if (is.null(qargs$esize)) qargs$esize <- 4
+    if (is.null(qargs$label.cex)) qargs$label.cex <- 1.2
     if (is.null(qargs$label.norm)) qargs$label.norm <- "OOOOOO"
     if (is.null(qargs$edge.labels)) qargs$edge.labels <- edgelabels
     if (is.null(qargs$mar)) qargs$mar <- c(4, 4, 4, 4)
@@ -138,16 +139,16 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     if (text & !is.null(mod)){
         graphics::text(
             -1.2, 1.2,
-            paste0("me = ", me[1], " (", me[2], ")"), pos=4)
+            paste0("me = ", me[1], " [", me[3], ", ", me[4], "]"), pos=4)
         graphics::text(
             -1.2, 1.05,
-            paste0("c = ", c[1], " (", c[2], ")"), pos=4)
+            paste0("c = ", c[1], " [", c[3], ", ", c[4], "]"), pos=4)
         graphics::text(
             -1.2, 0.9,
-            paste0("%me = ", pme[1], " (", pme[2], ")"), pos=4)
+            paste0("%me = ", pme[1], " [", pme[3], ", ", pme[4], "]"), pos=4)
         graphics::text(
             -1.2, 0.75,
-            paste0("cov(a,b) = ", covab[1], " (", covab[2], ")"), pos=4)
+            paste0("cov(a,b) = ", covab[1], " [", covab[3], ", ", covab[4], "]"), pos=4)
     }
 }
 

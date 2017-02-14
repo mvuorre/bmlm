@@ -138,7 +138,7 @@ __bmlm__ provides a couple of graphical summaries of the estimated model. The fi
 mlm_path_plot(fit, level = .95, text = T,
               xlab = "Work\nstressors",
               mlab = "Work\ndissatisfaction",
-              ylab = "Relationship\ndissatisfaction", digits = 1)
+              ylab = "Relationship\ndissatisfaction", digits = 2)
 ```
 
 This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
