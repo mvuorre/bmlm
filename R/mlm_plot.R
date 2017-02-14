@@ -11,6 +11,7 @@
 #' @param text Should additional parameter values be displayed?
 #' (Defaults to FALSE.)
 #' @param id Plot an individual-level path diagram by specifying ID number.
+#' @param digits Number of significant digits to show on graph. (Default = 2.)
 #' @param ... Other arguments passed on to \code{qgraph::qgraph()}.
 #'
 #' @return A qgraph object.
@@ -35,6 +36,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                           random = TRUE,
                           text = FALSE,
                           id = NULL,
+                          digits = 2,
                           ...){
 
     # Requires the qgraph package
@@ -68,36 +70,37 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         } else {  # Give average model
             sfit <- mlm_summary(mod,
                                 pars = params,
-                                level = level)
+                                level = level,
+                                digits = 6)
         }
 
-        sfit <- subset(sfit, select = c(1,2,5,6))
-        a <- sfit[sfit$Parameter == "a", c(2:4)]
-        b <- sfit[sfit$Parameter == "b", c(2:4)]
-        cp <- sfit[sfit$Parameter == "cp", c(2:4)]
-        me <- sfit[sfit$Parameter == "me", c(2:4)]
-        c <- sfit[sfit$Parameter == "c", c(2:4)]
-        pme <- sfit[sfit$Parameter == "pme", c(2:4)]
-        tau_a <- sfit[sfit$Parameter == "tau_a", c(2:4)]
-        tau_b <- sfit[sfit$Parameter == "tau_b", c(2:4)]
-        tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:4)]
-        covab <- sfit[sfit$Parameter == "covab", c(2:4)]
+        sfit <- subset(sfit, select = c(1,2,3,5,6))
+        sfit[,2:5] <- signif(sfit[,2:5], digits)
+        a <- sfit[sfit$Parameter == "a", c(2:5)]
+        b <- sfit[sfit$Parameter == "b", c(2:5)]
+        cp <- sfit[sfit$Parameter == "cp", c(2:5)]
+        me <- sfit[sfit$Parameter == "me", c(2:5)]
+        c <- sfit[sfit$Parameter == "c", c(2:5)]
+        pme <- sfit[sfit$Parameter == "pme", c(2:5)]
+        tau_a <- sfit[sfit$Parameter == "tau_a", c(2:5)]
+        tau_b <- sfit[sfit$Parameter == "tau_b", c(2:5)]
+        tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:5)]
+        covab <- sfit[sfit$Parameter == "covab", c(2:5)]
 
-        lv <- level*100
         edgelabels <- c(
-            paste0("\na = ", a[1], " [", a[2], ", ", a[3], "] \n"),
-            paste0("\nb = ", b[1], " [", b[2], ", ", b[3], "] \n"),
-            paste0("\n c' = ", cp[1], " [", cp[2], ", ", cp[3], "] \n")
+            paste0("\na = ", a[1], " (", a[2], ") \n"),
+            paste0("\nb = ", b[1], " [", b[2], "] \n"),
+            paste0("\n c' = ", cp[1], " (", cp[2], ") \n")
         )
 
         if (random) {
             edgelabels <- c(
-                paste0("\na = ", a[1], " [", a[2], ", ", a[3], "] \n",
-                       "SD(a) = ", tau_a[1], " [", tau_a[2], ", ", tau_a[3], "] \n"),
-                paste0("\nb = ", b[1], " [", b[2], ", ", b[3], "] \n",
-                       "SD(b) = ", tau_b[1], " [", tau_b[2], ", ", tau_b[3], "] \n"),
-                paste0("\n c' = ", cp[1], " [", cp[2], ", ", cp[3], "] \n",
-                       " SD(c') = ", tau_cp[1], " [", tau_cp[2], ", ", tau_cp[3], "] \n")
+                paste0("\na = ", a[1], " (", a[2], ") \n",
+                       "SD(a) = ", tau_a[1], " (", tau_a[2], ") \n"),
+                paste0("\nb = ", b[1], " (", b[2], ") \n",
+                       "SD(b) = ", tau_b[1], " (", tau_b[2], ") \n"),
+                paste0("\n c' = ", cp[1], " (", cp[2], ") \n",
+                       " SD(c') = ", tau_cp[1], " (", tau_cp[2], ") \n")
             )
         }
 
@@ -135,16 +138,16 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
     if (text & !is.null(mod)){
         graphics::text(
             -1.2, 1.2,
-            paste0("me = ", me[1], " [", me[2], ", ", me[3], "]"), pos=4)
+            paste0("me = ", me[1], " (", me[2], ")"), pos=4)
         graphics::text(
             -1.2, 1.05,
-            paste0("c = ", c[1], " [", c[2], ", ", c[3], "]"), pos=4)
+            paste0("c = ", c[1], " (", c[2], ")"), pos=4)
         graphics::text(
             -1.2, 0.9,
-            paste0("%me = ", pme[1], " [", pme[2], ", ", pme[3], "]"), pos=4)
+            paste0("%me = ", pme[1], " (", pme[2], ")"), pos=4)
         graphics::text(
             -1.2, 0.75,
-            paste0("cov(a,b) = ", covab[1], " [", covab[2], ", ", covab[3], "]"), pos=4)
+            paste0("cov(a,b) = ", covab[1], " (", covab[2], ")"), pos=4)
     }
 }
 

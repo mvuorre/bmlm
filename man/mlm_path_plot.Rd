@@ -5,7 +5,8 @@
 \title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
 mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  level = 0.95, random = TRUE, text = FALSE, id = NULL, ...)
+  level = 0.95, random = TRUE, text = FALSE, id = NULL, digits = 2,
+  ...)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}
@@ -24,6 +25,8 @@ mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 (Defaults to FALSE.)}
 
 \item{id}{Plot an individual-level path diagram by specifying ID number.}
+
+\item{digits}{Number of significant digits to show on graph. (Default = 2.)}
 
 \item{...}{Other arguments passed on to \code{qgraph::qgraph()}.}
 }
