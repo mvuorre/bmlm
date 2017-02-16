@@ -74,4 +74,3 @@ fit <- mlm(BLch9, priors = Priors)
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
-

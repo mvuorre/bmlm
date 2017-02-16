@@ -8,4 +8,3 @@
 \description{
 See \url{https://mvuorre.github.io/bmlm/} for a short tutorial.
 }
-

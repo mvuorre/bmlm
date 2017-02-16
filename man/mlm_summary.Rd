@@ -83,4 +83,3 @@ To learn more about the additional parameters, refer to the Stan code
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
-

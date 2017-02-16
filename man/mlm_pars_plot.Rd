@@ -37,4 +37,3 @@ The point estimate for the coefficient plot is the posterior mean.
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
-

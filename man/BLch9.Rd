@@ -29,4 +29,3 @@ An Introduction to Diary and Experience Sampling Research.
 \url{http://www.intensivelongitudinal.com/index.html}).
 }
 \keyword{datasets}
-

@@ -31,4 +31,3 @@ tab2doc(mlm_summary(fit), name = "Fit_summary")
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
-

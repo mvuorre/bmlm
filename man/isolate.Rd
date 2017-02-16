@@ -40,4 +40,3 @@ head(BLch9)  # Now has new column for within-person work stressors.
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
 }
-

@@ -27,4 +27,3 @@ performance in a video game in two conditions.
 \url{http://www.sciencedirect.com/science/article/pii/S0010027710001113}).
 }
 \keyword{datasets}
-

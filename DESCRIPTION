@@ -30,4 +30,4 @@ LinkingTo:
     BH (>= 1.60.0),
     Rcpp (>= 0.12.0),
     RcppEigen
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
