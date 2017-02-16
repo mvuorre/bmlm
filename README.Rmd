@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 
 # bmlm: An R package for Bayesian MultiLevel Mediation models
 
-__bmlm__ is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
+**bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
 For more details, visit the [package's website](https://mvuorre.github.io/bmlm/).
 

@@ -64,7 +64,7 @@ citation("bmlm")
 #> To cite package bmlm in publications, please use:
 #> 
 #>   Vuorre, M., (2016). bmlm: Bayesian Multilevel Mediation. R
-#>   package version 1.2.1. https://cran.r-project.org/package=bmlm
+#>   package version 1.2.10. https://cran.r-project.org/package=bmlm
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
