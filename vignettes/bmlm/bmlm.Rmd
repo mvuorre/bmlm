@@ -18,9 +18,9 @@ opts_chunk$set(message = F, warning = F)
 
 # Introduction
 
-[__bmlm__](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. __bmlm__ uses the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful [Stan](http://mc-stan.org/) Bayesian inference engine [@stan_development_team_stan:_2016]. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with __bmlm__. This document explains how to install __bmlm__ and its required components, and then walks through an example of how to use it in practice.
+[**bmlm**](https://github.com/mvuorre/bmlm) is an R package that allows easy estimation of multilevel mediation models. **bmlm** uses the [RStan](http://mc-stan.org/interfaces/rstan.html) interface to the powerful [Stan](http://mc-stan.org/) Bayesian inference engine [@stan_development_team_stan:_2016]. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with **bmlm**. This document explains how to install **bmlm** and its required components, and then walks through an example of how to use it in practice.
 
-# Installing __bmlm__
+# Installing **bmlm**
 
 Please ensure you have the [latest version of R](https://cran.r-project.org/) installed [@r_core_team_r:_2016]. The latest stable version of **bmlm** is [available on CRAN](https://cran.r-project.org/package=bmlm):
 
@@ -30,7 +30,7 @@ install.packages("bmlm")
 
 ## Development version.
 
-The latest development version of __bmlm__ is available on [GitHub](https://github.com/mvuorre/bmlm). If you don't know what a development version is, don't use one. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install __bmlm__ using devtools:
+The latest development version of **bmlm** is available on [GitHub](https://github.com/mvuorre/bmlm). If you don't know what a development version is, don't use one. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install **bmlm** using devtools:
 
 ```{r, eval = F}
 install.packages("devtools")
@@ -42,17 +42,17 @@ If something goes wrong during the installation process, you will receive a noti
 
 ### Note for Windows users
 
-Some Windows users may get an error message during the installation process, asking to install [Rtools33](https://cran.r-project.org/bin/windows/Rtools/). If this happens, install Rtools33, and retry installing __bmlm__. See [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) if problems persist.
+Some Windows users may get an error message during the installation process, asking to install [Rtools33](https://cran.r-project.org/bin/windows/Rtools/). If this happens, install Rtools33, and retry installing **bmlm**. See [here](https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows) if problems persist.
 
 # Example
 
-After installing the required software, load the __bmlm__ package to your current R workspace:
+After installing the required software, load the **bmlm** package to your current R workspace:
 
 ```{r, message=FALSE}
 library(bmlm)
 ```
 
-__bmlm__ contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) [@bolger_intensive_2013]. We'll use this data set in the example, and first load it into the workspace from the package, and display what the data looks like:
+**bmlm** contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) [@bolger_intensive_2013]. We'll use this data set in this example, and first load it into the workspace from the package, and display what the data looks like:
 
 ```{r, eval = F, echo = T}
 data(BLch9)
@@ -67,7 +67,7 @@ kable(head(BLch9), digits = 2)
 
 ## Data preprocessing
 
-The goal of multilevel mediation modeling, in this case, is to assess the _within-person_ relationships between X, M and Y. To this end, it is important to isolate the within- and between-person components of X, M, and Y. The `isolate()` function in __bmlm__ allows the user to create within- and between-person centered values of variables, and additionally to standardize them. The example dataset `BLch9` already contains subject-mean deviated components, but here we illustrate how to obtain these using the `isolate()` function. The key inputs to this function are `d`, a data frame; `by` a column of values that identifies individuals; and `value`, which variable(s) should be transformed.
+The goal of multilevel mediation modeling, in this case, is to assess the _within-person_ relationships between X, M and Y. To this end, it is important to isolate the within- and between-person components of X, M, and Y. The `isolate()` function in **bmlm** allows the user to create within- and between-person centered values of variables. The example dataset `BLch9` already contains subject-mean deviated components, but here we illustrate how to obtain these using the `isolate()` function. The key inputs to this function are `d`, a data frame; `by` a column of values that identifies individuals; and `value`, which variable(s) should be transformed.
 
 ```{r}
 BLch9 <- isolate(BLch9, 
@@ -103,15 +103,15 @@ The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `B
 
 There are various additional arguments to the above command. Most notably, the `iter = 2000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
 
-Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 25 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
+Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 50 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
 
 ## Summarize fitted model
 
-After the samples have been obtained, __bmlm__'s helper functions can be used to obtain summaries of the results. For more options, all [rstan](https://cran.r-project.org/web/packages/rstan/index.html) methods are also available.
+After the samples have been obtained, **bmlm**'s helper functions can be used to obtain summaries of the results. For more options, all [rstan](https://cran.r-project.org/web/packages/rstan/index.html) methods are also available.
 
 ### Numerical summary
 
-A numerical summary can be obtained by `mlm_summary(fit)`:
+A numerical summary of the "fixed" effects can be obtained by `mlm_summary(fit)`:
 
 ```{r, eval = F, echo = T}
 mlm_summary(fit)
@@ -127,12 +127,12 @@ knitr::kable(mlm_summary(fit))
 * Posterior _Mean_: This can be used as a point estimate of parameter
 * *SE*: The standard deviation of the marginal posterior distribution of plausible parameter values. 
 * Posterior _Median_: If the posterior distribution is skewed, the median might be used as a more accurate point estimate.
-* Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.91, but users may supply any value they desire.
+* Lower and upper limits to _Credible Intervals_. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a `level` argument to `mlm_summary()`. The default "confidence level" is 0.95, but users may supply any value they desire.
 * n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see `?mlm` or `?stan` for details.
 
 ### Graphical summaries
 
-__bmlm__ provides a couple of graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`):
+**bmlm** provides a couple of graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`). By default, the plot also shows the standard deviations (SD) of the Gaussian distributions of the subject-level varying effects, and their associated CIs. You can turn off the "random" effects by calling the function with `random = FALSE`.
 
 ```{r, fig.width = 6, fig.height = 3.5, fig.cap="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
 mlm_path_plot(fit, level = .95, text = T,
@@ -141,9 +141,11 @@ mlm_path_plot(fit, level = .95, text = T,
               ylab = "Relationship\ndissatisfaction", digits = 2)
 ```
 
-This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. The upper left corner gives three more parameters: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
+This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. However, the SD parameters indicate considerable heterogeneity in the effects.
 
-For a more detailed investigation of the model's parameters, __bmlm__ offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. If plotting a coefficient, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
+We called the function with the argument `text = T`, showing additional transformed parameters in the upper left corner: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
+
+For a more detailed investigation of the model's parameters, **bmlm** offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. With coefficient plots, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 
 ```{r, fig.cap = "Figure 2. Coefficient plots.", fig.show='hold', fig.width=3, fig.height=3.5}
 mlm_pars_plot(fit, pars = "me")
@@ -216,7 +218,7 @@ This function saves a word document with a table of the model's results. Users m
 
 # Further information
 
-The functions contained in __bmlm__ have various options available for the user. Inspect these options by looking at the functions' help pages:
+The functions contained in **bmlm** have various options available for the user. Inspect these options by looking at the functions' help pages:
 
 ```{r, eval = F}
 ?mlm
