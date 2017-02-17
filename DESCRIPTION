@@ -1,7 +1,7 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 1.2.10
-Date: 2017-02-09
+Version: 1.2.10.1
+Date: 2017-02-17
 Authors@R: person("Matti", "Vuorre", email = "mv2521@columbia.edu",
                   role = c("aut", "cre"))
 Description: Easy estimation of Bayesian multilevel mediation models with Stan.
@@ -30,4 +30,4 @@ LinkingTo:
     BH (>= 1.60.0),
     Rcpp (>= 0.12.0),
     RcppEigen
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
