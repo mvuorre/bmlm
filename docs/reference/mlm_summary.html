@@ -85,8 +85,8 @@
 posterior distributions).</p>
     
 
-    <pre><span class='fu'>mlm_summary</span>(<span class='kw'>mod</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"cp"</span>, <span class='st'>"ab"</span>, <span class='st'>"c"</span>,
-  <span class='st'>"pme"</span>, <span class='st'>"covab"</span>, <span class='st'>"corrab"</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
+    <pre><span class='fu'>mlm_summary</span>(<span class='kw'>mod</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"cp"</span>, <span class='st'>"me"</span>, <span class='st'>"c"</span>,
+  <span class='st'>"pme"</span>), <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>2</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <dl class="dl-horizontal">
@@ -110,7 +110,7 @@ mediation model:
  <dt>Parameter</dt><dd>Name of parameter</dd>
  <dt>Mean</dt><dd>Mean of parameter&#39;s posterior distribution.</dd>
  <dt>Median</dt><dd>Median of parameter&#39;s posterior distribution.</dd>
- <dt>SD</dt><dd>Standard deviation of parameter&#39;s posterior distribution.</dd>
+ <dt>SE</dt><dd>Standard deviation of parameter&#39;s posterior distribution.</dd>
  <dt>ci_lwr</dt><dd>The lower limit of Credible Intervals.</dd>
  <dt>ci_upr</dt><dd>The upper limit of Credible Intervals.</dd>
  <dt>n_eff</dt><dd>Number of efficient samples.</dd>
@@ -121,7 +121,7 @@ mediation model:
 
     <p>After estimating a model (drawing samples from the joint posterior
 probability distribution) with <code>mlm()</code>, show the estimated results
-by using <code>mlm_summary(fit)</code>, where &quot;fit&quot; is an object containing
+by using <code>mlm_summary(fit)</code>, where <code>fit</code> is an object containing
 the fitted model.</p>
     <p>The function shows, for each parameter specified with <code>pars</code>,
 the posterior mean, and limits of the Credible Interval as specified
@@ -136,19 +136,23 @@ estimated parameters:</p>
     <p><dl class='dl-horizontal'>
  <dt>a</dt><dd>Regression slope of the X -&gt; M relationship.</dd>
  <dt>b</dt><dd>Regression slope of the M -&gt; Y relationship.</dd>
- <dt>cp</dt><dd>Regression slope of the X -&gt; Y relationship.
- (The direct effect.)</dd>
- <dt>ab</dt><dd>Mediated effect (<code>a * b</code>).</dd>
- <dt>c</dt><dd>Total effect of X on Y. ( \(cp + ab + \sigma_ab\) )</dd>
+ <dt>cp</dt><dd>Regression slope of the X -&gt; Y relationship. (Direct effect.)</dd>
+ <dt>me</dt><dd>Mediated effect (\(a * b + \sigma_{{a_j}{b_j}}\)).</dd>
+ <dt>c</dt><dd>Total effect of X on Y. ( \(cp + me\) )</dd>
  <dt>pme</dt><dd>Percent mediated effect.</dd>
- <dt>covab</dt><dd>Estimated covariance of the
- participant-level a_j and b_j parameters.</dd>
- <dt>corrab</dt><dd>Estimated correlation of the
- participant-level a_j and b_j parameters.</dd>
 </dl></p>
     <p>The user may specify <code>pars = NULL</code> to display all estimated parameters.
 Other options include e.g. <code>pars = &quot;tau&quot;</code> to display the varying
-effects&#39; standard deviations.</p>
+effects&#39; standard deviations. To display all the group-level parameters
+(also known as random effects) only, specify <code>pars = &quot;random&quot;</code>.
+With this argument, <code>mlm_summary()</code> prints the following parameters:</p>
+    <p><dl class='dl-horizontal'>
+ <dt>tau_a</dt><dd>Standard deviation of subject-level <code>a_j</code>s.</dd>
+ <dt>tau_b</dt><dd>Standard deviation of subject-level <code>b_j</code>s.</dd>
+ <dt>tau_cp</dt><dd>Standard deviation of subject-level <code>c\&#39;_j</code>s.</dd>
+ <dt>covab</dt><dd>Estimated covariance of <code>a_j</code> and <code>b_j</code>s.</dd>
+ <dt>corrab</dt><dd>Estimated correlation of <code>a_j</code> and <code>b_j</code>s.</dd>
+</dl></p>
     <p>To learn more about the additional parameters, refer to the Stan code
 (<code>cat(get_stancode(fit))</code>).</p>
     

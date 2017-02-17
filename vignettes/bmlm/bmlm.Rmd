@@ -30,7 +30,7 @@ install.packages("bmlm")
 
 ## Development version.
 
-The latest development version of **bmlm** is available on [GitHub](https://github.com/mvuorre/bmlm). If you don't know what a development version is, don't use one. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install **bmlm** using devtools:
+The latest development version of **bmlm** is available on [GitHub](https://github.com/mvuorre/bmlm). The development version sometimes has features that have not made to the package on CRAN. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install **bmlm** using devtools:
 
 ```{r, eval = F}
 install.packages("devtools")
@@ -192,17 +192,6 @@ head(mlm_summary(fit, pars = "u_c"))
 mlm_pars_plot(fit, pars = "u_cp", type = "coef", level = .8)
 ```
 
-Path diagrams can also be plotted for specific individuals:
-
-```{r indiv-path-plots, echo = -6}
-par(mfrow = c(2, 2))
-mlm_path_plot(fit, id = 1)
-mlm_path_plot(fit, id = 25)
-mlm_path_plot(fit, id = 50)
-mlm_path_plot(fit, id = 75)
-par(mfrow = c(1, 1))
-```
-
 ## Avoid copy-pasting
 
 Copy-pasting results from the R console to manuscripts and reports is error prone. Users may export summary tables automatically to a Word document by using `tab2doc()`. Note that this function requires the [__ReporteRs__ package](https://cran.r-project.org/web/packages/ReporteRs/index.html) [@gohel_reporters:_2016].
@@ -214,7 +203,7 @@ file.remove("Table.docx")
 
 This function saves a word document with a table of the model's results. Users may further edit the table's aesthetics manually in Word.
 
- <img src="table.png" width="800" alt="Summary table exported to Word using tab2doc()"> 
+<img src="table.png" width="800" alt="Summary table exported to Word using tab2doc()"> 
 
 # Further information
 
