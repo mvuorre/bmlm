@@ -5,7 +5,7 @@ bmlm: An R package for Bayesian MultiLevel Mediation models
 
 **bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
-For more details, visit the [package's website](https://mvuorre.github.io/bmlm/).
+For more details, visit the [package's website](https://mvuorre.github.io/bmlm/). A longer tutorial example is provided at <https://mvuorre.github.io/bmlm/articles/bmlm/bmlm.html>.
 
 Install
 =======
@@ -16,8 +16,10 @@ To install the latest stable version of bmlm from CRAN, run
 install.packages("bmlm")
 ```
 
-Development version
+Install from GitHub
 -------------------
+
+Sometimes the stable version on CRAN is not the latest version of bmlm. bmlm is developed on GitHub, and users may obtain the latest (development) version from GitHub directly.
 
 The latest development version of bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
 
@@ -25,11 +27,16 @@ The latest development version of bmlm requires [devtools](https://cran.r-projec
 install.packages("devtools")
 ```
 
-Then proceed to install bmlm:
+Then proceed to install bmlm from GitHub:
 
 ``` r
 devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
+
+Requirements
+------------
+
+Please ensure you have the latest version of R installed. Windows users may need to install RTools (more information on the [RStan website](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows)), OS X users may need to install XCode ([more information](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux)).
 
 Example
 -------
@@ -64,7 +71,7 @@ citation("bmlm")
 #> To cite package bmlm in publications, please use:
 #> 
 #>   Vuorre, M., (2016). bmlm: Bayesian Multilevel Mediation. R
-#>   package version 1.2.1. https://cran.r-project.org/package=bmlm
+#>   package version 1.2.10. https://cran.r-project.org/package=bmlm
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 

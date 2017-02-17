@@ -100,11 +100,12 @@
       <dt>y</dt>
       <dd>Column of Y values in <code>data</code>.</dd>
       <dt>priors</dt>
-      <dd>A list of named values to be used as the prior scale and shape
+      <dd>A list of named values to be used as the prior scale
 parameters. See details.</dd>
       <dt>binary_y</dt>
       <dd>Set to TRUE if y is binary and should be modelled
-with logistic regression. Defaults to FALSE (y treated as continuous.)</dd>
+with logistic regression. Defaults to FALSE (y treated as continuous.)
+This feature is experimental.</dd>
       <dt>...</dt>
       <dd>Other optional parameters passed to <code>rstan::stan()</code>.</dd>
     </dl>
@@ -118,8 +119,10 @@ with logistic regression. Defaults to FALSE (y treated as continuous.)</dd>
     <p>Draw samples from the joint posterior distribution of a
 multilevel mediation model using Stan.</p>
     <p><h3>Priors</h3></p>
-    <p>Users may pass a list of named values for the <code>priors</code> argument. This
-list may specify some or all of the following parameters:</p>
+    <p>Users may pass a list of named values for the <code>priors</code> argument.
+The values will be used to define the scale parameter of the
+respective prior distributions.
+This list may specify some or all of the following parameters:</p>
     <p><dl class='dl-horizontal'>
  <dt>dy, dm</dt><dd>Regression intercepts (for Y and M as outcomes, respectively.)</dd>
  <dt>a, b, cp</dt><dd>Regression slopes.</dd>

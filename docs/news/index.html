@@ -82,6 +82,27 @@
     </div>
 
     <div class="contents">
+    <div id="bmlm-1-2-10" class="section level1">
+<h1 class="hasAnchor">
+<a href="#bmlm-1-2-10" class="anchor"> </a>bmlm 1.2.10</h1>
+<ul>
+<li>Default priors are now $Normal(0, 1000)$ for regression coefficients, and $Cauchy(0, 50)$ for group-level SDs</li>
+<li>
+<code><a href="../reference/mlm_summary.html">mlm_summary()</a></code> now gives only population level parameters by default, and group-level parameters when <code>pars = "random"</code>
+</li>
+<li>Renamed the mediated effect parameter to <em>me</em> to distinguish it from the product of <em>a</em> and <em>b</em> (similarly for group-level <em>u_me</em>)</li>
+<li>
+<code><a href="../reference/mlm_path_plot.html">mlm_path_plot()</a></code> now draws a template if no model is entered (i.e. <code>template</code> argument is deprecated)</li>
+<li>
+<code><a href="../reference/mlm_path_plot.html">mlm_path_plot()</a></code> now by default also shows SDs of group-level effects. This behavior can be turned off by specifying <code>random = FALSE</code>
+</li>
+<li>The fitted model object doesn’t contain the whole covariance matrix anymore, but now contains the group-level intercepts</li>
+<li>New example data set included in package: <code>MEC2010</code>
+</li>
+<li>Posterior standard deviation is now referred to as SE in <code><a href="../reference/mlm_summary.html">mlm_summary()</a></code>
+</li>
+</ul>
+</div>
     <div id="bmlm-1-2-9" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bmlm-1-2-9" class="anchor"> </a>bmlm 1.2.9</h1>
@@ -131,6 +152,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#bmlm-1-2-10">1.2.10</a></li>
         <li><a href="#bmlm-1-2-9">1.2.9</a></li>
         <li><a href="#bmlm-1-2-1">1.2.1</a></li>
         <li><a href="#bmlm-1-2-0">1.2.0</a></li>
