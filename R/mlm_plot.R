@@ -62,11 +62,12 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
             if (id > mod@sim$dims_oi$u_a) {
                 stop("ID index out of bounds.", call. = FALSE)
             }
+            random = FALSE
             sfit <- mlm_summary(
                 mod,
-                pars = paste0("u_", params, "[", id, "]"),
+                pars = paste0("u_", params[1:6], "[", id, "]"),
                 level = level)
-            sfit$Parameter <- params
+            sfit$Parameter <- params[1:6]
         } else {  # Give average model
             sfit <- mlm_summary(mod,
                                 pars = params,
@@ -82,10 +83,12 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         me <- sfit[sfit$Parameter == "me", c(2:5)]
         c <- sfit[sfit$Parameter == "c", c(2:5)]
         pme <- sfit[sfit$Parameter == "pme", c(2:5)]
-        tau_a <- sfit[sfit$Parameter == "tau_a", c(2:5)]
-        tau_b <- sfit[sfit$Parameter == "tau_b", c(2:5)]
-        tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:5)]
-        covab <- sfit[sfit$Parameter == "covab", c(2:5)]
+        if (is.null(id)) {
+            tau_a <- sfit[sfit$Parameter == "tau_a", c(2:5)]
+            tau_b <- sfit[sfit$Parameter == "tau_b", c(2:5)]
+            tau_cp <- sfit[sfit$Parameter == "tau_cp", c(2:5)]
+            covab <- sfit[sfit$Parameter == "covab", c(2:5)]
+        }
 
         edgelabels <- c(
             paste0("\na = ", a[1], "\n [", a[3], ", ", a[4], "] \n"),
@@ -146,9 +149,12 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
         graphics::text(
             -1.2, 0.9,
             paste0("%me = ", pme[1], " [", pme[3], ", ", pme[4], "]"), pos=4)
-        graphics::text(
-            -1.2, 0.75,
-            paste0("cov(a,b) = ", covab[1], " [", covab[3], ", ", covab[4], "]"), pos=4)
+        if (is.null(id)){
+            graphics::text(
+                -1.2, 0.75,
+                paste0("cov(a,b) = ", covab[1], " [",
+                       covab[3], ", ", covab[4], "]"), pos=4)
+        }
     }
 }
 
