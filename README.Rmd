@@ -1,4 +1,5 @@
 ---
+title: "bmlm: An R package for Bayesian MultiLevel Mediation models"
 output: github_document
 ---
 
@@ -12,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# bmlm: An R package for Bayesian MultiLevel Mediation models
+[![download-badge](http://cranlogs.r-pkg.org/badges/bmlm)](http://cran.rstudio.com/web/packages/bmlm/index.html)
 
 **bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
