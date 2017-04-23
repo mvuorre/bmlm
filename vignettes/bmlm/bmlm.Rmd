@@ -143,7 +143,7 @@ mlm_path_plot(fit, level = .95, text = T,
 
 This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. However, the SD parameters indicate considerable heterogeneity in the effects.
 
-We called the function with the argument `text = T`, showing additional transformed parameters in the upper left corner: `ab` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. To disable showing the additional parameters, call the function with `text = F`.
+We called the function with the argument `text = T`, showing additional transformed parameters in the upper left corner: `me` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. `cov(a, b)` is the covariance of the varying `a` and `b` parameters. To disable showing the additional parameters, call the function with `text = F`.
 
 For a more detailed investigation of the model's parameters, **bmlm** offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. With coefficient plots, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 

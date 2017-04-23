@@ -3,7 +3,7 @@ citHeader("To cite package bmlm in publications, please use:")
 citEntry(entry = "Manual",
   title        = "bmlm: Bayesian Multilevel Mediation",
   author       = as.person("Matti Vuorre"),
-  year         = "2016",
+  year         = "2017",
   url          = "https://cran.r-project.org/package=bmlm",
 
   textVersion  =
