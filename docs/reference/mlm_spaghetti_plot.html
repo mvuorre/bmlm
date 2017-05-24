@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot estimated parameters of multilevel mediation model — mlm_pars_plot • bmlm</title>
+<title>Plot fitted values of M and Y from multilevel mediation model — mlm_spaghetti_plot • bmlm</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -79,61 +79,77 @@
       <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot estimated parameters of multilevel mediation model</h1>
+    <h1>Plot fitted values of M and Y from multilevel mediation model</h1>
     </div>
 
     
-    <p>Plot the model's estimated parameters as histograms or a coefficient plot.</p>
+    <p>Plot population-level fitted values and X<!-- % CI, and subject level fitted -->
+values, for M and Y.</p>
     
 
-    <pre class="usage"><span class='fu'>mlm_pars_plot</span>(<span class='kw'>mod</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"hist"</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>p_shape</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>p_size</span> <span class='kw'>=</span> <span class='fl'>1.2</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>pars</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"cp"</span>,
-  <span class='st'>"covab"</span>, <span class='st'>"me"</span>, <span class='st'>"c"</span>, <span class='st'>"pme"</span>))</pre>
+    <pre class="usage"><span class='fu'>mlm_spaghetti_plot</span>(<span class='kw'>mod</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='st'>"m"</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>binary_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>random</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>mod</th>
-      <td><p>A Stanfit model estimated with <code>mlm()</code>.</p></td>
+      <td><p>A multilevel mediation model estimated with <code>mlm()</code>.</p></td>
     </tr>
     <tr>
-      <th>type</th>
-      <td><p>Type of the plot, <code>hist</code> or <code>coefplot</code>.</p></td>
+      <th>d</th>
+      <td><p>A <code>data.frame</code> or a <code>data_frame</code> used in fitting model.</p></td>
     </tr>
     <tr>
-      <th>color</th>
-      <td><p>Color (and fill) for plots.</p></td>
+      <th>id</th>
+      <td><p>Name of id variable (identifying subjects) in data (<code>d</code>).</p></td>
     </tr>
     <tr>
-      <th>p_shape</th>
-      <td><p>Shape of points for coefplot.</p></td>
+      <th>x</th>
+      <td><p>Name of X variable in <code>data</code>.</p></td>
     </tr>
     <tr>
-      <th>p_size</th>
-      <td><p>Size of points for coefplot.</p></td>
+      <th>m</th>
+      <td><p>Name of M variable in <code>data</code>.</p></td>
+    </tr>
+    <tr>
+      <th>y</th>
+      <td><p>Name of Y variable in <code>data</code>.</p></td>
     </tr>
     <tr>
       <th>level</th>
       <td><p>X level for Credible Intervals. (Defaults to .95.)</p></td>
     </tr>
     <tr>
-      <th>nrow</th>
-      <td><p>Number of rows for multiple histograms.</p></td>
+      <th>n</th>
+      <td><p>Number of points along X to evaluate fitted values on.
+See details.</p></td>
     </tr>
     <tr>
-      <th>pars</th>
-      <td><p>Which parameters to plot.</p></td>
+      <th>binary_y</th>
+      <td><p>Set to TRUE if the outcome variable (Y) is 0/1.</p></td>
+    </tr>
+    <tr>
+      <th>fixed</th>
+      <td><p>Should the population-level ("fixed") fitted values be shown?</p></td>
+    </tr>
+    <tr>
+      <th>random</th>
+      <td><p>Should the subject-level ("random") fitted values be shown?</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A ggplot2 object.</p>
+    <p>A list of two ggplot2 objects.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The point estimate for the coefficient plot is the posterior mean.</p>
+    <p>If <code>n = 2</code>, the fitted values will be represented as points
+with X<!-- % CIs as "error bars". If \code{n &gt; 2}, the representation will be a -->
+line with a Confidence Ribbon instead.</p>
     
 
   </div>
