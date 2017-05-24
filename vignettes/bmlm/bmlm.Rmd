@@ -195,17 +195,20 @@ ps <- mlm_spaghetti_plot(mod = fit, d = BLch9,
 ps[[1]]
 ```
 
-Both plots inside the list `ps` can be arranged side by side using the **gridExtra** package:
+Both plots inside the list `ps` can be arranged side by side using the **gridExtra** package, and can be modified with the usual **ggplot2** functions:
 
-```{r}
+```{r, fig.width=8}
+library(ggplot2)
 library(gridExtra)
-grid.arrange(ps[[1]], ps[[2]], nrow=1)
+grid.arrange(
+    ps[[1]] + labs(title="Path a (X -> M)"), 
+    ps[[2]] + labs(title="Path b (M -> Y)"), 
+    nrow=1)
 ```
 
-These figures can be modified with the usual **ggplot2** functions:
+Another example:
 
 ```{r}
-library(ggplot2)
 ps[[2]] + 
     labs(x="Fitted work dissatisfaction",
          y="Fitted relationship dissatisfaction") +

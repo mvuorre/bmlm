@@ -454,13 +454,16 @@ Varying effects standard deviations (tau) and correlations (Omega).
 <p><code>ps</code> now contains a list of two plot objects. The first plot contains the fitted values of the X -&gt; M regression (path a). By default, both the population- and subject-level fitted values are included in the plot (see <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code> for how to modify this behavior), the former is shown as a thicker line with a 95% (this percentage can be modified: <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code>) Credibility Ribbon around it.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps[[<span class="dv">1</span>]]</code></pre></div>
 <p><img src="bmlm_files/figure-html/unnamed-chunk-18-1.png" width="672"></p>
-<p>Both plots inside the list <code>ps</code> can be arranged side by side using the <strong>gridExtra</strong> package:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(gridExtra)
-<span class="kw">grid.arrange</span>(ps[[<span class="dv">1</span>]], ps[[<span class="dv">2</span>]], <span class="dt">nrow=</span><span class="dv">1</span>)</code></pre></div>
-<p><img src="bmlm_files/figure-html/unnamed-chunk-19-1.png" width="672"></p>
-<p>These figures can be modified with the usual <strong>ggplot2</strong> functions:</p>
+<p>Both plots inside the list <code>ps</code> can be arranged side by side using the <strong>gridExtra</strong> package, and can be modified with the usual <strong>ggplot2</strong> functions:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
-ps[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span>
+<span class="kw">library</span>(gridExtra)
+<span class="kw">grid.arrange</span>(
+    ps[[<span class="dv">1</span>]] <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">"Path a (X -&gt; M)"</span>), 
+    ps[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">"Path b (M -&gt; Y)"</span>), 
+    <span class="dt">nrow=</span><span class="dv">1</span>)</code></pre></div>
+<p><img src="bmlm_files/figure-html/unnamed-chunk-19-1.png" width="768"></p>
+<p>Another example:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ps[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span>
 <span class="st">    </span><span class="kw">labs</span>(<span class="dt">x=</span><span class="st">"Fitted work dissatisfaction"</span>,
          <span class="dt">y=</span><span class="st">"Fitted relationship dissatisfaction"</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_bw</span>()</code></pre></div>
