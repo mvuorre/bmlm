@@ -178,6 +178,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #' @details The point estimate for the coefficient plot is the posterior mean.
 #'
 #' @import ggplot2
+#' @importFrom stats as.formula model.matrix quantile
 #'
 #' @export
 mlm_pars_plot <- function(mod = NULL,
@@ -288,4 +289,218 @@ mlm_pars_plot <- function(mod = NULL,
         }
     }
     return(p1)
+}
+
+#' Plot fitted values of M and Y from multilevel mediation model
+#'
+#' Plot population-level fitted values and X% CI, and subject level fitted
+#' values, for M and Y.
+#'
+#' @param mod A multilevel mediation model estimated with \code{mlm()}.
+#' @param d A \code{data.frame} or a \code{data_frame} used in fitting model.
+#' @param id Name of id variable (identifying subjects) in data (\code{d}).
+#' @param x Name of X variable in \code{data}.
+#' @param m Name of M variable in \code{data}.
+#' @param y Name of Y variable in \code{data}.
+#' @param level X level for Credible Intervals. (Defaults to .95.)
+#' @param n Number of points along X to evaluate fitted values on.
+#' See details.
+#' @param binary_y Set to TRUE if the outcome variable (Y) is 0/1.
+#' @param fixed Should the population-level ("fixed") fitted values be shown?
+#' @param random Should the subject-level ("random") fitted values be shown?
+#'
+#' @return A list of two ggplot2 objects.
+#'
+#' @author Matti Vuorre \email{mv2521@columbia.edu}
+#'
+#' @details If \code{n = 2}, the fitted values will be represented as points
+#' with X% CIs as "error bars". If \code{n > 2}, the representation will be a
+#' line with a Confidence Ribbon instead.
+#'
+#' @import ggplot2
+#'
+#' @export
+mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
+                               id = "id", x="x", m="m", y="y",
+                               level = .95, n = 12, binary_y = FALSE,
+                               fixed = TRUE, random = TRUE) {
+
+    # Check for model
+    if (is.null(mod)) stop("No model object entered.")
+    # Check for data
+    if (is.null(d)) stop("No data object entered.")
+    if (class(d)[1] == "tbl_df") d <- as.data.frame(d)  # Allow tibbles
+    # At least one of fixed, random = TRUE
+    if (!any(fixed, random)) stop("fixed or random (or both) must be TRUE.")
+
+    if (fixed) {
+        # Posterior draws of pop-level params to a data frame
+        post <- as.data.frame(mod, pars = c("dy", "cp", "b", "dm", "a"))
+
+        # Calculate fitted values of M
+        M <- data.frame(x = seq(min(d[,x]), max(d[,x]), length=n))
+        M <- data.frame(matrix(ncol=0, nrow=n))
+        M[,x] <- seq(min(d[,x]), max(d[,x]), length=n)
+        MX <- model.matrix(as.formula(paste(" ~ 1 +", x)), data=M)
+        Mfit <- matrix(ncol = nrow(post), nrow = nrow(MX))
+        for (i in 1:nrow(post)) {Mfit[,i] <- MX %*% as.matrix(post)[i,c("dm", "a")]}
+        M$m_fitted_lower <- apply(Mfit, 1, quantile, prob = .5 - level/2)
+        M$m_fitted_mean <- apply(Mfit, 1, mean)
+        M$m_fitted_upper <- apply(Mfit, 1, quantile, prob = .5 + level/2)
+
+        # Calculate fitted values of Y based on fitted values of M
+        Y <- data.frame(m = seq(min(M$m_fitted_mean),
+                                max(M$m_fitted_mean),
+                                length = n))
+        names(Y) <- m
+        YX <- model.matrix(as.formula(paste(" ~ 1 +", m)), data=Y)
+        Yfit <- matrix(ncol = nrow(post), nrow = nrow(YX))
+        if (binary_y) {
+            for (i in 1:nrow(post)) {Yfit[,i] <-
+                1 / (1 + exp(-(YX %*% as.matrix(post)[i,c("dy", "b")])))}
+        } else {
+            for (i in 1:nrow(post)) {Yfit[,i] <- YX %*% as.matrix(post)[i,c("dy", "b")]}
+        }
+        Y$y_fitted_lower <- apply(Yfit, 1, quantile, prob = .5 - level/2)
+        Y$y_fitted_mean <- apply(Yfit, 1, mean)
+        Y$y_fitted_upper <- apply(Yfit, 1, quantile, prob = .5 + level/2)
+    }
+
+    if (random) {
+        # Posterior means of sub-level parameters
+        U <- data.frame(
+            u_dm = rstan::summary(mod, "u_dm", probs=NA)$summary[,1],
+            u_a = rstan::summary(mod, "u_a", probs=NA)$summary[,1],
+            u_dy = rstan::summary(mod, "u_dy", probs=NA)$summary[,1],
+            u_b = rstan::summary(mod, "u_b", probs=NA)$summary[,1])
+        U$id <- 1:length(unique(d[,id]))
+
+        # Calculate fitted values of M
+        M_vary <- data.frame(matrix(ncol=2, nrow=0))
+        names(M_vary) <- c(id, x)
+        # Create even grid of fitted_m predictor per subject
+        for (s in unique(d$id)) {
+            xx <- seq(min(d[,x][d$id==s]),
+                      max(d[,x][d$id==s]),
+                      length = n)
+            tmp <- data.frame(id = s,
+                              x = xx)
+            names(tmp) <- c(id, x)
+            M_vary <- rbind(M_vary, tmp)
+        }
+        M_vary$id = as.integer(as.factor(as.character(M_vary$id)))
+
+        M_vary <- merge(M_vary, U[,c("id", "u_dm", "u_a")])
+        M_vary$m_fitted_mean <- M_vary$u_dm + M_vary$u_a*M_vary[,x]
+
+        # Calculate fitted values of Y
+        Y_vary <- data.frame(matrix(ncol=2, nrow=0))
+        names(Y_vary) <- c(id, m)
+        # Create even grid of fitted_m predictor per subject
+        for (s in unique(M_vary$id)) {
+            m_fitted_mean <- seq(min(M_vary$m_fitted_mean[M_vary$id==s]),
+                                 max(M_vary$m_fitted_mean[M_vary$id==s]),
+                                 length = n)
+            tmp <- data.frame(id = s,
+                              m = m_fitted_mean)
+            names(tmp) <- c(id, m)
+            Y_vary <- rbind(Y_vary, tmp)
+        }
+        Y_vary <- merge(Y_vary, U[,c("id", "u_dy", "u_b")])
+        Y_vary$y_fitted_mean <- Y_vary$u_dy + Y_vary$u_b*Y_vary[,m]
+        if (binary_y) {
+            Y_vary$y_fitted_mean <- 1/(1+exp(-Y_vary$y_fitted_mean))
+        }
+    }
+
+    # Create figures
+    pm <- ggplot()
+    pm <- pm + scale_y_continuous()
+    pm <- pm + scale_x_continuous()
+    if (random) {
+        if (n > 2) {
+            pm <- pm + geom_line(data=M_vary,
+                                 aes_(x=as.name(x),
+                                      y=as.name("m_fitted_mean"),
+                                      group=as.name(id)),
+                                 alpha=.25)
+        } else {
+            pm <- pm + geom_point(data=M_vary,
+                                  aes_(x=as.name(x),
+                                       y=as.name("m_fitted_mean"),
+                                       group=as.name(id)),
+                                  alpha=.25)
+        }
+    }
+    if (fixed) {
+        if (n > 2) {
+            pm <- pm + geom_ribbon(data = M,
+                                   aes_(x = as.name(x),
+                                        ymin = as.name("m_fitted_lower"),
+                                        ymax = as.name("m_fitted_upper")),
+                                   alpha=.25, col=NA)
+            pm <- pm + geom_line(data = M,
+                                 aes_(x = as.name(x),
+                                      y = as.name("m_fitted_mean")),
+                                 size=1)
+        } else {
+            pm <- pm + geom_errorbar(data = M,
+                                     aes_(x = as.name(x),
+                                          ymin = as.name("m_fitted_lower"),
+                                          ymax = as.name("m_fitted_upper")),
+                                     alpha=.8)
+            pm <- pm + geom_point(data = M,
+                                  aes_(x = as.name(x),
+                                       y = as.name("m_fitted_mean")),
+                                  size=1)
+        }
+    }
+    pm <- pm + labs(x=x, y=m)
+    pm
+
+    py <- ggplot()
+    py <- py + scale_y_continuous()
+    py <- py + scale_x_continuous()
+    if (random) {
+        if (n > 2) {
+            py <- py + geom_line(data=Y_vary,
+                                 aes_(x=as.name(m),
+                                      y=as.name("y_fitted_mean"),
+                                      group=as.name(id)),
+                                 alpha=.25)
+        } else {
+            py <- py + geom_point(data=Y_vary,
+                                  aes_(x=as.name(m),
+                                       y=as.name("y_fitted_mean"),
+                                       group=as.name(id)),
+                                  alpha=.25)
+        }
+    }
+    if (fixed) {
+        if (n > 2) {
+            py <- py + geom_ribbon(data = Y,
+                                   aes_(x = as.name(m),
+                                        ymin = as.name("y_fitted_lower"),
+                                        ymax = as.name("y_fitted_upper")),
+                                   alpha=.25, col=NA)
+            py <- py + geom_line(data = Y,
+                                 aes_(x = as.name(m),
+                                      y = as.name("y_fitted_mean")),
+                                 size=1)
+        } else {
+            py <- py + geom_errorbar(data = Y,
+                                   aes_(x = as.name(m),
+                                        ymin = as.name("y_fitted_lower"),
+                                        ymax = as.name("y_fitted_upper")),
+                                   alpha=.8)
+            py <- py + geom_point(data = Y,
+                                  aes_(x = as.name(m),
+                                       y = as.name("y_fitted_mean")),
+                                  size=1)
+        }
+    }
+    py <- py + labs(x=m, y=y)
+    py
+
+    return(list(pm, py))
 }

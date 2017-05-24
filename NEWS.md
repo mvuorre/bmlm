@@ -1,3 +1,7 @@
+# bmlm 1.3.0
+
+* New function `mlm_spaghetti_plot()` for visualizing model-fitted values for paths a (X->M regression) and b (M->Y regression)
+
 # bmlm 1.2.10
 
 * Default priors are now $Normal(0, 1000)$ for regression coefficients, and $Cauchy(0, 50)$ for group-level SDs
