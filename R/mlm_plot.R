@@ -308,6 +308,8 @@ mlm_pars_plot <- function(mod = NULL,
 #' @param binary_y Set to TRUE if the outcome variable (Y) is 0/1.
 #' @param fixed Should the population-level ("fixed") fitted values be shown?
 #' @param random Should the subject-level ("random") fitted values be shown?
+#' @param n_samples Number of MCMC samples to use in calculating fitted values.
+#' See details.
 #'
 #' @return A list of two ggplot2 objects.
 #'
@@ -316,6 +318,12 @@ mlm_pars_plot <- function(mod = NULL,
 #' @details If \code{n = 2}, the fitted values will be represented as points
 #' with X% CIs as "error bars". If \code{n > 2}, the representation will be a
 #' line with a Confidence Ribbon instead.
+#' If a very large model is fitted with a large number of MCMC iterations,
+#' the function might take a long time to run. In these cases, users can set
+#' \code{n_samples} to a smaller value (e.g. 1000), in which case the fitted
+#' values (and the CIs) will be based on a random subset of \code{n_samples}
+#' MCMC samples. The default value is NA, meaning that all MCMC samples are
+#' used.
 #'
 #' @import ggplot2
 #'
@@ -323,7 +331,8 @@ mlm_pars_plot <- function(mod = NULL,
 mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                id = "id", x="x", m="m", y="y",
                                level = .95, n = 12, binary_y = FALSE,
-                               fixed = TRUE, random = TRUE) {
+                               fixed = TRUE, random = TRUE,
+                               n_samples = NA) {
 
     # Check for model
     if (is.null(mod)) stop("No model object entered.")
@@ -336,6 +345,14 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
     if (fixed) {
         # Posterior draws of pop-level params to a data frame
         post <- as.data.frame(mod, pars = c("dy", "cp", "b", "dm", "a"))
+
+        if (!is.na(n_samples)) {
+            msg <- paste("Fitted values calculated on a subset of",
+                         n_samples,
+                         "MCMC samples.")
+            message(msg)
+            post <- post[sample(1:nrow(post), n_samples),]
+        }
 
         # Calculate fitted values of M
         M <- data.frame(x = seq(min(d[,x]), max(d[,x]), length=n))
@@ -373,40 +390,40 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
             u_a = rstan::summary(mod, "u_a", probs=NA)$summary[,1],
             u_dy = rstan::summary(mod, "u_dy", probs=NA)$summary[,1],
             u_b = rstan::summary(mod, "u_b", probs=NA)$summary[,1])
-        U$id <- 1:length(unique(d[,id]))
+        U[,id] <- 1:length(unique(d[,id]))
 
         # Calculate fitted values of M
         M_vary <- data.frame(matrix(ncol=2, nrow=0))
         names(M_vary) <- c(id, x)
         # Create even grid of fitted_m predictor per subject
-        for (s in unique(d$id)) {
-            xx <- seq(min(d[,x][d$id==s]),
-                      max(d[,x][d$id==s]),
+        for (s in unique(d[,id])) {
+            xx <- seq(min(d[,x][d[,id]==s]),
+                      max(d[,x][d[,id]==s]),
                       length = n)
             tmp <- data.frame(id = s,
                               x = xx)
             names(tmp) <- c(id, x)
             M_vary <- rbind(M_vary, tmp)
         }
-        M_vary$id = as.integer(as.factor(as.character(M_vary$id)))
+        M_vary[,id] = as.integer(as.factor(as.character(M_vary[,id])))
 
-        M_vary <- merge(M_vary, U[,c("id", "u_dm", "u_a")])
+        M_vary <- merge(M_vary, U[,c(id, "u_dm", "u_a")])
         M_vary$m_fitted_mean <- M_vary$u_dm + M_vary$u_a*M_vary[,x]
 
         # Calculate fitted values of Y
         Y_vary <- data.frame(matrix(ncol=2, nrow=0))
         names(Y_vary) <- c(id, m)
         # Create even grid of fitted_m predictor per subject
-        for (s in unique(M_vary$id)) {
-            m_fitted_mean <- seq(min(M_vary$m_fitted_mean[M_vary$id==s]),
-                                 max(M_vary$m_fitted_mean[M_vary$id==s]),
+        for (s in unique(M_vary[,id])) {
+            m_fitted_mean <- seq(min(M_vary$m_fitted_mean[M_vary[,id]==s]),
+                                 max(M_vary$m_fitted_mean[M_vary[,id]==s]),
                                  length = n)
             tmp <- data.frame(id = s,
                               m = m_fitted_mean)
             names(tmp) <- c(id, m)
             Y_vary <- rbind(Y_vary, tmp)
         }
-        Y_vary <- merge(Y_vary, U[,c("id", "u_dy", "u_b")])
+        Y_vary <- merge(Y_vary, U[,c(id, "u_dy", "u_b")])
         Y_vary$y_fitted_mean <- Y_vary$u_dy + Y_vary$u_b*Y_vary[,m]
         if (binary_y) {
             Y_vary$y_fitted_mean <- 1/(1+exp(-Y_vary$y_fitted_mean))

@@ -6,7 +6,7 @@
 \usage{
 mlm_spaghetti_plot(mod = NULL, d = NULL, id = "id", x = "x", m = "m",
   y = "y", level = 0.95, n = 12, binary_y = FALSE, fixed = TRUE,
-  random = TRUE)
+  random = TRUE, n_samples = NA)
 }
 \arguments{
 \item{mod}{A multilevel mediation model estimated with \code{mlm()}.}
@@ -31,6 +31,9 @@ See details.}
 \item{fixed}{Should the population-level ("fixed") fitted values be shown?}
 
 \item{random}{Should the subject-level ("random") fitted values be shown?}
+
+\item{n_samples}{Number of MCMC samples to use in calculating fitted values.
+See details.}
 }
 \value{
 A list of two ggplot2 objects.
@@ -43,6 +46,12 @@ values, for M and Y.
 If \code{n = 2}, the fitted values will be represented as points
 with X% CIs as "error bars". If \code{n > 2}, the representation will be a
 line with a Confidence Ribbon instead.
+If a very large model is fitted with a large number of MCMC iterations,
+the function might take a long time to run. In these cases, users can set
+\code{n_samples} to a smaller value (e.g. 1000), in which case the fitted
+values (and the CIs) will be based on a random subset of \code{n_samples}
+MCMC samples. The default value is NA, meaning that all MCMC samples are
+used.
 }
 \author{
 Matti Vuorre \email{mv2521@columbia.edu}
