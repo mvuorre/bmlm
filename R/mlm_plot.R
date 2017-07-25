@@ -306,6 +306,8 @@ mlm_pars_plot <- function(mod = NULL,
 #' @param n Number of points along X to evaluate fitted values on.
 #' See details.
 #' @param binary_y Set to TRUE if the outcome variable (Y) is 0/1.
+#' @param mx Should the X axis of the M-Y figure be "fitted" values,
+#' or "data" values. Defaults to "fitted".
 #' @param fixed Should the population-level ("fixed") fitted values be shown?
 #' @param random Should the subject-level ("random") fitted values be shown?
 #' @param n_samples Number of MCMC samples to use in calculating fitted values.
@@ -331,6 +333,7 @@ mlm_pars_plot <- function(mod = NULL,
 mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                id = "id", x="x", m="m", y="y",
                                level = .95, n = 12, binary_y = FALSE,
+                               mx = "fitted",
                                fixed = TRUE, random = TRUE,
                                n_samples = NA) {
 
@@ -366,9 +369,15 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
         M$m_fitted_upper <- apply(Mfit, 1, quantile, prob = .5 + level/2)
 
         # Calculate fitted values of Y based on fitted values of M
-        Y <- data.frame(m = seq(min(M$m_fitted_mean),
-                                max(M$m_fitted_mean),
-                                length = n))
+        if (mx == "fitted") {
+            Y <- data.frame(m = seq(min(M$m_fitted_mean),
+                                    max(M$m_fitted_mean),
+                                    length = n))
+        } else {
+            Y <- data.frame(m = seq(min(d[,m]),
+                                    max(d[,m]),
+                                    length = n))
+        }
         names(Y) <- m
         YX <- model.matrix(as.formula(paste(" ~ 1 +", m)), data=Y)
         Yfit <- matrix(ncol = nrow(post), nrow = nrow(YX))
@@ -415,9 +424,15 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
         names(Y_vary) <- c(id, m)
         # Create even grid of fitted_m predictor per subject
         for (s in unique(M_vary[,id])) {
-            m_fitted_mean <- seq(min(M_vary$m_fitted_mean[M_vary[,id]==s]),
-                                 max(M_vary$m_fitted_mean[M_vary[,id]==s]),
-                                 length = n)
+            if (mx == "fitted") {
+                m_fitted_mean <- seq(min(M_vary$m_fitted_mean[M_vary[,id]==s]),
+                                     max(M_vary$m_fitted_mean[M_vary[,id]==s]),
+                                     length = n)
+            } else {
+                m_fitted_mean <- seq(min(d[,m][d[,id]==s]),
+                                     max(d[,m][d[,id]==s]),
+                                     length = n)
+            }
             tmp <- data.frame(id = s,
                               m = m_fitted_mean)
             names(tmp) <- c(id, m)
@@ -506,10 +521,10 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                  size=1)
         } else {
             py <- py + geom_errorbar(data = Y,
-                                   aes_(x = as.name(m),
-                                        ymin = as.name("y_fitted_lower"),
-                                        ymax = as.name("y_fitted_upper")),
-                                   alpha=.8)
+                                     aes_(x = as.name(m),
+                                          ymin = as.name("y_fitted_lower"),
+                                          ymax = as.name("y_fitted_upper")),
+                                     alpha=.8)
             py <- py + geom_point(data = Y,
                                   aes_(x = as.name(m),
                                        y = as.name("y_fitted_mean")),
