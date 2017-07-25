@@ -2,7 +2,7 @@ bmlm: An R package for Bayesian MultiLevel Mediation models
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![download-badge](http://cranlogs.r-pkg.org/badges/bmlm)](http://cran.rstudio.com/web/packages/bmlm/index.html)
+[![CRAN version](http://www.r-pkg.org/badges/version/bmlm)](http://www.r-pkg.org/pkg/bmlm) [![download-badge](http://cranlogs.r-pkg.org/badges/bmlm)](http://cran.rstudio.com/web/packages/bmlm/index.html)
 
 **bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
@@ -60,6 +60,29 @@ Information
 ===========
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
+
+Package downloads
+-----------------
+
+    #> Loading tidyverse: ggplot2
+    #> Loading tidyverse: tibble
+    #> Loading tidyverse: tidyr
+    #> Loading tidyverse: readr
+    #> Loading tidyverse: purrr
+    #> Loading tidyverse: dplyr
+    #> Conflicts with tidy packages ----------------------------------------------
+    #> filter(): dplyr, stats
+    #> lag():    dplyr, stats
+    #> 
+    #> Attaching package: 'scales'
+    #> The following object is masked from 'package:purrr':
+    #> 
+    #>     discard
+    #> The following object is masked from 'package:readr':
+    #> 
+    #>     col_factor
+
+![](README-unnamed-chunk-2-1.png)
 
 Citation
 ========
