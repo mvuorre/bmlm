@@ -5,8 +5,8 @@
 \title{Plot fitted values of M and Y from multilevel mediation model}
 \usage{
 mlm_spaghetti_plot(mod = NULL, d = NULL, id = "id", x = "x", m = "m",
-  y = "y", level = 0.95, n = 12, binary_y = FALSE, fixed = TRUE,
-  random = TRUE, n_samples = NA)
+  y = "y", level = 0.95, n = 12, binary_y = FALSE, mx = "fitted",
+  fixed = TRUE, random = TRUE, n_samples = NA)
 }
 \arguments{
 \item{mod}{A multilevel mediation model estimated with \code{mlm()}.}
@@ -27,6 +27,9 @@ mlm_spaghetti_plot(mod = NULL, d = NULL, id = "id", x = "x", m = "m",
 See details.}
 
 \item{binary_y}{Set to TRUE if the outcome variable (Y) is 0/1.}
+
+\item{mx}{Should the X axis of the M-Y figure be "fitted" values,
+or "data" values. Defaults to "fitted".}
 
 \item{fixed}{Should the population-level ("fixed") fitted values be shown?}
 
