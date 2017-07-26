@@ -70,7 +70,7 @@ Please contact the author of the package for questions and suggestions. I recomm
 
 ## Package downloads
 
-```{r, echo = F}
+```{r, echo = F, message = F}
 library(tidyverse)
 library(cranlogs)
 library(scales)
