@@ -1,0 +1,67 @@
+---
+title: "A Note on bmlm's Spaghetti Plots"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, message = F}
+library(tidyverse)
+library(bmlm)
+```
+
+Consider a mediation model in which Y is binary:
+
+```{r, echo=F}
+BLch9_biny <- group_by(BLch9, id) %>% 
+    select(id, x, m, y) %>% 
+    mutate(biny = as.integer(y > quantile(y, .5))) %>% 
+    ungroup()
+head(BLch9_biny)
+```
+
+```{r, echo=T, results="hide", message=F, cache = T}
+fit_biny <- mlm(d = BLch9_biny, 
+                id = "id",
+                y = "biny", binary_y = TRUE,
+                cores=4, iter = 500)
+```
+
+```{r}
+mlm_summary(fit_biny) %>% 
+    knitr::kable()
+```
+
+The `mlm_spaghetti_plot()` function produces figures in which the horizontal axis values of the M-Y graph (right panel, below) correspond to the vertical axis values of the X-M graph (left panel, below):
+
+```{r}
+pasta <- mlm_spaghetti_plot(fit_biny, BLch9_biny, 
+                            id="id", x="x", m="m", y="biny",
+                            binary_y=T)
+gridExtra::grid.arrange(
+    pasta[[1]], 
+    pasta[[2]] + coord_cartesian(ylim = 0:1), 
+    nrow = 1)
+```
+
+It is important to note that the fitted values (lines) on the right panel of this figure are therefore based on the variation of the fitted values in the left panel, and not on the observed values of `m`. This behavior usually makes sense and is the default option for `mlm_spaghetti_plot()`. However, sometimes users may want to plot the M-Y relationship's (b path's) fitted values with the observed data values of M on the horizontal axis instead.
+
+To do this, set `mx = "data"`:
+
+```{r}
+pasta2 <- mlm_spaghetti_plot(fit_biny, BLch9_biny, 
+                            id="id", x="x", m="m", y="biny",
+                            binary_y=T, mx = "data")
+gridExtra::grid.arrange(
+    pasta2[[1]], 
+    pasta2[[2]] + coord_cartesian(ylim = 0:1),
+    nrow = 1)
+```
+
+As result, the horizontal axis variability for the b path figure (right panel) is much greater. However, the two panels are no longer directly comparable (vertical axis in left panel doesn't match horizontal axis of right panel) or interpretable as the model's implied mediated effect path.
+
+Thanks for reading. Please notify the package's developer on [GitHub](https://github.com/mvuorre/bmlm) if you have further questions or comments. 

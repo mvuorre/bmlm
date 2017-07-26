@@ -31,3 +31,4 @@ LinkingTo:
     Rcpp (>= 0.12.0),
     RcppEigen
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
