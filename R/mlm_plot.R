@@ -342,6 +342,8 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
     # Check for data
     if (is.null(d)) stop("No data object entered.")
     if (class(d)[1] == "tbl_df") d <- as.data.frame(d)  # Allow tibbles
+    # Make IDs sequential
+    d$id = as.integer(as.factor(as.character(d[, id])))
     # At least one of fixed, random = TRUE
     if (!any(fixed, random)) stop("fixed or random (or both) must be TRUE.")
 
@@ -414,7 +416,7 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
             names(tmp) <- c(id, x)
             M_vary <- rbind(M_vary, tmp)
         }
-        M_vary[,id] = as.integer(as.factor(as.character(M_vary[,id])))
+        M_vary[,id] = as.factor(as.character(M_vary[,id]))
 
         M_vary <- merge(M_vary, U[,c(id, "u_dm", "u_a")])
         M_vary$m_fitted_mean <- M_vary$u_dm + M_vary$u_a*M_vary[,x]
