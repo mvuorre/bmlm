@@ -8,4 +8,4 @@
 ^\cleanup*
 ^.*\.o$
 ^vignettes/bmlm/*
-^TODO*
+^vignettes/Spaghetti-Plots/*

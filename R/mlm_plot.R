@@ -310,6 +310,10 @@ mlm_pars_plot <- function(mod = NULL,
 #' or "data" values. Defaults to "fitted".
 #' @param fixed Should the population-level ("fixed") fitted values be shown?
 #' @param random Should the subject-level ("random") fitted values be shown?
+#' @param h_jitter Horizontal jitter of points. Defaults to 0.
+#' @param v_jitter Vertical jitter of points. Defaults to 0.
+#' @param bar_width Width of the error bars. Defaults to 0.2.
+#' @param bar_size Thickness of the error bars. Defaults to 0.75.
 #' @param n_samples Number of MCMC samples to use in calculating fitted values.
 #' See details.
 #'
@@ -332,9 +336,16 @@ mlm_pars_plot <- function(mod = NULL,
 #' @export
 mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                id = "id", x="x", m="m", y="y",
-                               level = .95, n = 12, binary_y = FALSE,
+                               level = .95,
+                               n = 12,
+                               binary_y = FALSE,
                                mx = "fitted",
-                               fixed = TRUE, random = TRUE,
+                               fixed = TRUE,
+                               random = TRUE,
+                               h_jitter = 0,
+                               v_jitter = 0,
+                               bar_width = .2,
+                               bar_size = .75,
                                n_samples = NA) {
 
     # Check for model
@@ -463,7 +474,8 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                   aes_(x=as.name(x),
                                        y=as.name("m_fitted_mean"),
                                        group=as.name(id)),
-                                  alpha=.25)
+                                  alpha=.25,
+                                  position = position_jitter(h_jitter, v_jitter))
         }
     }
     if (fixed) {
@@ -482,7 +494,9 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                      aes_(x = as.name(x),
                                           ymin = as.name("m_fitted_lower"),
                                           ymax = as.name("m_fitted_upper")),
-                                     alpha=.8)
+                                     alpha=.8,
+                                     width = bar_width,
+                                     size = bar_size)
             pm <- pm + geom_point(data = M,
                                   aes_(x = as.name(x),
                                        y = as.name("m_fitted_mean")),
@@ -507,7 +521,8 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                   aes_(x=as.name(m),
                                        y=as.name("y_fitted_mean"),
                                        group=as.name(id)),
-                                  alpha=.25)
+                                  alpha=.25,
+                                  position = position_jitter(h_jitter, v_jitter))
         }
     }
     if (fixed) {
@@ -526,7 +541,9 @@ mlm_spaghetti_plot <- function(mod=NULL, d=NULL,
                                      aes_(x = as.name(m),
                                           ymin = as.name("y_fitted_lower"),
                                           ymax = as.name("y_fitted_upper")),
-                                     alpha=.8)
+                                     alpha=.8,
+                                     width = bar_width,
+                                     size = bar_size)
             py <- py + geom_point(data = Y,
                                   aes_(x = as.name(m),
                                        y = as.name("y_fitted_mean")),
