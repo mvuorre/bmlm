@@ -1,3 +1,7 @@
+# bmlm 1.3.2
+
+* Add options to `mlm_spaghetti_plot()` to allow jittering and adjusting size of the error bars.
+
 # bmlm 1.3.1
 
 * `mlm_spaghetti_plot()` now has argument `mx` which can be set to `mx = "data"` to plot the spaghetti plot of the M - Y relationship (b path) such that the X values are from data, and not fitted values from the X - M model (a path). The argument defaults to `mx = "fitted"`, such that the X axis values of the M - Y spaghetti plot are fitted values.

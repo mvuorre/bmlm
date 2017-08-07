@@ -89,7 +89,8 @@ values, for M and Y.</p>
 
     <pre class="usage"><span class='fu'>mlm_spaghetti_plot</span>(<span class='kw'>mod</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>d</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"x"</span>, <span class='kw'>m</span> <span class='kw'>=</span> <span class='st'>"m"</span>,
   <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>binary_y</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mx</span> <span class='kw'>=</span> <span class='st'>"fitted"</span>,
-  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>random</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n_samples</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
+  <span class='kw'>fixed</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>random</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>h_jitter</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>v_jitter</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>bar_width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>, <span class='kw'>bar_size</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>n_samples</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a> Arguments</h2>
     <table class="ref-arguments">
@@ -143,6 +144,22 @@ or "data" values. Defaults to "fitted".</p></td>
     <tr>
       <th>random</th>
       <td><p>Should the subject-level ("random") fitted values be shown?</p></td>
+    </tr>
+    <tr>
+      <th>h_jitter</th>
+      <td><p>Horizontal jitter of points. Defaults to 0.</p></td>
+    </tr>
+    <tr>
+      <th>v_jitter</th>
+      <td><p>Vertical jitter of points. Defaults to 0.</p></td>
+    </tr>
+    <tr>
+      <th>bar_width</th>
+      <td><p>Width of the error bars. Defaults to 0.2.</p></td>
+    </tr>
+    <tr>
+      <th>bar_size</th>
+      <td><p>Thickness of the error bars. Defaults to 0.75.</p></td>
     </tr>
     <tr>
       <th>n_samples</th>
