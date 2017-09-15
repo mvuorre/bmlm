@@ -1,3 +1,7 @@
+# bmlm 1.3.3
+
+* Change the label '%me' to 'pme' (for proportion mediated effect) in output of mlm_path_plot(..., text = TRUE).
+
 # bmlm 1.3.2
 
 * Add options to `mlm_spaghetti_plot()` to allow jittering and adjusting size of the error bars.

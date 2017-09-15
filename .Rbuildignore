@@ -9,3 +9,4 @@
 ^.*\.o$
 ^vignettes/bmlm/*
 ^vignettes/Spaghetti-Plots/*
+^vignettes/Studies-Using-bmlm/*
