@@ -1,0 +1,15 @@
+---
+title: "Studies Using bmlm"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: bibliography.bib
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+Sample of studies that have used bmlm.
+
+Prestimulus Activity in the Cingulo-Opercular Network Predicts Memory for Naturalistic Episodic Experience [@cohen_prestimulus_2017; bioRxiv].
