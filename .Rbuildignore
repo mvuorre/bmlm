@@ -7,6 +7,4 @@
 ^cran-comments\.md$
 ^\cleanup*
 ^.*\.o$
-^vignettes/bmlm/*
-^vignettes/Spaghetti-Plots/*
-^vignettes/Studies-Using-bmlm/*
+^vignettes/*
