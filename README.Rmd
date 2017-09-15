@@ -68,24 +68,6 @@ mlm_summary(fit)
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
 
-## Package downloads
-
-```{r, echo = F, message = F}
-library(tidyverse)
-library(cranlogs)
-library(scales)
-downloads <- as_tibble(cran_downloads("bmlm", from = "2016-07-20"))
-downloads %>% 
-    rename(Downloads = count, Date = date) %>% 
-    ggplot(aes(Date, Downloads)) +
-    scale_x_date(labels = date_format("%Y-%b"),
-                 date_breaks = "2 month") +
-    geom_line() +
-    labs(x="",
-         subtitle = "bmlm download counts from R Studio CRAN mirror",
-         caption = "Obtained with cranlogs (https://github.com/metacran/cranlogs)")
-```
-
 # Citation
 
 If you use this software, please cite it:

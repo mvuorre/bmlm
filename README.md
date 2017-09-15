@@ -61,11 +61,6 @@ Information
 
 Please contact the author of the package for questions and suggestions. I recommend creating a new issue on GitHub.
 
-Package downloads
------------------
-
-![](README-unnamed-chunk-2-1.png)
-
 Citation
 ========
 
