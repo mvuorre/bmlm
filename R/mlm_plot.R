@@ -148,7 +148,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
             paste0("c = ", c[1], " [", c[3], ", ", c[4], "]"), pos=4)
         graphics::text(
             -1.2, 0.9,
-            paste0("%me = ", pme[1], " [", pme[3], ", ", pme[4], "]"), pos=4)
+            paste0("pme = ", pme[1], " [", pme[3], ", ", pme[4], "]"), pos=4)
         if (is.null(id)){
             graphics::text(
                 -1.2, 0.75,
