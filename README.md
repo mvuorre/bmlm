@@ -6,10 +6,18 @@ bmlm: An R package for Bayesian MultiLevel Mediation models
 
 **bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](http://mc-stan.org/).
 
-For more details, visit the [package's website](https://mvuorre.github.io/bmlm/). A longer tutorial example is provided at <https://mvuorre.github.io/bmlm/articles/bmlm/bmlm.html>.
+The package's source code is hosted on [GitHub](https://github.com/mvuorre/bmlm/). More information can be found on the [bmlm's website](https://mvuorre.github.io/bmlm/).
 
 Install
 =======
+
+Requirements
+------------
+
+Please ensure you have the latest version of R installed. Windows users may need to install RTools (more information on the [RStan website](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows)), OS X users may need to install XCode ([more information](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux)).
+
+Install from CRAN
+-----------------
 
 To install the latest stable version of bmlm from CRAN, run
 
@@ -34,28 +42,6 @@ Then proceed to install bmlm from GitHub:
 devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
 
-Requirements
-------------
-
-Please ensure you have the latest version of R installed. Windows users may need to install RTools (more information on the [RStan website](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows)), OS X users may need to install XCode ([more information](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux)).
-
-Example
--------
-
-bmlm ships with an example data set from Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research ([Bolger & Laurenceau, 2013, chapter 9](http://www.intensivelongitudinal.com/)). To estimate the multilevel mediation model presented in that chapter, run:
-
-``` r
-library(bmlm)
-data(BLch9)
-fit <- mlm(BLch9)
-```
-
-After a while, you will have a joint posterior distribution of plausible parameter values from the model applied to this data. Inspect the model:
-
-``` r
-mlm_summary(fit)
-```
-
 Information
 ===========
 
@@ -72,7 +58,7 @@ citation("bmlm")
 #> To cite package bmlm in publications, please use:
 #> 
 #>   Vuorre, M., (2017). bmlm: Bayesian Multilevel Mediation. R
-#>   package version 1.3.0. https://cran.r-project.org/package=bmlm
+#>   package version 1.3.3. https://cran.r-project.org/package=bmlm
 #> 
 #> A BibTeX entry for LaTeX users is
 #> 
