@@ -1,15 +1,13 @@
     // Means of linear models
     vector[N] mu_y;
     vector[N] mu_m;
-    // Cholesky factor of covariance matrix
-    matrix[K, K] L_Sigma;
     // Regression parameter priors
     dy ~ normal(0, prior_dy);
     dm ~ normal(0, prior_dm);
     a ~ normal(0, prior_a);
     b ~ normal(0, prior_b);
     cp ~ normal(0, prior_cp);
-    // RE SDs and correlation matrix
+    // SDs and correlation matrix
     Tau[1] ~ cauchy(0, prior_tau_cp);   // u_cp
     Tau[2] ~ cauchy(0, prior_tau_b);    // u_b
     Tau[3] ~ cauchy(0, prior_tau_a);    // u_a
