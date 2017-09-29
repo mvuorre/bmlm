@@ -1,4 +1,3 @@
-    // Transform Cholesky factorized correlation matrix to corrmat and covmat
     matrix[K, K] Omega;         // Correlation matrix
     matrix[K, K] Sigma;         // Covariance matrix
 
