@@ -1,0 +1,49 @@
+---
+title: "Frequently Asked Questions"
+author: "Matti Vuorre"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+bibliography: bibliography.bib
+---
+
+```{r setup, include = FALSE}
+library(knitr)
+library(bmlm)
+opts_chunk$set(message = F, warning = F)
+```
+
+# Subject-specific parameters and effects
+
+## How to identify specific subjects' effects?
+
+When plotting subject specific effects using `mlm_pars_plot()` or `mlm_spaghetti_plot()`, individual subjects' effects or fitted values are represented as points or lines. Sometimes it might be of interest to identify specific subjects with lines / points in the figures.
+
+One solution to identifying specific subjects in the estimated model is to inspect the numerical values of the estimated parameters: All subject-specific effects' posterior samples are saved in the estimated model object as *u_x*, where *x* is the parameter (one of *a*, *b*, *cp* (c'), *c*, *me*, or *pme*). 
+
+For example, let's focus on the subject-specific *a* parameters. Let's identify the 6 subjects with the lowest values for this parameter. First, we'll fit a model using the included `BLch9` data set:
+
+```{r subject-effects-estimate, cache = T}
+library(bmlm)
+head(BLch9)
+fit <- mlm(BLch9, x="x", m="m", y="y", cores = 4, iter = 500)
+```
+
+Once the model has been estimated, you can find the *u_a* parameters with `mlm_summary(fit, pars = "u_a")`. However, this would return a row of information for each subject in the data. What we would like to do here is to arrange the estimated *u_a* parameters in an (ascending) order of their magnitudes (calculated from posterior means). To do that, we'll use the `arrange()` function [@wickham_dplyr:_2016] to arrange the data frame returned by `mlm_summary()`
+
+```{r subject-effects-2}
+library(dplyr)
+u_a <- mlm_summary(fit, pars = "u_a")
+head( arrange(u_a, Mean) )
+```
+
+Notice that we used the `head()` function to return the first six rows of the resulting data frame. The subject numbers are in square brackets: ID `r substr(arrange(u_a, Mean)[1,1], 5, 6)` has the lowest *u_a* parameter value. To find the individuals with the highest *u_a* values, wrap `Mean` in `desc()` (this arranges the data frame on descending values of Mean).
+
+```{r}
+head( arrange(u_a, desc(Mean)) )
+```
+
+**Important**: To use this method accurately, please ensure that the subjects' ID numbers in your data are sequential integers from 1 to however many subjects there are in your sample. The underlying Stan MCMC sampler requires sequential integer subject IDs, and if your IDs are something else (letters, non-sequential integers, etc.) `mlm()` will coerce the subject numbers to 1:N sequential integers before fitting the model.
+
+Thanks to Xiao Hu for asking this question.
+
+# References
