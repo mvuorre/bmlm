@@ -1,3 +1,7 @@
+# bmlm 1.3.5
+
+* Fix (harmless) constructor error message
+
 # bmlm 1.3.4
 
 * Minor cleaning of Stan code
