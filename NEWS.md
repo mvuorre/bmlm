@@ -1,6 +1,7 @@
 # bmlm 1.3.4
 
 * Minor cleaning of Stan code
+* Fix typos in documentation
 
 # bmlm 1.3.3
 

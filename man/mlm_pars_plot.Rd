@@ -11,7 +11,7 @@ mlm_pars_plot(mod = NULL, type = "hist", color = "black", p_shape = 15,
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}
 
-\item{type}{Type of the plot, \code{hist} or \code{coefplot}.}
+\item{type}{Type of the plot, \code{hist}, \code{coef}, or \code{violin}.}
 
 \item{color}{Color (and fill) for plots.}
 

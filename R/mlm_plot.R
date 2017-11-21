@@ -163,7 +163,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
 #' Plot the model's estimated parameters as histograms or a coefficient plot.
 #'
 #' @param mod A Stanfit model estimated with \code{mlm()}.
-#' @param type Type of the plot, \code{hist} or \code{coefplot}.
+#' @param type Type of the plot, \code{hist}, \code{coef}, or \code{violin}.
 #' @param level X level for Credible Intervals. (Defaults to .95.)
 #' @param color Color (and fill) for plots.
 #' @param p_shape Shape of points for coefplot.
