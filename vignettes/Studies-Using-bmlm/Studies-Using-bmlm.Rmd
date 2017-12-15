@@ -13,9 +13,9 @@ Prestimulus Activity in the Cingulo-Opercular Network Predicts Memory for Natura
 ## Package downloads
 
 ```{r, echo = F, message = F}
-library(tidyverse)
-library(cranlogs)
 library(scales)
+library(cranlogs)
+library(tidyverse)
 downloads <- as_tibble(cran_downloads("bmlm", from = "2016-07-20"))
 downloads %>% 
     rename(Downloads = count, Date = date) %>% 

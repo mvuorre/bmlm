@@ -29,10 +29,34 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../reference/index.html">Reference</a>
+  <a href="../../index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+  </a>
 </li>
 <li>
-  <a href="../../articles/index.html">Articles</a>
+  <a href="../../reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="../../articles/bmlm-blch9/bmlm-blch9.html">bmlm: Tutorial with Relationship Satisfaction Data</a>
+    </li>
+    <li>
+      <a href="../../articles/FAQ/FAQ.html">Frequently Asked Questions</a>
+    </li>
+    <li>
+      <a href="../../articles/Spaghetti-Plots/Spaghetti-Plots.html">A Note on bmlm's Spaghetti Plots</a>
+    </li>
+    <li>
+      <a href="../../articles/Studies-Using-bmlm/Studies-Using-bmlm.html">Studies Using bmlm</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../../news/index.html">News</a>
@@ -60,7 +84,7 @@
       <h1>Frequently Asked Questions</h1>
                         <h4 class="author">Matti Vuorre</h4>
             
-            <h4 class="date">2017-10-02</h4>
+            <h4 class="date">2017-12-15</h4>
           </div>
 
     
@@ -75,8 +99,8 @@
 <p>When plotting subject specific effects using <code><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot()</a></code> or <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code>, individual subjects’ effects or fitted values are represented as points or lines. Sometimes it might be of interest to identify specific subjects with lines / points in the figures.</p>
 <p>One solution to identifying specific subjects in the estimated model is to inspect the numerical values of the estimated parameters: All subject-specific effects’ posterior samples are saved in the estimated model object as <em>u_x</em>, where <em>x</em> is the parameter (one of <em>a</em>, <em>b</em>, <em>cp</em> (c’), <em>c</em>, <em>me</em>, or <em>pme</em>).</p>
 <p>For example, let’s focus on the subject-specific <em>a</em> parameters. Let’s identify the 6 subjects with the lowest values for this parameter. First, we’ll fit a model using the included <code>BLch9</code> data set:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(bmlm)
-<span class="kw">head</span>(BLch9)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">library</span>(bmlm)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">head</span>(BLch9)</a></code></pre></div>
 <pre><code>##    id time fwkstrs   fwkdis  freldis          x          m          y
 ## 1 101    1       3 5.590119 3.034483  0.3333333  0.9828781 -1.4420726
 ## 2 101    2       3 5.535224 4.620690  0.3333333  0.9279833  0.1441343
@@ -84,11 +108,11 @@
 ## 4 101    4       4 5.352242 6.398467  1.3333333  0.7450007  1.9219121
 ## 5 101    5       1 4.483074 2.544061 -1.6666667 -0.1241668 -1.9324941
 ## 6 101    6       2 3.339433 5.164751 -0.6666667 -1.2678081  0.6881956</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm.html">mlm</a></span>(BLch9, <span class="dt">x=</span><span class="st">"x"</span>, <span class="dt">m=</span><span class="st">"m"</span>, <span class="dt">y=</span><span class="st">"y"</span>, <span class="dt">cores =</span> <span class="dv">4</span>, <span class="dt">iter =</span> <span class="dv">500</span>)</code></pre></div>
-<p>Once the model has been estimated, you can find the <em>u_a</em> parameters with <code><a href="../../reference/mlm_summary.html">mlm_summary(fit, pars = "u_a")</a></code>. However, this would return a row of information for each subject in the data. What we would like to do here is to arrange the estimated <em>u_a</em> parameters in an (ascending) order of their magnitudes (calculated from posterior means). To do that, we’ll use the <code>arrange()</code> function <span class="citation">(Wickham and Francois 2016)</span> to arrange the data frame returned by <code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)
-u_a &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_summary.html">mlm_summary</a></span>(fit, <span class="dt">pars =</span> <span class="st">"u_a"</span>)
-<span class="kw">head</span>( <span class="kw">arrange</span>(u_a, Mean) )</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm.html">mlm</a></span>(BLch9, <span class="dt">x=</span><span class="st">"x"</span>, <span class="dt">m=</span><span class="st">"m"</span>, <span class="dt">y=</span><span class="st">"y"</span>, <span class="dt">cores =</span> <span class="dv">4</span>, <span class="dt">iter =</span> <span class="dv">500</span>)</a></code></pre></div>
+<p>Once the model has been estimated, you can find the <em>u_a</em> parameters with <code><a href="../../reference/mlm_summary.html">mlm_summary(fit, pars = "u_a")</a></code>. However, this would return a row of information for each subject in the data. What we would like to do here is to arrange the estimated <em>u_a</em> parameters in an (ascending) order of their magnitudes (calculated from posterior means). To do that, we’ll use the <code><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange()</a></code> function <span class="citation">(Wickham and Francois 2016)</span> to arrange the data frame returned by <code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">u_a &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_summary.html">mlm_summary</a></span>(fit, <span class="dt">pars =</span> <span class="st">"u_a"</span>)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">head</span>( <span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(u_a, Mean) )</a></code></pre></div>
 <pre><code>##   Parameter  Mean   SE Median  2.5% 97.5% n_eff Rhat
 ## 1   u_a[45] -0.40 0.18  -0.40 -0.75 -0.04  1000    1
 ## 2   u_a[76] -0.16 0.16  -0.16 -0.46  0.16  1000    1
@@ -96,8 +120,8 @@ u_a &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_
 ## 4   u_a[39] -0.15 0.18  -0.15 -0.50  0.23  1000    1
 ## 5   u_a[64] -0.12 0.16  -0.12 -0.44  0.19  1000    1
 ## 6   u_a[55] -0.11 0.18  -0.10 -0.45  0.23  1000    1</code></pre>
-<p>Notice that we used the <code>head()</code> function to return the first six rows of the resulting data frame. The subject numbers are in square brackets: ID 45 has the lowest <em>u_a</em> parameter value. To find the individuals with the highest <em>u_a</em> values, wrap <code>Mean</code> in <code>desc()</code> (this arranges the data frame on descending values of Mean).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">head</span>( <span class="kw">arrange</span>(u_a, <span class="kw">desc</span>(Mean)) )</code></pre></div>
+<p>Notice that we used the <code>head()</code> function to return the first six rows of the resulting data frame. The subject numbers are in square brackets: ID 45 has the lowest <em>u_a</em> parameter value. To find the individuals with the highest <em>u_a</em> values, wrap <code>Mean</code> in <code><a href="http://dplyr.tidyverse.org/reference/desc.html">desc()</a></code> (this arranges the data frame on descending values of Mean).</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">head</span>( <span class="kw"><a href="http://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span>(u_a, <span class="kw"><a href="http://dplyr.tidyverse.org/reference/desc.html">desc</a></span>(Mean)) )</a></code></pre></div>
 <pre><code>##   Parameter Mean   SE Median 2.5% 97.5% n_eff Rhat
 ## 1    u_a[9] 0.66 0.16   0.65 0.35  0.98  1000    1
 ## 2   u_a[57] 0.56 0.20   0.56 0.20  0.97  1000    1
@@ -123,7 +147,8 @@ u_a &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
         <div id="tocnav">
-      <h2>Contents</h2>
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li>
 <a href="#subject-specific-parameters-and-effects">Subject-specific parameters and effects</a><ul class="nav nav-pills nav-stacked">

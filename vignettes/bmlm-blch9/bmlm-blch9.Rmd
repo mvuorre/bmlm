@@ -2,7 +2,9 @@
 title: "bmlm: Tutorial with Relationship Satisfaction Data"
 author: "Matti Vuorre"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_document:
+    df_print: kable
 bibliography: bibliography.bib
 csl: apa.csl
 ---
@@ -26,7 +28,7 @@ install.packages("bmlm")
 
 ## Development version.
 
-The latest development version of **bmlm** is available on [GitHub](https://github.com/mvuorre/bmlm). The development version sometimes has features that have not made to the package on CRAN. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install **bmlm** using devtools:
+The latest development version of **bmlm** is available on [GitHub](https://github.com/mvuorre/bmlm). The development version sometimes has features that have not yet made it to the package on CRAN. To install R packages from GitHub, please install the `devtools` package first, as shown by the first line below. Then install **bmlm** using devtools:
 
 ```{r, eval = F}
 install.packages("devtools")
@@ -34,7 +36,7 @@ install.packages("devtools")
 devtools::install_github("mvuorre/bmlm", args = "--preclean")
 ```
 
-If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please contact me or open an issue on [GitHub](https://github.com/mvuorre/bmlm/issues).
+If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please open an issue on [GitHub](https://github.com/mvuorre/bmlm/issues).
 
 ### Note for Windows users
 
@@ -50,15 +52,8 @@ library(bmlm)
 
 **bmlm** contains an example data set from [Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research](http://www.intensivelongitudinal.com/index.html) [@bolger_intensive_2013]. We'll use this data set in this example, and first load it into the workspace from the package, and display what the data looks like:
 
-```{r, eval = F, echo = T}
-data(BLch9)
+```{r, eval = T, echo = T}
 head(BLch9)
-```
-
-```{r, eval = T, echo = F}
-# Hack to show tabulated output instead of raw print
-data(BLch9)
-kable(head(BLch9), digits = 2)
 ```
 
 ## Data preprocessing
@@ -71,8 +66,8 @@ BLch9 <- isolate(BLch9,
                  value = c("fwkstrs", "fwkdis", "freldis"))
 ```
 
-```{r, echo = F}
-knitr::kable(head(BLch9), digits = 2)
+```{r, echo = T}
+head(BLch9)
 ```
 
 The `..._cw` variables now contain isolated within-person ("subject-mean deviated") pieces of each variable. We'll use these for the mediation analysis.
@@ -87,7 +82,8 @@ fit <- mlm(d = BLch9,
            x = "fwkstrs_cw",
            m = "fwkdis_cw",
            y = "freldis_cw",
-           iter = 2000, chains = 4, cores=4)
+           iter = 2000, 
+           cores = 4)
 ```
 
 The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `BLch9`. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named `id`, `x`, `m`, and `y`:
@@ -99,7 +95,7 @@ The main arguments to `mlm()` are `d` (a `data.frame`), which here was set to `B
 
 There are various additional arguments to the above command. Most notably, the `iter = 2000` specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan's MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example. 
 
-Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 50 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
+Stan's MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 30 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).
 
 ## Summarize fitted model
 
@@ -109,13 +105,8 @@ After the samples have been obtained, **bmlm**'s helper functions can be used to
 
 A numerical summary of the "fixed" effects can be obtained by `mlm_summary(fit)`:
 
-```{r, eval = F, echo = T}
+```{r, eval = T, echo = T}
 mlm_summary(fit)
-```
-
-```{r, eval = T, echo = F}
-# Hack to show tabulated output instead of raw print
-knitr::kable(mlm_summary(fit))
 ```
 
 `mlm_summary()` returns, for each parameter, the following information:
@@ -128,7 +119,7 @@ knitr::kable(mlm_summary(fit))
 
 ### Graphical summaries
 
-**bmlm** provides a couple of graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`). By default, the plot also shows the standard deviations (SD) of the Gaussian distributions of the subject-level varying effects, and their associated CIs. You can turn off the "random" effects by calling the function with `random = FALSE`.
+**bmlm** provides functions for graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by `level`). By default, the plot also shows the standard deviations (SD) of the Gaussian distributions of the subject-level varying effects, and their associated CIs. You can turn off the "random" effects by calling the function with `random = FALSE`.
 
 ```{r, fig.width = 6, fig.height = 3.5, fig.cap="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters."}
 mlm_path_plot(fit, level = .95, text = T,
@@ -139,11 +130,11 @@ mlm_path_plot(fit, level = .95, text = T,
 
 This figure offers a quick view of the estimated model: All paths (`a, b, c'`) are positive with fairly narrow credible intervals. However, the SD parameters indicate considerable heterogeneity in the effects.
 
-We called the function with the argument `text = T`, showing additional transformed parameters in the upper left corner: `me` is the average mediated effect, `c` is the total effect, and `%me` is the percent mediated effect. `cov(a, b)` is the covariance of the varying `a` and `b` parameters. To disable showing the additional parameters, call the function with `text = F`.
+We called the function with the argument `text = T`, showing additional transformed parameters in the upper left corner: `me` is the average mediated effect, `c` is the total effect, and `pme` is the proportion mediated effect. `cov(a, b)` is the covariance of the varying `a` and `b` parameters. To disable showing the additional parameters, call the function with `text = F`.
 
 For a more detailed investigation of the model's parameters, **bmlm** offers three methods for plotting the samples from each parameter's posterior distribution. These are obtained by a call to `mlm_pars_plot(type = X)` where `X` can be either `hist` (or left blank) for histograms, `coef` for a coefficient plot with point estimates and Credible Intervals, or "violin" for a violin plot. With coefficient plots, the user may specify `level` to set the "confidence level", which is represented by the length of the lines surrounding each point estimate.
 
-```{r, fig.cap = "Figure 2. Coefficient plots.", fig.show='hold', fig.width=3, fig.height=3.5}
+```{r, fig.cap = "Figure 2. Coefficient plots.", fig.show='hold', fig.width=2.4, fig.height=3.5}
 mlm_pars_plot(fit, pars = "me")
 mlm_pars_plot(fit, type = "coef", level = .99)
 mlm_pars_plot(fit, type = "violin", color = "dodgerblue2")

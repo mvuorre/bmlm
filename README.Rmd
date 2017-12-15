@@ -13,6 +13,8 @@ knitr::opts_chunk$set(
 )
 ```
 
+# bmlm
+
 [![CRAN version](http://www.r-pkg.org/badges/version/bmlm)](http://www.r-pkg.org/pkg/bmlm)
 [![download-badge](http://cranlogs.r-pkg.org/badges/bmlm)](https://cran.r-project.org/package=bmlm)
 
