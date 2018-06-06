@@ -169,9 +169,9 @@ isolate <- function(d = NULL, by = NULL, value = NULL,
 #' @param d A \code{data.frame}.
 #' @param name Name of file to create. Defaults to "Table.docx".
 #'
-#' @details Requires the ReporteRs R package. Copy-pasting individual values
-#' is error-prone. Use \code{tab2doc()} to create a word document containing
-#' a summary table.
+#' @details Requires the ReporteRs R package, which is no longer maintained.
+#' Copy-pasting individual values is error-prone. Use \code{tab2doc()}
+#' to create a word document containing a summary table.
 #'
 #' @return Saves a word document in the current working directory.
 #'
@@ -184,6 +184,7 @@ isolate <- function(d = NULL, by = NULL, value = NULL,
 #'
 #' @export
 tab2doc <- function(d = NULL, name = NULL){
+    .Deprecated()
 
     if (!requireNamespace("ReporteRs", quietly = TRUE)) {
         stop("ReporteRs package needed for this function. Please install it.",

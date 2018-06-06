@@ -1,5 +1,9 @@
 # bmlm 1.3.5
 
+* Deprecate `tab2doc()` because required package ReporteRs is archived.
+
+# bmlm 1.3.5
+
 * Fix (harmless) constructor error message
 
 # bmlm 1.3.4
