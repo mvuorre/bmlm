@@ -1,4 +1,8 @@
-# bmlm 1.3.5
+# bmlm 1.3.7
+
+* Removed `tab2doc()`, package no longer needs archived ReporteRs package.
+
+# bmlm 1.3.6
 
 * Deprecate `tab2doc()` because required package ReporteRs is archived.
 
