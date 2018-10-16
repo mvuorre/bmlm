@@ -1,3 +1,7 @@
+# bmlm 1.3.8
+
+* Update to C++14, thanks to Ben Goodrich.
+
 # bmlm 1.3.7
 
 * Removed `tab2doc()`, package no longer needs archived ReporteRs package.
