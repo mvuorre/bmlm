@@ -4,10 +4,10 @@
 \alias{mlm_spaghetti_plot}
 \title{Plot fitted values of M and Y from multilevel mediation model}
 \usage{
-mlm_spaghetti_plot(mod = NULL, d = NULL, id = "id", x = "x", m = "m",
-  y = "y", level = 0.95, n = 12, binary_y = FALSE, mx = "fitted",
-  fixed = TRUE, random = TRUE, h_jitter = 0, v_jitter = 0,
-  bar_width = 0.2, bar_size = 0.75, n_samples = NA)
+mlm_spaghetti_plot(mod = NULL, d = NULL, id = "id", x = "x",
+  m = "m", y = "y", level = 0.95, n = 12, binary_y = FALSE,
+  mx = "fitted", fixed = TRUE, random = TRUE, h_jitter = 0,
+  v_jitter = 0, bar_width = 0.2, bar_size = 0.75, n_samples = NA)
 }
 \arguments{
 \item{mod}{A multilevel mediation model estimated with \code{mlm()}.}

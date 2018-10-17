@@ -4,8 +4,8 @@
 \alias{mlm}
 \title{Estimate a multilevel mediation model}
 \usage{
-mlm(d = NULL, id = "id", x = "x", m = "m", y = "y", priors = NULL,
-  binary_y = FALSE, ...)
+mlm(d = NULL, id = "id", x = "x", m = "m", y = "y",
+  priors = NULL, binary_y = FALSE, ...)
 }
 \arguments{
 \item{d}{A \code{data.frame} or a \code{data_frame}.}
