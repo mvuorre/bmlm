@@ -34,3 +34,4 @@ LinkingTo:
     RcppEigen
 RoxygenNote: 6.1.0
 Encoding: UTF-8
+SystemRequirements: GNU make
