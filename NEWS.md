@@ -1,3 +1,7 @@
+# bmlm 1.3.9
+
+* Fix NOTE about methods package
+
 # bmlm 1.3.8
 
 * Update to C++14, thanks to Ben Goodrich.
