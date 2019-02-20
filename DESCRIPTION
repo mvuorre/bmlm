@@ -1,7 +1,7 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 1.3.9
-Date: 2018-11-07
+Version: 1.3.10
+Date: 2019-02-20
 Authors@R: person(given = "Matti", 
                   family = "Vuorre", 
                   email = "mv2521@columbia.edu",
@@ -35,3 +35,4 @@ LinkingTo:
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 SystemRequirements: GNU make
+StagedInstall: no
