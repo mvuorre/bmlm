@@ -1,3 +1,7 @@
+# bmlm 1.3.11
+
+Fix package for staged installation
+
 # bmlm 1.3.9
 
 * Fix NOTE about methods package
