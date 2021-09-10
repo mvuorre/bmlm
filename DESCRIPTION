@@ -20,7 +20,7 @@ Imports:
     rstan (>= 2.18.1),
     ggplot2 (>= 2.0.0),
     RcppParallel (>= 5.0.1),
-    rstantools (>= 2.1.1)
+    rstantools (>= 2.1.1),
     methods
 Suggests:
     qgraph,
