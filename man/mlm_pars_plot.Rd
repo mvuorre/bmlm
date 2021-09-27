@@ -4,9 +4,16 @@
 \alias{mlm_pars_plot}
 \title{Plot estimated parameters of multilevel mediation model}
 \usage{
-mlm_pars_plot(mod = NULL, type = "hist", color = "black",
-  p_shape = 15, p_size = 1.2, level = 0.95, nrow = 3,
-  pars = c("a", "b", "cp", "covab", "me", "c", "pme"))
+mlm_pars_plot(
+  mod = NULL,
+  type = "hist",
+  color = "black",
+  p_shape = 15,
+  p_size = 1.2,
+  level = 0.95,
+  nrow = 3,
+  pars = c("a", "b", "cp", "covab", "me", "c", "pme")
+)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}

@@ -4,8 +4,7 @@
 \alias{isolate}
 \title{Create isolated within- (and optionally between-) person variables.}
 \usage{
-isolate(d = NULL, by = NULL, value = NULL, z = FALSE,
-  which = "within")
+isolate(d = NULL, by = NULL, value = NULL, z = FALSE, which = "within")
 }
 \arguments{
 \item{d}{A \code{data.frame}.}

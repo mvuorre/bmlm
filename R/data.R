@@ -30,7 +30,7 @@
 #' @description Data from an experiment where participants rated their
 #' performance in a video game in two conditions.
 #' (Experiment 1 in Metcalfe, Eich, & Castel, 2010;
-#' \url{http://www.sciencedirect.com/science/article/pii/S0010027710001113}).
+#' \url{https://www.sciencedirect.com/science/article/pii/S0010027710001113}).
 #'
 #' @docType data
 #'
@@ -47,5 +47,5 @@
 #' @source Metcalfe, J., Eich, T. S., & Castel, A. D. (2010).
 #' Metacognition of agency across the lifespan.
 #' Cognition, 116(2), 267-282.
-#' \url{https://doi.org/10.1016/j.cognition.2010.05.009}
+#' \doi{10.1016/j.cognition.2010.05.009}
 "MEC2010"

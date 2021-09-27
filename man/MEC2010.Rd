@@ -4,18 +4,20 @@
 \name{MEC2010}
 \alias{MEC2010}
 \title{Judgments of performance in a video game}
-\format{A data frame with 344 rows and 4 variables:
+\format{
+A data frame with 344 rows and 4 variables:
 \describe{
   \item{subj}{Subject id number.}
   \item{lag}{Lag condition (0 = no lag, 1 = 250ms lag).}
   \item{hr}{Hit rate.}
   \item{jop}{Judgment of Performance.}
-}}
+}
+}
 \source{
 Metcalfe, J., Eich, T. S., & Castel, A. D. (2010).
 Metacognition of agency across the lifespan.
 Cognition, 116(2), 267-282.
-\url{https://doi.org/10.1016/j.cognition.2010.05.009}
+\doi{10.1016/j.cognition.2010.05.009}
 }
 \usage{
 data(MEC2010)
@@ -24,6 +26,6 @@ data(MEC2010)
 Data from an experiment where participants rated their
 performance in a video game in two conditions.
 (Experiment 1 in Metcalfe, Eich, & Castel, 2010;
-\url{http://www.sciencedirect.com/science/article/pii/S0010027710001113}).
+\url{https://www.sciencedirect.com/science/article/pii/S0010027710001113}).
 }
 \keyword{datasets}

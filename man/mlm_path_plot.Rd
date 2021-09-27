@@ -4,9 +4,18 @@
 \alias{mlm_path_plot}
 \title{Plot \code{bmlm}'s mediation model as a path diagram}
 \usage{
-mlm_path_plot(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
-  level = 0.95, random = TRUE, text = FALSE, id = NULL,
-  digits = 2, ...)
+mlm_path_plot(
+  mod = NULL,
+  xlab = "X",
+  ylab = "Y",
+  mlab = "M",
+  level = 0.95,
+  random = TRUE,
+  text = FALSE,
+  id = NULL,
+  digits = 2,
+  ...
+)
 }
 \arguments{
 \item{mod}{A Stanfit model estimated with \code{mlm()}.}

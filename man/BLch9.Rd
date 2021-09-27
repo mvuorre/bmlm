@@ -5,7 +5,8 @@
 \alias{BLch9}
 \title{Relationship between work stressors, work dissatisfaction,
 and relationship dissatisfaction.}
-\format{A data frame with 2100 rows and 8 variables:
+\format{
+A data frame with 2100 rows and 8 variables:
 \describe{
   \item{id}{ID of study participant}
   \item{time}{Time}
@@ -15,7 +16,8 @@ and relationship dissatisfaction.}
   \item{x}{Subject-mean deviated number of work stressors}
   \item{m}{Subject-mean deviated work dissatisfaction rating}
   \item{y}{Subject-mean deviated relationship dissatisfaction}
-}}
+}
+}
 \source{
 \url{http://www.intensivelongitudinal.com/datasets.html}
 }

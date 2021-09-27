@@ -4,8 +4,12 @@
 \alias{mlm_summary}
 \title{Print a summary of the estimated multilevel mediation model}
 \usage{
-mlm_summary(mod = NULL, level = 0.95, pars = c("a", "b", "cp", "me",
-  "c", "pme"), digits = 2)
+mlm_summary(
+  mod = NULL,
+  level = 0.95,
+  pars = c("a", "b", "cp", "me", "c", "pme"),
+  digits = 2
+)
 }
 \arguments{
 \item{mod}{A \code{stanfit} object obtained from \code{mlm()}}
