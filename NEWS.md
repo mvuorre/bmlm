@@ -1,3 +1,7 @@
+# bmlm 1.3.12
+
+Updated compiler flags for new version of RStan thanks to Andrew Johnson.
+
 # bmlm 1.3.11
 
 Fix package for staged installation
