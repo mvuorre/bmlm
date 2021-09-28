@@ -22,10 +22,8 @@ found on the [bmlm’s website](https://mvuorre.github.io/bmlm/).
 ## Requirements
 
 Please ensure you have the latest version of R installed. Windows users
-may need to install RTools (more information on the [RStan
-website](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows)),
-OS X users may need to install XCode ([more
-information](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux)).
+may need to install RTools, and OS X users may need to install XCode
+(see <https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started>.
 
 ## Install from CRAN
 

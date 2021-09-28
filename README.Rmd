@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
 
 # bmlm
 
-[![CRAN version](https://www.r-pkg.org/badges/version/bmlm)](http://www.r-pkg.org/pkg/bmlm)
+[![CRAN version](https://www.r-pkg.org/badges/version/bmlm)](https://www.r-pkg.org/pkg/bmlm)
 [![download-badge](https://cranlogs.r-pkg.org/badges/bmlm)](https://cran.r-project.org/package=bmlm)
 
 **bmlm** is an R package providing convenient methods for Bayesian estimation of multilevel mediation models using [Stan](https://mc-stan.org/).
@@ -26,7 +26,7 @@ The package's source code is hosted on [GitHub](https://github.com/mvuorre/bmlm/
 
 ## Requirements
 
-Please ensure you have the latest version of R installed. Windows users may need to install RTools (more information on the [RStan website](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Windows)), OS X users may need to install XCode ([more information](https://github.com/stan-dev/rstan/wiki/Installing-RStan-on-Mac-or-Linux)).
+Please ensure you have the latest version of R installed. Windows users may need to install RTools, and OS X users may need to install XCode (see <https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started>.
 
 ## Install from CRAN
 
