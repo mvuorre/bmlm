@@ -1,3 +1,9 @@
+# bmlm 1.3.13
+
+Minor housekeeping:
+- Updated compiler flags thanks to @jgabry
+- Updated contact info
+
 # bmlm 1.3.12
 
 Updated compiler flags for new version of RStan thanks to Andrew Johnson.
