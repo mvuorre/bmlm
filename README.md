@@ -65,7 +65,6 @@ If you use this software, please cite it:
 
 ``` r
 citation("bmlm")
-#> 
 #> To cite package bmlm in publications, please use:
 #> 
 #>   Vuorre, M., (2017). bmlm: Bayesian Multilevel Mediation. R package
