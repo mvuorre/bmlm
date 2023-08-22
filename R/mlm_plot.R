@@ -52,7 +52,7 @@ mlm_path_plot <- function(mod = NULL, xlab = "X", ylab = "Y", mlab = "M",
                       0, 1, 0,
                       1, 1 ,1), byrow=T, nrow = 3)
     } else {
-        if (!(class(mod) == "stanfit")) {
+        if (!is(mod, "stanfit")) {
             stop("Model is not a stanfit object.", call. = FALSE)
         }
         params <- c("a", "b", "cp", "me", "c", "pme",
@@ -197,7 +197,7 @@ mlm_pars_plot <- function(mod = NULL,
     }
 
     # Ensure suitable model object passed
-    if (!(class(mod) == "stanfit")) {
+    if (!is(mod, "stanfit")) {
         stop("Model is not a stanfit object.", call. = FALSE)
     }
 
