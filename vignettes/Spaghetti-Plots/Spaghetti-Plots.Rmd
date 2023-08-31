@@ -2,7 +2,9 @@
 title: "A Note on bmlm's Spaghetti Plots"
 author: "Matti Vuorre"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_document:
+    df_print: kable
 ---
 
 ```{r, message = F}

@@ -6,18 +6,21 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>bmlm: Tutorial with Relationship Satisfaction Data • bmlm</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
 <script src="../../pkgdown.js"></script><meta property="og:title" content="bmlm: Tutorial with Relationship Satisfaction Data">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<meta property="og:description" content="bmlm">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -30,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">bmlm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.13</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -72,8 +69,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mvuorre/bmlm">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/mvuorre/bmlm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,100 +83,159 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>bmlm: Tutorial with Relationship Satisfaction Data</h1>
-                        <h4 class="author">Matti Vuorre</h4>
+      <h1 data-toc-skip>bmlm: Tutorial with Relationship Satisfaction
+Data</h1>
+                        <h4 data-toc-skip class="author">Matti
+Vuorre</h4>
             
-            <h4 class="date">2019-02-21</h4>
+            <h4 data-toc-skip class="date">2023-08-31</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/master/vignettes/bmlm-blch9/bmlm-blch9.Rmd"><code>vignettes/bmlm-blch9/bmlm-blch9.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/HEAD/vignettes/bmlm-blch9/bmlm-blch9.Rmd" class="external-link"><code>vignettes/bmlm-blch9/bmlm-blch9.Rmd</code></a></small>
       <div class="hidden name"><code>bmlm-blch9.Rmd</code></div>
 
     </div>
 
     
     
-<div id="introduction" class="section level1">
-<h1 class="hasAnchor">
-<a href="#introduction" class="anchor"></a>Introduction</h1>
-<p><a href="https://github.com/mvuorre/bmlm"><strong>bmlm</strong></a> is an R package that allows easy estimation of multilevel mediation models. <strong>bmlm</strong> uses the <a href="http://mc-stan.org/interfaces/rstan.html">RStan</a> interface to the powerful <a href="http://mc-stan.org/">Stan</a> Bayesian inference engine <span class="citation">(Stan Development Team, 2016)</span>. Users can estimate, summarize and plot a multilevel mediation model easily with the convenient functions provided with <strong>bmlm</strong>. This document explains how to install <strong>bmlm</strong> and its required components, and then walks through an example of how to use it in practice.</p>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p><a href="https://github.com/mvuorre/bmlm" class="external-link"><strong>bmlm</strong></a>
+is an R package that allows easy estimation of multilevel mediation
+models. <strong>bmlm</strong> uses the <a href="http://mc-stan.org/interfaces/rstan.html" class="external-link">RStan</a> interface to
+the powerful <a href="http://mc-stan.org/" class="external-link">Stan</a> Bayesian inference
+engine <span class="citation">(Stan Development Team, 2016)</span>.
+Users can estimate, summarize and plot a multilevel mediation model
+easily with the convenient functions provided with
+<strong>bmlm</strong>. This document explains how to install
+<strong>bmlm</strong> and its required components, and then walks
+through an example of how to use it in practice.</p>
 </div>
-<div id="installing-bmlm" class="section level1">
-<h1 class="hasAnchor">
-<a href="#installing-bmlm" class="anchor"></a>Installing <strong>bmlm</strong>
-</h1>
-<p>Please ensure you have the <a href="https://cran.r-project.org/">latest version of R</a> installed <span class="citation">(R Core Team, 2016)</span>. The latest stable version of <strong>bmlm</strong> is <a href="https://cran.r-project.org/package=bmlm">available on CRAN</a>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"bmlm"</span>)</a></code></pre></div>
-<div id="development-version-" class="section level2">
-<h2 class="hasAnchor">
-<a href="#development-version-" class="anchor"></a>Development version.</h2>
-<p>The latest development version of <strong>bmlm</strong> is available on <a href="https://github.com/mvuorre/bmlm">GitHub</a>. The development version sometimes has features that have not yet made it to the package on CRAN. To install R packages from GitHub, please install the <code>devtools</code> package first, as shown by the first line below. Then install <strong>bmlm</strong> using devtools:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"devtools"</span>)</a>
-<a class="sourceLine" id="cb2-2" title="2"><span class="co"># Install from GitHub using the devtools package</span></a>
-<a class="sourceLine" id="cb2-3" title="3">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"mvuorre/bmlm"</span>, <span class="dt">args =</span> <span class="st">"--preclean"</span>)</a></code></pre></div>
-<p>If something goes wrong during the installation process, you will receive a notice usually asking you to install additional packages. If you are unable to resolve the problems, please open an issue on <a href="https://github.com/mvuorre/bmlm/issues">GitHub</a>.</p>
-<div id="note-for-windows-users" class="section level3">
-<h3 class="hasAnchor">
-<a href="#note-for-windows-users" class="anchor"></a>Note for Windows users</h3>
-<p>Some Windows users may get an error message during the installation process, asking to install <a href="https://cran.r-project.org/bin/windows/Rtools/">Rtools33</a>. If this happens, install Rtools33, and retry installing <strong>bmlm</strong>. See <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows">here</a> if problems persist.</p>
+<div class="section level2">
+<h2 id="installing-bmlm">Installing <strong>bmlm</strong><a class="anchor" aria-label="anchor" href="#installing-bmlm"></a>
+</h2>
+<p>Please ensure you have the <a href="https://cran.r-project.org/" class="external-link">latest version of R</a> installed
+<span class="citation">(R Core Team, 2016)</span>. The latest stable
+version of <strong>bmlm</strong> is <a href="https://cran.r-project.org/package=bmlm" class="external-link">available on
+CRAN</a>:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"bmlm"</span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="development-version-">Development version.<a class="anchor" aria-label="anchor" href="#development-version-"></a>
+</h3>
+<p>The latest development version of <strong>bmlm</strong> is available
+on <a href="https://github.com/mvuorre/bmlm" class="external-link">GitHub</a>. The development
+version sometimes has features that have not yet made it to the package
+on CRAN. To install R packages from GitHub, please install the
+<code>devtools</code> package first, as shown by the first line below.
+Then install <strong>bmlm</strong> using devtools:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="co"># Install from GitHub using the devtools package</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"mvuorre/bmlm"</span>, args <span class="op">=</span> <span class="st">"--preclean"</span><span class="op">)</span></span></code></pre></div>
+<p>If something goes wrong during the installation process, you will
+receive a notice usually asking you to install additional packages. If
+you are unable to resolve the problems, please open an issue on <a href="https://github.com/mvuorre/bmlm/issues" class="external-link">GitHub</a>.</p>
+<div class="section level4">
+<h4 id="note-for-windows-users">Note for Windows users<a class="anchor" aria-label="anchor" href="#note-for-windows-users"></a>
+</h4>
+<p>Some Windows users may get an error message during the installation
+process, asking to install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools33</a>. If
+this happens, install Rtools33, and retry installing
+<strong>bmlm</strong>. See <a href="https://github.com/stan-dev/rstan/wiki/Install-Rtools-for-Windows" class="external-link">here</a>
+if problems persist.</p>
 </div>
 </div>
 </div>
-<div id="example" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h1>
-<p>After installing the required software, load the <strong>bmlm</strong> package to your current R workspace:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bmlm)</a></code></pre></div>
-<p><strong>bmlm</strong> contains an example data set from <a href="http://www.intensivelongitudinal.com/index.html">Intensive Longitudinal Methods: An Introduction to Diary and Experience Sampling Research</a> <span class="citation">(Bolger &amp; Laurenceau, 2013)</span>. We’ll use this data set in this example, and first load it into the workspace from the package, and display what the data looks like:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(BLch9)</a></code></pre></div>
-<pre><code>##    id time fwkstrs   fwkdis  freldis          x          m          y
-## 1 101    1       3 5.590119 3.034483  0.3333333  0.9828781 -1.4420726
-## 2 101    2       3 5.535224 4.620690  0.3333333  0.9279833  0.1441343
-## 3 101    3       3 3.888381 2.850575  0.3333333 -0.7188603 -1.6259807
-## 4 101    4       4 5.352242 6.398467  1.3333333  0.7450007  1.9219121
-## 5 101    5       1 4.483074 2.544061 -1.6666667 -0.1241668 -1.9324941
-## 6 101    6       2 3.339433 5.164751 -0.6666667 -1.2678081  0.6881956</code></pre>
-<div id="data-preprocessing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-preprocessing" class="anchor"></a>Data preprocessing</h2>
-<p>The goal of multilevel mediation modeling, in this case, is to assess the <em>within-person</em> relationships between X, M and Y. To this end, it is important to isolate the within- and between-person components of X, M, and Y. The <code><a href="../../reference/isolate.html">isolate()</a></code> function in <strong>bmlm</strong> allows the user to create within- and between-person centered values of variables. The example dataset <code>BLch9</code> already contains subject-mean deviated components, but here we illustrate how to obtain these using the <code><a href="../../reference/isolate.html">isolate()</a></code> function. The key inputs to this function are <code>d</code>, a data frame; <code>by</code> a column of values that identifies individuals; and <code>value</code>, which variable(s) should be transformed.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">BLch9 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/isolate.html">isolate</a></span>(BLch9, </a>
-<a class="sourceLine" id="cb6-2" title="2">                 <span class="dt">by =</span> <span class="st">"id"</span>, </a>
-<a class="sourceLine" id="cb6-3" title="3">                 <span class="dt">value =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"fwkstrs"</span>, <span class="st">"fwkdis"</span>, <span class="st">"freldis"</span>))</a></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(BLch9)</a></code></pre></div>
-<pre><code>##    id time fwkstrs   fwkdis  freldis          x          m          y
-## 1 101    1       3 5.590119 3.034483  0.3333333  0.9828781 -1.4420726
-## 2 101    2       3 5.535224 4.620690  0.3333333  0.9279833  0.1441343
-## 3 101    3       3 3.888381 2.850575  0.3333333 -0.7188603 -1.6259807
-## 4 101    4       4 5.352242 6.398467  1.3333333  0.7450007  1.9219121
-## 5 101    5       1 4.483074 2.544061 -1.6666667 -0.1241668 -1.9324941
-## 6 101    6       2 3.339433 5.164751 -0.6666667 -1.2678081  0.6881956
-##   fwkstrs_cw  fwkdis_cw freldis_cw
-## 1  0.3333333  0.9828781 -1.4420726
-## 2  0.3333333  0.9279833  0.1441343
-## 3  0.3333333 -0.7188603 -1.6259807
-## 4  1.3333333  0.7450007  1.9219121
-## 5 -1.6666667 -0.1241668 -1.9324941
-## 6 -0.6666667 -1.2678081  0.6881956</code></pre>
-<p>The <code>..._cw</code> variables now contain isolated within-person (“subject-mean deviated”) pieces of each variable. We’ll use these for the mediation analysis.</p>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>After installing the required software, load the
+<strong>bmlm</strong> package to your current R workspace:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mvuorre/bmlm/" class="external-link">bmlm</a></span><span class="op">)</span></span></code></pre></div>
+<p><strong>bmlm</strong> contains an example data set from <a href="http://www.intensivelongitudinal.com/index.html" class="external-link">Intensive
+Longitudinal Methods: An Introduction to Diary and Experience Sampling
+Research</a> <span class="citation">(Bolger &amp; Laurenceau,
+2013)</span>. We’ll use this data set in this example, and first load it
+into the workspace from the package, and display what the data looks
+like:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">BLch9</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id time fwkstrs   fwkdis  freldis          x          m          y</span></span>
+<span><span class="co">## 1 101    1       3 5.590119 3.034483  0.3333333  0.9828781 -1.4420726</span></span>
+<span><span class="co">## 2 101    2       3 5.535224 4.620690  0.3333333  0.9279833  0.1441343</span></span>
+<span><span class="co">## 3 101    3       3 3.888381 2.850575  0.3333333 -0.7188603 -1.6259807</span></span>
+<span><span class="co">## 4 101    4       4 5.352242 6.398467  1.3333333  0.7450007  1.9219121</span></span>
+<span><span class="co">## 5 101    5       1 4.483074 2.544061 -1.6666667 -0.1241668 -1.9324941</span></span>
+<span><span class="co">## 6 101    6       2 3.339433 5.164751 -0.6666667 -1.2678081  0.6881956</span></span></code></pre>
+<div class="section level3">
+<h3 id="data-preprocessing">Data preprocessing<a class="anchor" aria-label="anchor" href="#data-preprocessing"></a>
+</h3>
+<p>The goal of multilevel mediation modeling, in this case, is to assess
+the <em>within-person</em> relationships between X, M and Y. To this
+end, it is important to isolate the within- and between-person
+components of X, M, and Y. The <code><a href="../../reference/isolate.html">isolate()</a></code> function in
+<strong>bmlm</strong> allows the user to create within- and
+between-person centered values of variables. The example dataset
+<code>BLch9</code> already contains subject-mean deviated components,
+but here we illustrate how to obtain these using the
+<code><a href="../../reference/isolate.html">isolate()</a></code> function. The key inputs to this function are
+<code>d</code>, a data frame; <code>by</code> a column of values that
+identifies individuals; and <code>value</code>, which variable(s) should
+be transformed.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">BLch9</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/isolate.html">isolate</a></span><span class="op">(</span><span class="va">BLch9</span>, </span>
+<span>                 by <span class="op">=</span> <span class="st">"id"</span>, </span>
+<span>                 value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fwkstrs"</span>, <span class="st">"fwkdis"</span>, <span class="st">"freldis"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">BLch9</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##    id time fwkstrs   fwkdis  freldis          x          m          y</span></span>
+<span><span class="co">## 1 101    1       3 5.590119 3.034483  0.3333333  0.9828781 -1.4420726</span></span>
+<span><span class="co">## 2 101    2       3 5.535224 4.620690  0.3333333  0.9279833  0.1441343</span></span>
+<span><span class="co">## 3 101    3       3 3.888381 2.850575  0.3333333 -0.7188603 -1.6259807</span></span>
+<span><span class="co">## 4 101    4       4 5.352242 6.398467  1.3333333  0.7450007  1.9219121</span></span>
+<span><span class="co">## 5 101    5       1 4.483074 2.544061 -1.6666667 -0.1241668 -1.9324941</span></span>
+<span><span class="co">## 6 101    6       2 3.339433 5.164751 -0.6666667 -1.2678081  0.6881956</span></span>
+<span><span class="co">##   fwkstrs_cw  fwkdis_cw freldis_cw</span></span>
+<span><span class="co">## 1  0.3333333  0.9828781 -1.4420726</span></span>
+<span><span class="co">## 2  0.3333333  0.9279833  0.1441343</span></span>
+<span><span class="co">## 3  0.3333333 -0.7188603 -1.6259807</span></span>
+<span><span class="co">## 4  1.3333333  0.7450007  1.9219121</span></span>
+<span><span class="co">## 5 -1.6666667 -0.1241668 -1.9324941</span></span>
+<span><span class="co">## 6 -0.6666667 -1.2678081  0.6881956</span></span></code></pre>
+<p>The <code>..._cw</code> variables now contain isolated within-person
+(“subject-mean deviated”) pieces of each variable. We’ll use these for
+the mediation analysis.</p>
 </div>
-<div id="fit-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#fit-model" class="anchor"></a>Fit model</h2>
-<p>To estimate the multilevel mediation model, run <code><a href="../../reference/mlm.html">mlm()</a></code> and save its output to an object. Here we’ll call it <code>fit</code>. You can also ask Stan to run multiple MCMC chains in parallel (if supported by your computer).</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">fit &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm.html">mlm</a></span>(<span class="dt">d =</span> BLch9, </a>
-<a class="sourceLine" id="cb9-2" title="2">           <span class="dt">id =</span> <span class="st">"id"</span>,</a>
-<a class="sourceLine" id="cb9-3" title="3">           <span class="dt">x =</span> <span class="st">"fwkstrs_cw"</span>,</a>
-<a class="sourceLine" id="cb9-4" title="4">           <span class="dt">m =</span> <span class="st">"fwkdis_cw"</span>,</a>
-<a class="sourceLine" id="cb9-5" title="5">           <span class="dt">y =</span> <span class="st">"freldis_cw"</span>,</a>
-<a class="sourceLine" id="cb9-6" title="6">           <span class="dt">iter =</span> <span class="dv">2000</span>, </a>
-<a class="sourceLine" id="cb9-7" title="7">           <span class="dt">cores =</span> <span class="dv">4</span>)</a></code></pre></div>
-<p>The main arguments to <code><a href="../../reference/mlm.html">mlm()</a></code> are <code>d</code> (a <code>data.frame</code>), which here was set to <code>BLch9</code>. The user also needs to specify which columns contain the variables needed for the mediation model, unless they are already named <code>id</code>, <code>x</code>, <code>m</code>, and <code>y</code>:</p>
+<div class="section level3">
+<h3 id="fit-model">Fit model<a class="anchor" aria-label="anchor" href="#fit-model"></a>
+</h3>
+<p>To estimate the multilevel mediation model, run <code><a href="../../reference/mlm.html">mlm()</a></code>
+and save its output to an object. Here we’ll call it <code>fit</code>.
+You can also ask Stan to run multiple MCMC chains in parallel (if
+supported by your computer).</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm.html">mlm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">BLch9</span>, </span>
+<span>           id <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>           x <span class="op">=</span> <span class="st">"fwkstrs_cw"</span>,</span>
+<span>           m <span class="op">=</span> <span class="st">"fwkdis_cw"</span>,</span>
+<span>           y <span class="op">=</span> <span class="st">"freldis_cw"</span>,</span>
+<span>           iter <span class="op">=</span> <span class="fl">2000</span>, </span>
+<span>           cores <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p>The main arguments to <code><a href="../../reference/mlm.html">mlm()</a></code> are <code>d</code> (a
+<code>data.frame</code>), which here was set to <code>BLch9</code>. The
+user also needs to specify which columns contain the variables needed
+for the mediation model, unless they are already named <code>id</code>,
+<code>x</code>, <code>m</code>, and <code>y</code>:</p>
 <ul>
 <li>
-<code>id</code> is a column of participant IDs in the provided <code>data.frame</code>.</li>
+<code>id</code> is a column of participant IDs in the provided
+<code>data.frame</code>.</li>
 <li>
 <code>x</code> is the manipulated variable.</li>
 <li>
@@ -187,162 +243,254 @@
 <li>
 <code>y</code> is the outcome variable.</li>
 </ul>
-<p>There are various additional arguments to the above command. Most notably, the <code>iter = 2000</code> specified the number of samples to draw from the posterior distribution, for each MCMC chain. The default is to use 4 chains. Further, Stan’s MCMC algorithms use a portion of the samples as warmup to adjust various underlying parameters. The default of one half was used for this example.</p>
-<p>Stan’s MCMC procedures are very efficient, but estimating the model with large datasets will take a while. This example takes about 30 seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).</p>
+<p>There are various additional arguments to the above command. Most
+notably, the <code>iter = 2000</code> specified the number of samples to
+draw from the posterior distribution, for each MCMC chain. The default
+is to use 4 chains. Further, Stan’s MCMC algorithms use a portion of the
+samples as warmup to adjust various underlying parameters. The default
+of one half was used for this example.</p>
+<p>Stan’s MCMC procedures are very efficient, but estimating the model
+with large datasets will take a while. This example takes about 30
+seconds on a desktop Mac (8GB RAM, 4ghz Intel i7).</p>
 </div>
-<div id="summarize-fitted-model" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summarize-fitted-model" class="anchor"></a>Summarize fitted model</h2>
-<p>After the samples have been obtained, <strong>bmlm</strong>’s helper functions can be used to obtain summaries of the results. For more options, all <a href="https://cran.r-project.org/web/packages/rstan/index.html">rstan</a> methods are also available.</p>
-<div id="numerical-summary" class="section level3">
-<h3 class="hasAnchor">
-<a href="#numerical-summary" class="anchor"></a>Numerical summary</h3>
-<p>A numerical summary of the “fixed” effects can be obtained by <code><a href="../../reference/mlm_summary.html">mlm_summary(fit)</a></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw"><a href="../../reference/mlm_summary.html">mlm_summary</a></span>(fit)</a></code></pre></div>
-<pre><code>##   Parameter Mean   SE Median 2.5% 97.5% n_eff Rhat
-## 1         a 0.19 0.03   0.19 0.12  0.26  2416    1
-## 2         b 0.15 0.03   0.15 0.09  0.21  2577    1
-## 3        cp 0.10 0.02   0.10 0.06  0.15  3864    1
-## 4        me 0.06 0.01   0.06 0.03  0.09  1720    1
-## 5         c 0.16 0.03   0.16 0.11  0.21  3330    1
-## 6       pme 0.36 0.08   0.35 0.21  0.53  2187    1</code></pre>
-<p><code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code> returns, for each parameter, the following information:</p>
+<div class="section level3">
+<h3 id="summarize-fitted-model">Summarize fitted model<a class="anchor" aria-label="anchor" href="#summarize-fitted-model"></a>
+</h3>
+<p>After the samples have been obtained, <strong>bmlm</strong>’s helper
+functions can be used to obtain summaries of the results. For more
+options, all <a href="https://cran.r-project.org/web/packages/rstan/index.html" class="external-link">rstan</a>
+methods are also available.</p>
+<div class="section level4">
+<h4 id="numerical-summary">Numerical summary<a class="anchor" aria-label="anchor" href="#numerical-summary"></a>
+</h4>
+<p>A numerical summary of the “fixed” effects can be obtained by
+<code>mlm_summary(fit)</code>:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   Parameter Mean   SE Median 2.5% 97.5% n_eff Rhat</span></span>
+<span><span class="co">## 1         a 0.19 0.04   0.19 0.12  0.26  4628    1</span></span>
+<span><span class="co">## 2         b 0.15 0.03   0.15 0.09  0.21  3939    1</span></span>
+<span><span class="co">## 3        cp 0.10 0.02   0.10 0.06  0.15  3885    1</span></span>
+<span><span class="co">## 4        me 0.06 0.01   0.06 0.03  0.09  2530    1</span></span>
+<span><span class="co">## 5         c 0.16 0.03   0.16 0.11  0.21  4341    1</span></span>
+<span><span class="co">## 6       pme 0.35 0.08   0.35 0.21  0.53  2638    1</span></span></code></pre>
+<p><code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code> returns, for each parameter, the following
+information:</p>
 <ul>
-<li>Posterior <em>Mean</em>: This can be used as a point estimate of parameter</li>
+<li>Posterior <em>Mean</em>: This can be used as a point estimate of
+parameter</li>
 <li>
-<em>SE</em>: The standard deviation of the marginal posterior distribution of plausible parameter values.</li>
-<li>Posterior <em>Median</em>: If the posterior distribution is skewed, the median might be used as a more accurate point estimate.</li>
-<li>Lower and upper limits to <em>Credible Intervals</em>. The CIs summarize the central X% mass of the marginal posterior distribution, where X% is defined by a <code>level</code> argument to <code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code>. The default “confidence level” is 0.95, but users may supply any value they desire.</li>
-<li>n_eff and Rhat are diagnostic values used to diagnose the performance of the underlying Stan MCMC procedures. see <code><a href="../../reference/mlm.html">?mlm</a></code> or <code>?stan</code> for details.</li>
+<em>SE</em>: The standard deviation of the marginal posterior
+distribution of plausible parameter values.</li>
+<li>Posterior <em>Median</em>: If the posterior distribution is skewed,
+the median might be used as a more accurate point estimate.</li>
+<li>Lower and upper limits to <em>Credible Intervals</em>. The CIs
+summarize the central X% mass of the marginal posterior distribution,
+where X% is defined by a <code>level</code> argument to
+<code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code>. The default “confidence level” is 0.95, but
+users may supply any value they desire.</li>
+<li>n_eff and Rhat are diagnostic values used to diagnose the
+performance of the underlying Stan MCMC procedures. see
+<code><a href="../../reference/mlm.html">?mlm</a></code> or <code>?stan</code> for details.</li>
 </ul>
 </div>
-<div id="graphical-summaries" class="section level3">
-<h3 class="hasAnchor">
-<a href="#graphical-summaries" class="anchor"></a>Graphical summaries</h3>
-<p><strong>bmlm</strong> provides functions for graphical summaries of the estimated model. The first draws a path diagram of the mediation model, with point estimates of the relevant average-level parameters, and their associated credible intervals (as defined by <code>level</code>). By default, the plot also shows the standard deviations (SD) of the Gaussian distributions of the subject-level varying effects, and their associated CIs. You can turn off the “random” effects by calling the function with <code>random = FALSE</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw"><a href="../../reference/mlm_path_plot.html">mlm_path_plot</a></span>(fit, <span class="dt">level =</span> <span class="fl">.95</span>, <span class="dt">text =</span> T,</a>
-<a class="sourceLine" id="cb12-2" title="2">              <span class="dt">xlab =</span> <span class="st">"Work</span><span class="ch">\n</span><span class="st">stressors"</span>,</a>
-<a class="sourceLine" id="cb12-3" title="3">              <span class="dt">mlab =</span> <span class="st">"Work</span><span class="ch">\n</span><span class="st">dissatisfaction"</span>,</a>
-<a class="sourceLine" id="cb12-4" title="4">              <span class="dt">ylab =</span> <span class="st">"Relationship</span><span class="ch">\n</span><span class="st">dissatisfaction"</span>, <span class="dt">digits =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="section level4">
+<h4 id="graphical-summaries">Graphical summaries<a class="anchor" aria-label="anchor" href="#graphical-summaries"></a>
+</h4>
+<p><strong>bmlm</strong> provides functions for graphical summaries of
+the estimated model. The first draws a path diagram of the mediation
+model, with point estimates of the relevant average-level parameters,
+and their associated credible intervals (as defined by
+<code>level</code>). By default, the plot also shows the standard
+deviations (SD) of the Gaussian distributions of the subject-level
+varying effects, and their associated CIs. You can turn off the “random”
+effects by calling the function with <code>random = FALSE</code>.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_path_plot.html">mlm_path_plot</a></span><span class="op">(</span><span class="va">fit</span>, level <span class="op">=</span> <span class="fl">.95</span>, text <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>              xlab <span class="op">=</span> <span class="st">"Work\nstressors"</span>,</span>
+<span>              mlab <span class="op">=</span> <span class="st">"Work\ndissatisfaction"</span>,</span>
+<span>              ylab <span class="op">=</span> <span class="st">"Relationship\ndissatisfaction"</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="bmlm-blch9_files/figure-html/unnamed-chunk-10-1.png" alt="Path diagram of the average level mediation model, with numerical summaries of the relevant parameters." width="576"><p class="caption">
-Path diagram of the average level mediation model, with numerical summaries of the relevant parameters.
+Path diagram of the average level mediation model, with numerical
+summaries of the relevant parameters.
 </p>
 </div>
-<p>This figure offers a quick view of the estimated model: All paths (<code>a, b, c'</code>) are positive with fairly narrow credible intervals. However, the SD parameters indicate considerable heterogeneity in the effects.</p>
-<p>We called the function with the argument <code>text = T</code>, showing additional transformed parameters in the upper left corner: <code>me</code> is the average mediated effect, <code>c</code> is the total effect, and <code>pme</code> is the proportion mediated effect. <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cov(a, b)</a></code> is the covariance of the varying <code>a</code> and <code>b</code> parameters. To disable showing the additional parameters, call the function with <code>text = F</code>.</p>
-<p>For a more detailed investigation of the model’s parameters, <strong>bmlm</strong> offers three methods for plotting the samples from each parameter’s posterior distribution. These are obtained by a call to <code><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot(type = X)</a></code> where <code>X</code> can be either <code>hist</code> (or left blank) for histograms, <code>coef</code> for a coefficient plot with point estimates and Credible Intervals, or “violin” for a violin plot. With coefficient plots, the user may specify <code>level</code> to set the “confidence level”, which is represented by the length of the lines surrounding each point estimate.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">pars =</span> <span class="st">"me"</span>)</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">type =</span> <span class="st">"coef"</span>, <span class="dt">level =</span> <span class="fl">.99</span>)</a>
-<a class="sourceLine" id="cb13-3" title="3"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">type =</span> <span class="st">"violin"</span>, <span class="dt">color =</span> <span class="st">"dodgerblue2"</span>)</a></code></pre></div>
+<p>This figure offers a quick view of the estimated model: All paths
+(<code>a, b, c'</code>) are positive with fairly narrow credible
+intervals. However, the SD parameters indicate considerable
+heterogeneity in the effects.</p>
+<p>We called the function with the argument <code>text = T</code>,
+showing additional transformed parameters in the upper left corner:
+<code>me</code> is the average mediated effect, <code>c</code> is the
+total effect, and <code>pme</code> is the proportion mediated effect.
+<code>cov(a, b)</code> is the covariance of the varying <code>a</code>
+and <code>b</code> parameters. To disable showing the additional
+parameters, call the function with <code>text = F</code>.</p>
+<p>For a more detailed investigation of the model’s parameters,
+<strong>bmlm</strong> offers three methods for plotting the samples from
+each parameter’s posterior distribution. These are obtained by a call to
+<code>mlm_pars_plot(type = X)</code> where <code>X</code> can be either
+<code>hist</code> (or left blank) for histograms, <code>coef</code> for
+a coefficient plot with point estimates and Credible Intervals, or
+“violin” for a violin plot. With coefficient plots, the user may specify
+<code>level</code> to set the “confidence level”, which is represented
+by the length of the lines surrounding each point estimate.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"me"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"coef"</span>, level <span class="op">=</span> <span class="fl">.99</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"violin"</span>, color <span class="op">=</span> <span class="st">"dodgerblue2"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="bmlm-blch9_files/figure-html/unnamed-chunk-11-1.png" alt="Figure 2. Coefficient plots." width="230.4"><img src="bmlm-blch9_files/figure-html/unnamed-chunk-11-2.png" alt="Figure 2. Coefficient plots." width="230.4"><img src="bmlm-blch9_files/figure-html/unnamed-chunk-11-3.png" alt="Figure 2. Coefficient plots." width="230.4"><p class="caption">
 Figure 2. Coefficient plots.
 </p>
 </div>
-<p>The user can also specify the parameters to show on the plot, as illustrated in the next histograms:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">type =</span> <span class="st">"hist"</span>, <span class="dt">pars =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"me"</span>, <span class="st">"c"</span>, <span class="st">"pme"</span>, <span class="st">"covab"</span>))</a></code></pre></div>
+<p>The user can also specify the parameters to show on the plot, as
+illustrated in the next histograms:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"hist"</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"me"</span>, <span class="st">"c"</span>, <span class="st">"pme"</span>, <span class="st">"covab"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="bmlm-blch9_files/figure-html/unnamed-chunk-12-1.png" alt="Histograms for a selection of parameters." width="384"><p class="caption">
 Histograms for a selection of parameters.
 </p>
 </div>
-<p>The histograms are useful for visually assessing the shape of each marginal posterior distribution.</p>
+<p>The histograms are useful for visually assessing the shape of each
+marginal posterior distribution.</p>
 <p>More complex plots are also possible:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">type =</span> <span class="st">"hist"</span>, <span class="dt">pars =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(</a>
-<a class="sourceLine" id="cb15-2" title="2">    <span class="st">"tau_cp"</span>, <span class="st">"Omega[1,2]"</span>, <span class="st">"Omega[1,3]"</span>,</a>
-<a class="sourceLine" id="cb15-3" title="3">    <span class="st">"Omega[2,1]"</span>, <span class="st">"tau_b"</span>, <span class="st">"Omega[2,3]"</span>,</a>
-<a class="sourceLine" id="cb15-4" title="4">    <span class="st">"Omega[3,1]"</span>, <span class="st">"Omega[3,2]"</span>, <span class="st">"tau_a"</span>),</a>
-<a class="sourceLine" id="cb15-5" title="5">    <span class="dt">nrow =</span> <span class="dv">3</span>, <span class="dt">color =</span> <span class="st">"skyblue4"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, type <span class="op">=</span> <span class="st">"hist"</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"tau_cp"</span>, <span class="st">"Omega[1,2]"</span>, <span class="st">"Omega[1,3]"</span>,</span>
+<span>    <span class="st">"Omega[2,1]"</span>, <span class="st">"tau_b"</span>, <span class="st">"Omega[2,3]"</span>,</span>
+<span>    <span class="st">"Omega[3,1]"</span>, <span class="st">"Omega[3,2]"</span>, <span class="st">"tau_a"</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">3</span>, color <span class="op">=</span> <span class="st">"skyblue4"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="bmlm-blch9_files/figure-html/unnamed-chunk-13-1.png" alt="Varying effects standard deviations (tau) and correlations (Omega)." width="480"><p class="caption">
 Varying effects standard deviations (tau) and correlations (Omega).
 </p>
 </div>
-<p>The first three positions (1: path <code>c'</code>, 2: path <code>b</code>, 3: path <code>a</code>) of the varying effects SDs (<span class="math inline">\(\tau\)</span>) and correlations (<span class="math inline">\(\Omega\)</span>) are plotted as histograms. Each histogram represents the MCMC samples of plausible parameter values from the corresponding posterior distribution. These parameters are also found with their names in the posterior samples matrix:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">pars =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"tau_a"</span>, <span class="st">"tau_b"</span>, <span class="st">"tau_cp"</span>,</a>
-<a class="sourceLine" id="cb16-2" title="2">                            <span class="st">"corrab"</span>), <span class="dt">nrow=</span><span class="dv">2</span>, <span class="dt">color=</span><span class="st">"dodgerblue2"</span>)</a></code></pre></div>
+<p>The first three positions (1: path <code>c'</code>, 2: path
+<code>b</code>, 3: path <code>a</code>) of the varying effects SDs
+(<span class="math inline">\(\tau\)</span>) and correlations (<span class="math inline">\(\Omega\)</span>) are plotted as histograms. Each
+histogram represents the MCMC samples of plausible parameter values from
+the corresponding posterior distribution. These parameters are also
+found with their names in the posterior samples matrix:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"tau_a"</span>, <span class="st">"tau_b"</span>, <span class="st">"tau_cp"</span>,</span>
+<span>                            <span class="st">"corrab"</span><span class="op">)</span>, nrow<span class="op">=</span><span class="fl">2</span>, color<span class="op">=</span><span class="st">"dodgerblue2"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
 </div>
-<div id="plotting-fitted-values" class="section level3">
-<h3 class="hasAnchor">
-<a href="#plotting-fitted-values" class="anchor"></a>Plotting fitted values</h3>
-<p>Users can plot fitted values of the a and b paths, at the population (fixed) and subject (random) levels, using <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code>. This function requires the user to input a fitted multilevel mediation model object (<code>mod</code>), the data used to fit the model (<code>d</code>), and the names of x, m, and y variables that were used from the data.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">ps &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span>(<span class="dt">mod =</span> fit, <span class="dt">d =</span> BLch9,</a>
-<a class="sourceLine" id="cb17-2" title="2">                         <span class="dt">x =</span> <span class="st">"fwkstrs_cw"</span>,</a>
-<a class="sourceLine" id="cb17-3" title="3">                         <span class="dt">m =</span> <span class="st">"fwkdis_cw"</span>,</a>
-<a class="sourceLine" id="cb17-4" title="4">                         <span class="dt">y =</span> <span class="st">"freldis_cw"</span>)</a></code></pre></div>
-<p><code>ps</code> now contains a list of two plot objects. The first plot contains the fitted values of the X -&gt; M regression (path a). By default, both the population- and subject-level fitted values are included in the plot (see <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code> for how to modify this behavior), the former is shown as a thicker line with a 95% (this percentage can be modified: <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code>) Credibility Ribbon around it.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">ps[[<span class="dv">1</span>]]</a></code></pre></div>
+<div class="section level4">
+<h4 id="plotting-fitted-values">Plotting fitted values<a class="anchor" aria-label="anchor" href="#plotting-fitted-values"></a>
+</h4>
+<p>Users can plot fitted values of the a and b paths, at the population
+(fixed) and subject (random) levels, using
+<code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code>. This function requires the user to
+input a fitted multilevel mediation model object (<code>mod</code>), the
+data used to fit the model (<code>d</code>), and the names of x, m, and
+y variables that were used from the data.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span><span class="op">(</span>mod <span class="op">=</span> <span class="va">fit</span>, d <span class="op">=</span> <span class="va">BLch9</span>,</span>
+<span>                         x <span class="op">=</span> <span class="st">"fwkstrs_cw"</span>,</span>
+<span>                         m <span class="op">=</span> <span class="st">"fwkdis_cw"</span>,</span>
+<span>                         y <span class="op">=</span> <span class="st">"freldis_cw"</span><span class="op">)</span></span></code></pre></div>
+<p><code>ps</code> now contains a list of two plot objects. The first
+plot contains the fitted values of the X -&gt; M regression (path a). By
+default, both the population- and subject-level fitted values are
+included in the plot (see <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code> for how to
+modify this behavior), the former is shown as a thicker line with a 95%
+(this percentage can be modified: <code><a href="../../reference/mlm_spaghetti_plot.html">?mlm_spaghetti_plot</a></code>)
+Credibility Ribbon around it.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ps</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<p>Both plots inside the list <code>ps</code> can be arranged side by side using the <strong>gridExtra</strong> package, and can be modified with the usual <strong>ggplot2</strong> functions:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
-<a class="sourceLine" id="cb19-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(gridExtra)</a>
-<a class="sourceLine" id="cb19-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/gridExtra/topics/arrangeGrob">grid.arrange</a></span>(</a>
-<a class="sourceLine" id="cb19-4" title="4">    ps[[<span class="dv">1</span>]] <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">title=</span><span class="st">"Path a (X -&gt; M)"</span>), </a>
-<a class="sourceLine" id="cb19-5" title="5">    ps[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">title=</span><span class="st">"Path b (M -&gt; Y)"</span>), </a>
-<a class="sourceLine" id="cb19-6" title="6">    <span class="dt">nrow=</span><span class="dv">1</span>)</a></code></pre></div>
+<p>Both plots inside the list <code>ps</code> can be arranged side by
+side using the <strong>gridExtra</strong> package, and can be modified
+with the usual <strong>ggplot2</strong> functions:</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">gridExtra</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span></span>
+<span>    <span class="va">ps</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Path a (X -&gt; M)"</span><span class="op">)</span>, </span>
+<span>    <span class="va">ps</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title<span class="op">=</span><span class="st">"Path b (M -&gt; Y)"</span><span class="op">)</span>, </span>
+<span>    nrow<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
 <p>Another example:</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">ps[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-2" title="2"><span class="st">    </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x=</span><span class="st">"Fitted work dissatisfaction"</span>,</a>
-<a class="sourceLine" id="cb20-3" title="3">         <span class="dt">y=</span><span class="st">"Fitted relationship dissatisfaction"</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb20-4" title="4"><span class="st">    </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span>()</a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ps</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Fitted work dissatisfaction"</span>,</span>
+<span>         y<span class="op">=</span><span class="st">"Fitted relationship dissatisfaction"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 </div>
 </div>
 </div>
-<div id="binary-outcome-variable" class="section level1">
-<h1 class="hasAnchor">
-<a href="#binary-outcome-variable" class="anchor"></a>Binary outcome variable</h1>
-<p>Users can also estimate the multilevel mediation model when the outcome is binary (coded as 0s and 1s). In this case, the outcomes are modelled as bernoulli distributed with a logistic link to the probability parameter of the bernoulli distribution (i.e. the b path is a multilevel logistic regression).</p>
-<p>To illustrate, we re-estimate the model using a within person median split Y value as the binary outcome.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb21-2" title="2">BLch9_biny &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(BLch9, id) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb21-3" title="3"><span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(id, fwkstrs_cw, fwkdis_cw, freldis_cw) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb21-4" title="4"><span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span>(<span class="dt">biny =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(freldis_cw <span class="op">&gt;</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/quantile">quantile</a></span>(freldis_cw, <span class="fl">.5</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb21-5" title="5"><span class="st">    </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">ungroup</a></span>()</a>
-<a class="sourceLine" id="cb21-6" title="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(BLch9_biny)</a></code></pre></div>
-<pre><code>## # A tibble: 6 x 5
-##      id fwkstrs_cw fwkdis_cw freldis_cw  biny
-##   &lt;int&gt;      &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;
-## 1   101      0.333     0.983     -1.44      0
-## 2   101      0.333     0.928      0.144     0
-## 3   101      0.333    -0.719     -1.63      0
-## 4   101      1.33      0.745      1.92      1
-## 5   101     -1.67     -0.124     -1.93      0
-## 6   101     -0.667    -1.27       0.688     1</code></pre>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">fit_biny &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm.html">mlm</a></span>(<span class="dt">d =</span> BLch9_biny, </a>
-<a class="sourceLine" id="cb23-2" title="2">                <span class="dt">id =</span> <span class="st">"id"</span>,</a>
-<a class="sourceLine" id="cb23-3" title="3">                <span class="dt">x =</span> <span class="st">"fwkstrs_cw"</span>,</a>
-<a class="sourceLine" id="cb23-4" title="4">                <span class="dt">m =</span> <span class="st">"fwkdis_cw"</span>,</a>
-<a class="sourceLine" id="cb23-5" title="5">                <span class="dt">y =</span> <span class="st">"biny"</span>, <span class="dt">binary_y =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb23-6" title="6">                <span class="dt">cores=</span><span class="dv">4</span>)</a></code></pre></div>
-<p><code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code> can also plot fitted values for models with a binary Y variable.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">ps2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span>(fit_biny, BLch9_biny, </a>
-<a class="sourceLine" id="cb24-2" title="2">                          <span class="dt">id=</span><span class="st">"id"</span>, <span class="dt">x=</span><span class="st">"fwkstrs_cw"</span>, <span class="dt">m=</span><span class="st">"fwkdis_cw"</span>, <span class="dt">y=</span><span class="st">"biny"</span>,</a>
-<a class="sourceLine" id="cb24-3" title="3">                          <span class="dt">binary_y=</span>T)</a></code></pre></div>
-<p>The second plot in the list <code>ps2</code> contains the fitted values of the b path:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">ps2[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span>(<span class="dt">x=</span><span class="st">"Work Dissatisfaction"</span>, <span class="dt">y=</span><span class="st">"Relationship Dissatisfaction Probability"</span>)</a></code></pre></div>
+<div class="section level2">
+<h2 id="binary-outcome-variable">Binary outcome variable<a class="anchor" aria-label="anchor" href="#binary-outcome-variable"></a>
+</h2>
+<p>Users can also estimate the multilevel mediation model when the
+outcome is binary (coded as 0s and 1s). In this case, the outcomes are
+modelled as bernoulli distributed with a logistic link to the
+probability parameter of the bernoulli distribution (i.e. the b path is
+a multilevel logistic regression).</p>
+<p>To illustrate, we re-estimate the model using a within person median
+split Y value as the binary outcome.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
+<span><span class="va">BLch9_biny</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">BLch9</span>, <span class="va">id</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">fwkstrs_cw</span>, <span class="va">fwkdis_cw</span>, <span class="va">freldis_cw</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>biny <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">freldis_cw</span> <span class="op">&gt;</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">freldis_cw</span>, <span class="fl">.5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">ungroup</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">BLch9_biny</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">##      id fwkstrs_cw fwkdis_cw freldis_cw  biny</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   101      0.333     0.983     -<span style="color: #BB0000;">1.44</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>   101      0.333     0.928      0.144     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>   101      0.333    -<span style="color: #BB0000;">0.719</span>     -<span style="color: #BB0000;">1.63</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>   101      1.33      0.745      1.92      1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>   101     -<span style="color: #BB0000;">1.67</span>     -<span style="color: #BB0000;">0.124</span>     -<span style="color: #BB0000;">1.93</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>   101     -<span style="color: #BB0000;">0.667</span>    -<span style="color: #BB0000;">1.27</span>       0.688     1</span></span></code></pre>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit_biny</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm.html">mlm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">BLch9_biny</span>, </span>
+<span>                id <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>                x <span class="op">=</span> <span class="st">"fwkstrs_cw"</span>,</span>
+<span>                m <span class="op">=</span> <span class="st">"fwkdis_cw"</span>,</span>
+<span>                y <span class="op">=</span> <span class="st">"biny"</span>, binary_y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                cores<span class="op">=</span><span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p><code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code> can also plot fitted values for
+models with a binary Y variable.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ps2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span><span class="op">(</span><span class="va">fit_biny</span>, <span class="va">BLch9_biny</span>, </span>
+<span>                          id<span class="op">=</span><span class="st">"id"</span>, x<span class="op">=</span><span class="st">"fwkstrs_cw"</span>, m<span class="op">=</span><span class="st">"fwkdis_cw"</span>, y<span class="op">=</span><span class="st">"biny"</span>,</span>
+<span>                          binary_y<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span></code></pre></div>
+<p>The second plot in the list <code>ps2</code> contains the fitted
+values of the b path:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ps2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"Work Dissatisfaction"</span>, y<span class="op">=</span><span class="st">"Relationship Dissatisfaction Probability"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 </div>
-<div id="tips-and-tricks" class="section level1">
-<h1 class="hasAnchor">
-<a href="#tips-and-tricks" class="anchor"></a>Tips and tricks</h1>
-<p>Users can investigate person-specific effects by modifying the input to the functions above.</p>
-<div id="person-specific-effects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#person-specific-effects" class="anchor"></a>Person-specific effects</h2>
-<p>It is also possible to investigate person-specific parameters. These exist with the same name as the average-level parameters, but have “u_” appended to them.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../../reference/mlm_summary.html">mlm_summary</a></span>(fit, <span class="dt">pars =</span> <span class="st">"u_c"</span>))</a></code></pre></div>
-<pre><code>##   Parameter Mean   SE Median  2.5% 97.5% n_eff Rhat
-## 1    u_c[1] 0.12 0.08   0.11 -0.03  0.29  4248    1
-## 2    u_c[2] 0.10 0.09   0.10 -0.07  0.28  4674    1
-## 3    u_c[3] 0.11 0.08   0.10 -0.05  0.28  2665    1
-## 4    u_c[4] 0.39 0.13   0.38  0.17  0.66  2946    1
-## 5    u_c[5] 0.09 0.10   0.10 -0.11  0.28  3243    1
-## 6    u_c[6] 0.08 0.08   0.08 -0.08  0.25  4016    1</code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span>(fit, <span class="dt">pars =</span> <span class="st">"u_cp"</span>, <span class="dt">type =</span> <span class="st">"coef"</span>, <span class="dt">level =</span> <span class="fl">.8</span>)</a></code></pre></div>
+<div class="section level2">
+<h2 id="tips-and-tricks">Tips and tricks<a class="anchor" aria-label="anchor" href="#tips-and-tricks"></a>
+</h2>
+<p>Users can investigate person-specific effects by modifying the input
+to the functions above.</p>
+<div class="section level3">
+<h3 id="person-specific-effects">Person-specific effects<a class="anchor" aria-label="anchor" href="#person-specific-effects"></a>
+</h3>
+<p>It is also possible to investigate person-specific parameters. These
+exist with the same name as the average-level parameters, but have “u_”
+appended to them.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"u_c"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">##   Parameter Mean   SE Median  2.5% 97.5% n_eff Rhat</span></span>
+<span><span class="co">## 1    u_c[1] 0.12 0.08   0.12 -0.03  0.31  4743    1</span></span>
+<span><span class="co">## 2    u_c[2] 0.10 0.09   0.10 -0.07  0.29  3765    1</span></span>
+<span><span class="co">## 3    u_c[3] 0.11 0.08   0.11 -0.05  0.29  3919    1</span></span>
+<span><span class="co">## 4    u_c[4] 0.39 0.13   0.38  0.16  0.67  3062    1</span></span>
+<span><span class="co">## 5    u_c[5] 0.09 0.09   0.09 -0.11  0.28  3918    1</span></span>
+<span><span class="co">## 6    u_c[6] 0.08 0.08   0.08 -0.10  0.25  4620    1</span></span></code></pre>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"u_cp"</span>, type <span class="op">=</span> <span class="st">"coef"</span>, level <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="bmlm-blch9_files/figure-html/unnamed-chunk-23-1.png" alt="Participant-specific c' path values with 80% Credible Intervals." width="384"><p class="caption">
 Participant-specific c’ path values with 80% Credible Intervals.
@@ -350,104 +498,104 @@ Participant-specific c’ path values with 80% Credible Intervals.
 </div>
 </div>
 </div>
-<div id="further-information" class="section level1">
-<h1 class="hasAnchor">
-<a href="#further-information" class="anchor"></a>Further information</h1>
-<p>The functions contained in <strong>bmlm</strong> have various options available for the user. Inspect these options by looking at the functions’ help pages:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">?mlm</a>
-<a class="sourceLine" id="cb29-2" title="2">?mlm_summary</a>
-<a class="sourceLine" id="cb29-3" title="3">?mlm_path_plot</a>
-<a class="sourceLine" id="cb29-4" title="4">?mlm_pars_plot</a></code></pre></div>
-<p>Users can also input any valid <code>stan()</code> arguments to <code><a href="../../reference/mlm.html">mlm()</a></code>; see <code>?stan</code> for details. The fitted object from <code><a href="../../reference/mlm.html">mlm()</a></code> is a valid <code>Stanfit</code> object, so all <code>Stanfit</code> methods are available as well. Functions in the recent <strong>bayesplot</strong> package <span class="citation">(Gabry, 2016)</span> are supported as well, because the returned models are Stanfit objects. For example, it is important to assess the performance of Stan’s MCMC algorithms after estimating a model by inspecting traceplots for convergence problems:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bayesplot)</a>
-<a class="sourceLine" id="cb30-2" title="2">pars &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"cp"</span>, <span class="st">"corrab"</span>)</a>
-<a class="sourceLine" id="cb30-3" title="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/bayesplot/topics/MCMC-traces">mcmc_trace</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/as.data.frame">as.data.frame</a></span>(fit), <span class="dt">pars =</span> pars)</a></code></pre></div>
+<div class="section level2">
+<h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
+</h2>
+<p>The functions contained in <strong>bmlm</strong> have various options
+available for the user. Inspect these options by looking at the
+functions’ help pages:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="op">?</span><span class="va">mlm</span></span>
+<span><span class="op">?</span><span class="va">mlm_summary</span></span>
+<span><span class="op">?</span><span class="va">mlm_path_plot</span></span>
+<span><span class="op">?</span><span class="va">mlm_pars_plot</span></span></code></pre></div>
+<p>Users can also input any valid <code>stan()</code> arguments to
+<code><a href="../../reference/mlm.html">mlm()</a></code>; see <code>?stan</code> for details. The fitted
+object from <code><a href="../../reference/mlm.html">mlm()</a></code> is a valid <code>Stanfit</code> object,
+so all <code>Stanfit</code> methods are available as well. Functions in
+the recent <strong>bayesplot</strong> package <span class="citation">(Gabry, 2016)</span> are supported as well, because the
+returned models are Stanfit objects. For example, it is important to
+assess the performance of Stan’s MCMC algorithms after estimating a
+model by inspecting traceplots for convergence problems:</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://mc-stan.org/bayesplot/" class="external-link">bayesplot</a></span><span class="op">)</span></span>
+<span><span class="va">pars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"cp"</span>, <span class="st">"corrab"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://mc-stan.org/bayesplot/reference/MCMC-traces.html" class="external-link">mcmc_trace</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span>, pars <span class="op">=</span> <span class="va">pars</span><span class="op">)</span></span></code></pre></div>
 <p><img src="bmlm-blch9_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<p>Further modification of the model is possible through modifying the Stan code underlying <code><a href="../../reference/mlm.html">mlm()</a></code>.</p>
+<p>Further modification of the model is possible through modifying the
+Stan code underlying <code><a href="../../reference/mlm.html">mlm()</a></code>.</p>
 </div>
-<div id="citation" class="section level1">
-<h1 class="hasAnchor">
-<a href="#citation" class="anchor"></a>Citation</h1>
+<div class="section level2">
+<h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h2>
 <p>If you use this software, please cite it:</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/citation">citation</a></span>(<span class="st">"bmlm"</span>)</a></code></pre></div>
-<pre><code>## 
-## To cite package bmlm in publications, please use:
-## 
-##   Vuorre, M., (2017). bmlm: Bayesian Multilevel Mediation. R
-##   package version 1.3.4. https://cran.r-project.org/package=bmlm
-## 
-## A BibTeX entry for LaTeX users is
-## 
-##   @Manual{,
-##     title = {bmlm: Bayesian Multilevel Mediation},
-##     author = {Matti Vuorre},
-##     year = {2017},
-##     url = {https://cran.r-project.org/package=bmlm},
-##   }</code></pre>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"bmlm"</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## To cite package 'bmlm' in publications use:</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   Vuorre M, Bolger N (2018). "Within-subject mediation analysis for</span></span>
+<span><span class="co">##   experimental data in cognitive psychology and neuroscience."</span></span>
+<span><span class="co">##   _Behavior Research Methods_. doi:10.3758/s13428-017-0980-9</span></span>
+<span><span class="co">##   &lt;https://doi.org/10.3758/s13428-017-0980-9&gt;.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">##   Vuorre M (2023). _bmlm: Bayesian Multilevel Mediation_. R package</span></span>
+<span><span class="co">##   version 1.3.13, &lt;https://CRAN.R-project.org/package=bmlm&gt;.</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
+<span><span class="co">## bibtex=TRUE)', 'toBibtex(.)', or set</span></span>
+<span><span class="co">## 'options(citation.bibtex.max=999)'.</span></span></code></pre>
 </div>
-<div id="references" class="section level1 unnumbered">
-<h1 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h1>
-<div id="refs" class="references">
-<div id="ref-bolger_intensive_2013">
-<p>Bolger, N., &amp; Laurenceau, J.-P. (2013). <em>Intensive longitudinal methods: An introduction to diary and experience sampling research</em>. Guilford Press. Retrieved from <a href="http://www.intensivelongitudinal.com/">http://www.intensivelongitudinal.com/</a></p>
+<div class="section level2">
+<h2 class="unnumbered" id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-bolger_intensive_2013" class="csl-entry">
+Bolger, N., &amp; Laurenceau, J.-P. (2013). <em>Intensive longitudinal
+methods: An introduction to diary and experience sampling research</em>.
+Guilford Press. Retrieved from <a href="http://www.intensivelongitudinal.com/" class="external-link">http://www.intensivelongitudinal.com/</a>
 </div>
-<div id="ref-gabry_bayesplot_2016">
-<p>Gabry, J. (2016). <em>Bayesplot: Plotting for bayesian models</em>. Retrieved from <a href="https://CRAN.R-project.org/package=bayesplot">https://CRAN.R-project.org/package=bayesplot</a></p>
+<div id="ref-gabry_bayesplot_2016" class="csl-entry">
+Gabry, J. (2016). <em>Bayesplot: Plotting for bayesian models</em>.
+Retrieved from <a href="https://CRAN.R-project.org/package=bayesplot" class="external-link">https://CRAN.R-project.org/package=bayesplot</a>
 </div>
-<div id="ref-r_core_team_r:_2016">
-<p>R Core Team. (2016). <em>R: A language and environment for statistical computing</em>. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from <a href="https://www.R-project.org/">https://www.R-project.org/</a></p>
+<div id="ref-r_core_team_r:_2016" class="csl-entry">
+R Core Team. (2016). <em>R: A language and environment for statistical
+computing</em>. Vienna, Austria: R Foundation for Statistical Computing.
+Retrieved from <a href="https://www.R-project.org/" class="external-link">https://www.R-project.org/</a>
 </div>
-<div id="ref-stan_development_team_stan:_2016">
-<p>Stan Development Team. (2016). <em>Stan: A c++ library for probability and sampling, version 2.12.0</em>. Retrieved from <a href="http://mc-stan.org/">http://mc-stan.org/</a></p>
+<div id="ref-stan_development_team_stan:_2016" class="csl-entry">
+Stan Development Team. (2016). <em>Stan: A c++ library for probability
+and sampling, version 2.12.0</em>. Retrieved from <a href="http://mc-stan.org/" class="external-link">http://mc-stan.org/</a>
 </div>
 </div>
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-        <div id="tocnav">
-      <h2 class="hasAnchor">
-<a href="#tocnav" class="anchor"></a>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-<li><a href="#introduction">Introduction</a></li>
-      <li>
-<a href="#installing-bmlm">Installing <strong>bmlm</strong></a><ul class="nav nav-pills nav-stacked">
-<li><a href="#development-version-">Development version.</a></li>
-      </ul>
-</li>
-      <li>
-<a href="#example">Example</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#data-preprocessing">Data preprocessing</a></li>
-      <li><a href="#fit-model">Fit model</a></li>
-      <li><a href="#summarize-fitted-model">Summarize fitted model</a></li>
-      </ul>
-</li>
-      <li><a href="#binary-outcome-variable">Binary outcome variable</a></li>
-      <li>
-<a href="#tips-and-tricks">Tips and tricks</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#person-specific-effects">Person-specific effects</a></li>
-      </ul>
-</li>
-      <li><a href="#further-information">Further information</a></li>
-      <li><a href="#citation">Citation</a></li>
-      <li><a href="#references">References</a></li>
-      </ul>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
 </div>
-      </div>
 
 </div>
+
 
 
       <footer><div class="copyright">
-  <p>Developed by Matti Vuorre.</p>
+  <p></p>
+<p>Developed by Matti Vuorre.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
+
       </footer>
 </div>
+
+  
+
 
   
 

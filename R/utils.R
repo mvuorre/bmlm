@@ -77,7 +77,7 @@ mlm_summary <- function(
     ){
 
     # Check that mod is a Stanfit object
-    if (!(class(mod) == "stanfit")) stop("Model is not a stanfit object.")
+    if (!is(mod, "stanfit")) stop("Model is not a stanfit object.")
 
     # Choose which parameters to display
     if (is.null(pars)) pars <- mod@sim$pars_oi  # Return all parameters

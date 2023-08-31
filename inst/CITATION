@@ -1,14 +1,40 @@
-citHeader("To cite package bmlm in publications, please use:")
-
-citEntry(entry = "Manual",
-  title        = "bmlm: Bayesian Multilevel Mediation",
-  author       = as.person("Matti Vuorre"),
-  year         = "2017",
-  url          = "https://cran.r-project.org/package=bmlm",
-
-  textVersion  =
-  paste("Vuorre, M., (2017).",
-        "bmlm: Bayesian Multilevel Mediation.",
-        "R package version 1.3.4.",
-        "https://cran.r-project.org/package=bmlm")
+c(
+    bibentry(
+        bibtype = "Article",
+        title = "Within-subject mediation analysis for experimental data in cognitive psychology and neuroscience",
+        author = c(
+            person(
+                given = "Matti",
+                family = "Vuorre",
+                email = "m.j.vuorre@tilburguniversity.edu",
+                role = "aut",
+                comment = c(ORCID = "0000-0001-5052-066X")
+            ),
+            person(
+                given = "Niall",
+                family = "Bolger",
+                email = "nb2229@columbia.edu",
+                role = "aut"
+            )
+        ),
+        journal = "Behavior Research Methods",
+        year = 2018,
+        doi = "10.3758/s13428-017-0980-9"
+    ),
+    bibentry(
+        bibtype = "Manual",
+        title = "bmlm: Bayesian Multilevel Mediation",
+        author = c(
+            person(
+                given = "Matti",
+                family = "Vuorre",
+                email = "m.j.vuorre@tilburguniversity.edu",
+                role = c("aut", "cre"),
+                comment = c(ORCID = "0000-0001-5052-066X")
+            )
+        ),
+        year = "2023",
+        note = "R package version 1.3.13",
+        url = "https://CRAN.R-project.org/package=bmlm"
+    )
 )

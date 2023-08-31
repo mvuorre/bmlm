@@ -5,19 +5,22 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>A Note on bmlm’s Spaghetti Plots • bmlm</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
-<script src="../../pkgdown.js"></script><meta property="og:title" content="A Note on bmlm’s Spaghetti Plots">
-<meta property="og:description" content="">
-<meta name="twitter:card" content="summary">
+<title>A Note on bmlm's Spaghetti Plots • bmlm</title>
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../../bootstrap-toc.css">
+<script src="../../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../../pkgdown.css" rel="stylesheet">
+<script src="../../pkgdown.js"></script><meta property="og:title" content="A Note on bmlm's Spaghetti Plots">
+<meta property="og:description" content="bmlm">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body>
+<body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -30,23 +33,17 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">bmlm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.3.11</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.13</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="../../index.html">
-    <span class="fa fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -72,8 +69,8 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/mvuorre/bmlm">
-    <span class="fa fa-github fa-lg"></span>
+  <a href="https://github.com/mvuorre/bmlm/" class="external-link">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -86,39 +83,53 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>A Note on bmlm’s Spaghetti Plots</h1>
-                        <h4 class="author">Matti Vuorre</h4>
+      <h1 data-toc-skip>A Note on bmlm’s Spaghetti Plots</h1>
+                        <h4 data-toc-skip class="author">Matti
+Vuorre</h4>
             
-            <h4 class="date">2019-02-21</h4>
+            <h4 data-toc-skip class="date">2023-08-31</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/master/vignettes/Spaghetti-Plots/Spaghetti-Plots.Rmd"><code>vignettes/Spaghetti-Plots/Spaghetti-Plots.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/HEAD/vignettes/Spaghetti-Plots/Spaghetti-Plots.Rmd" class="external-link"><code>vignettes/Spaghetti-Plots/Spaghetti-Plots.Rmd</code></a></small>
       <div class="hidden name"><code>Spaghetti-Plots.Rmd</code></div>
 
     </div>
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-2" title="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(bmlm)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mvuorre/bmlm/" class="external-link">bmlm</a></span><span class="op">)</span></span></code></pre></div>
 <p>Consider a mediation model in which Y is binary:</p>
-<pre><code>## # A tibble: 6 x 5
-##      id      x      m      y  biny
-##   &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;int&gt;
-## 1   101  0.333  0.983 -1.44      0
-## 2   101  0.333  0.928  0.144     0
-## 3   101  0.333 -0.719 -1.63      0
-## 4   101  1.33   0.745  1.92      1
-## 5   101 -1.67  -0.124 -1.93      0
-## 6   101 -0.667 -1.27   0.688     1</code></pre>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1">fit_biny &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm.html">mlm</a></span>(<span class="dt">d =</span> BLch9_biny, </a>
-<a class="sourceLine" id="cb3-2" title="2">                <span class="dt">id =</span> <span class="st">"id"</span>,</a>
-<a class="sourceLine" id="cb3-3" title="3">                <span class="dt">y =</span> <span class="st">"biny"</span>, <span class="dt">binary_y =</span> <span class="ot">TRUE</span>,</a>
-<a class="sourceLine" id="cb3-4" title="4">                <span class="dt">cores=</span><span class="dv">4</span>, <span class="dt">iter =</span> <span class="dv">500</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw"><a href="../../reference/mlm_summary.html">mlm_summary</a></span>(fit_biny) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="st">    </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>()</a></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">##      id      x      m      y  biny</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>   101  0.333  0.983 -<span style="color: #BB0000;">1.44</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>   101  0.333  0.928  0.144     0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>   101  0.333 -<span style="color: #BB0000;">0.719</span> -<span style="color: #BB0000;">1.63</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>   101  1.33   0.745  1.92      1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>   101 -<span style="color: #BB0000;">1.67</span>  -<span style="color: #BB0000;">0.124</span> -<span style="color: #BB0000;">1.93</span>      0</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>   101 -<span style="color: #BB0000;">0.667</span> -<span style="color: #BB0000;">1.27</span>   0.688     1</span></span></code></pre>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">fit_biny</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm.html">mlm</a></span><span class="op">(</span>d <span class="op">=</span> <span class="va">BLch9_biny</span>, </span>
+<span>                id <span class="op">=</span> <span class="st">"id"</span>,</span>
+<span>                y <span class="op">=</span> <span class="st">"biny"</span>, binary_y <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                cores<span class="op">=</span><span class="fl">4</span>, iter <span class="op">=</span> <span class="fl">500</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: The largest R-hat is NA, indicating chains have not mixed.</span></span>
+<span><span class="co">## Running the chains for more iterations may help. See</span></span>
+<span><span class="co">## https://mc-stan.org/misc/warnings.html#r-hat</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Bulk Effective Samples Size (ESS) is too low, indicating posterior means and medians may be unreliable.</span></span>
+<span><span class="co">## Running the chains for more iterations may help. See</span></span>
+<span><span class="co">## https://mc-stan.org/misc/warnings.html#bulk-ess</span></span></code></pre>
+<pre><code><span><span class="co">## Warning: Tail Effective Samples Size (ESS) is too low, indicating posterior variances and tail quantiles may be unreliable.</span></span>
+<span><span class="co">## Running the chains for more iterations may help. See</span></span>
+<span><span class="co">## https://mc-stan.org/misc/warnings.html#tail-ess</span></span></code></pre>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit_biny</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">Parameter</th>
@@ -136,101 +147,125 @@
 <td align="right">0.19</td>
 <td align="right">0.04</td>
 <td align="right">0.19</td>
-<td align="right">0.11</td>
+<td align="right">0.12</td>
 <td align="right">0.26</td>
-<td align="right">727</td>
-<td align="right">1</td>
+<td align="right">694</td>
+<td align="right">1.00</td>
 </tr>
 <tr class="even">
 <td align="left">b</td>
-<td align="right">0.26</td>
+<td align="right">0.27</td>
 <td align="right">0.06</td>
-<td align="right">0.26</td>
+<td align="right">0.27</td>
 <td align="right">0.16</td>
-<td align="right">0.37</td>
-<td align="right">1260</td>
-<td align="right">1</td>
+<td align="right">0.38</td>
+<td align="right">763</td>
+<td align="right">1.00</td>
 </tr>
 <tr class="odd">
 <td align="left">cp</td>
-<td align="right">0.24</td>
+<td align="right">0.23</td>
 <td align="right">0.06</td>
-<td align="right">0.24</td>
+<td align="right">0.23</td>
 <td align="right">0.13</td>
-<td align="right">0.35</td>
-<td align="right">844</td>
-<td align="right">1</td>
+<td align="right">0.34</td>
+<td align="right">438</td>
+<td align="right">1.01</td>
 </tr>
 <tr class="even">
 <td align="left">me</td>
 <td align="right">0.10</td>
 <td align="right">0.03</td>
 <td align="right">0.10</td>
-<td align="right">0.05</td>
+<td align="right">0.06</td>
 <td align="right">0.16</td>
-<td align="right">553</td>
-<td align="right">1</td>
+<td align="right">306</td>
+<td align="right">1.00</td>
 </tr>
 <tr class="odd">
 <td align="left">c</td>
 <td align="right">0.34</td>
 <td align="right">0.06</td>
-<td align="right">0.34</td>
-<td align="right">0.22</td>
+<td align="right">0.33</td>
+<td align="right">0.23</td>
 <td align="right">0.46</td>
-<td align="right">1189</td>
-<td align="right">1</td>
+<td align="right">601</td>
+<td align="right">1.00</td>
 </tr>
 <tr class="even">
 <td align="left">pme</td>
-<td align="right">0.30</td>
+<td align="right">0.31</td>
 <td align="right">0.08</td>
-<td align="right">0.29</td>
-<td align="right">0.16</td>
-<td align="right">0.47</td>
-<td align="right">449</td>
-<td align="right">1</td>
+<td align="right">0.30</td>
+<td align="right">0.17</td>
+<td align="right">0.49</td>
+<td align="right">288</td>
+<td align="right">1.01</td>
 </tr>
 </tbody>
 </table>
-<p>The <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code> function produces figures in which the horizontal axis values of the M-Y graph (right panel, below) correspond to the vertical axis values of the X-M graph (left panel, below):</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">pasta &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span>(fit_biny, BLch9_biny, </a>
-<a class="sourceLine" id="cb5-2" title="2">                            <span class="dt">id=</span><span class="st">"id"</span>, <span class="dt">x=</span><span class="st">"x"</span>, <span class="dt">m=</span><span class="st">"m"</span>, <span class="dt">y=</span><span class="st">"biny"</span>,</a>
-<a class="sourceLine" id="cb5-3" title="3">                            <span class="dt">binary_y=</span>T)</a>
-<a class="sourceLine" id="cb5-4" title="4">gridExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/gridExtra/topics/arrangeGrob">grid.arrange</a></span>(</a>
-<a class="sourceLine" id="cb5-5" title="5">    pasta[[<span class="dv">1</span>]], </a>
-<a class="sourceLine" id="cb5-6" title="6">    pasta[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb5-7" title="7">    <span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p>The <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code> function produces figures in
+which the horizontal axis values of the M-Y graph (right panel, below)
+correspond to the vertical axis values of the X-M graph (left panel,
+below):</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pasta</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span><span class="op">(</span><span class="va">fit_biny</span>, <span class="va">BLch9_biny</span>, </span>
+<span>                            id<span class="op">=</span><span class="st">"id"</span>, x<span class="op">=</span><span class="st">"x"</span>, m<span class="op">=</span><span class="st">"m"</span>, y<span class="op">=</span><span class="st">"biny"</span>,</span>
+<span>                            binary_y<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span></span>
+<span>    <span class="va">pasta</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>    <span class="va">pasta</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>, </span>
+<span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Spaghetti-Plots_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>It is important to note that the fitted values (lines) on the right panel of this figure are therefore based on the variation of the fitted values in the left panel, and not on the observed values of <code>m</code>. This behavior usually makes sense and is the default option for <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code>. However, sometimes users may want to plot the M-Y relationship’s (b path’s) fitted values with the observed data values of M on the horizontal axis instead.</p>
+<p>It is important to note that the fitted values (lines) on the right
+panel of this figure are therefore based on the variation of the fitted
+values in the left panel, and not on the observed values of
+<code>m</code>. This behavior usually makes sense and is the default
+option for <code><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot()</a></code>. However, sometimes users
+may want to plot the M-Y relationship’s (b path’s) fitted values with
+the observed data values of M on the horizontal axis instead.</p>
 <p>To do this, set <code>mx = "data"</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">pasta2 &lt;-<span class="st"> </span><span class="kw"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span>(fit_biny, BLch9_biny, </a>
-<a class="sourceLine" id="cb6-2" title="2">                            <span class="dt">id=</span><span class="st">"id"</span>, <span class="dt">x=</span><span class="st">"x"</span>, <span class="dt">m=</span><span class="st">"m"</span>, <span class="dt">y=</span><span class="st">"biny"</span>,</a>
-<a class="sourceLine" id="cb6-3" title="3">                            <span class="dt">binary_y=</span>T, <span class="dt">mx =</span> <span class="st">"data"</span>)</a>
-<a class="sourceLine" id="cb6-4" title="4">gridExtra<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/gridExtra/topics/arrangeGrob">grid.arrange</a></span>(</a>
-<a class="sourceLine" id="cb6-5" title="5">    pasta2[[<span class="dv">1</span>]], </a>
-<a class="sourceLine" id="cb6-6" title="6">    pasta2[[<span class="dv">2</span>]] <span class="op">+</span><span class="st"> </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">1</span>),</a>
-<a class="sourceLine" id="cb6-7" title="7">    <span class="dt">nrow =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pasta2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm_spaghetti_plot.html">mlm_spaghetti_plot</a></span><span class="op">(</span><span class="va">fit_biny</span>, <span class="va">BLch9_biny</span>, </span>
+<span>                            id<span class="op">=</span><span class="st">"id"</span>, x<span class="op">=</span><span class="st">"x"</span>, m<span class="op">=</span><span class="st">"m"</span>, y<span class="op">=</span><span class="st">"biny"</span>,</span>
+<span>                            binary_y<span class="op">=</span><span class="cn">T</span>, mx <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="fu">gridExtra</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/gridExtra/man/arrangeGrob.html" class="external-link">grid.arrange</a></span><span class="op">(</span></span>
+<span>    <span class="va">pasta2</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, </span>
+<span>    <span class="va">pasta2</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian</a></span><span class="op">(</span>ylim <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span>,</span>
+<span>    nrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Spaghetti-Plots_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>As result, the horizontal axis variability for the b path figure (right panel) is much greater. However, the two panels are no longer directly comparable (vertical axis in left panel doesn’t match horizontal axis of right panel) or interpretable as the model’s implied mediated effect path.</p>
-<p>Thanks for reading. Please notify the package’s developer on <a href="https://github.com/mvuorre/bmlm">GitHub</a> if you have further questions or comments.</p>
+<p>As result, the horizontal axis variability for the b path figure
+(right panel) is much greater. However, the two panels are no longer
+directly comparable (vertical axis in left panel doesn’t match
+horizontal axis of right panel) or interpretable as the model’s implied
+mediated effect path.</p>
+<p>Thanks for reading. Please notify the package’s developer on <a href="https://github.com/mvuorre/bmlm" class="external-link">GitHub</a> if you have further
+questions or comments.</p>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+
       </div>
 
 </div>
 
 
+
       <footer><div class="copyright">
-  <p>Developed by Matti Vuorre.</p>
+  <p></p>
+<p>Developed by Matti Vuorre.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
+
       </footer>
 </div>
+
+  
+
 
   
 

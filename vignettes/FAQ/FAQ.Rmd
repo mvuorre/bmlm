@@ -2,7 +2,9 @@
 title: "Frequently Asked Questions"
 author: "Matti Vuorre"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_document:
+    df_print: kable
 bibliography: bibliography.bib
 ---
 

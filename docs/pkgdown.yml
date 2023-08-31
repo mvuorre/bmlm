@@ -1,9 +1,10 @@
-pandoc: '2.5'
-pkgdown: 1.3.0
+pandoc: 3.1.6.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   FAQ: FAQ/FAQ.html
   Spaghetti-Plots: Spaghetti-Plots/Spaghetti-Plots.html
   bmlm-blch9: bmlm-blch9/bmlm-blch9.html
-  bmlm-ms: ms/bmlm-ms.html
+  bmlm-ms: ms/bmlm-ms.pdf
+last_built: 2023-08-31T08:23Z
 
