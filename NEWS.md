@@ -1,6 +1,7 @@
 # bmlm 1.3.13
 
 Minor housekeeping:
+
 - Updated compiler flags thanks to @jgabry
 - Updated contact info
 
