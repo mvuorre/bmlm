@@ -65,17 +65,17 @@ If you use this software, please cite it:
 
 ``` r
 citation("bmlm")
-#> To cite package bmlm in publications, please use:
+#> To cite package 'bmlm' in publications use:
 #> 
-#>   Vuorre, M., (2017). bmlm: Bayesian Multilevel Mediation. R package
-#>   version 1.3.4. https://cran.r-project.org/package=bmlm
+#>   Vuorre M, Bolger N (2018). "Within-subject mediation analysis for
+#>   experimental data in cognitive psychology and neuroscience."
+#>   _Behavior Research Methods_. doi:10.3758/s13428-017-0980-9
+#>   <https://doi.org/10.3758/s13428-017-0980-9>.
 #> 
-#> A BibTeX entry for LaTeX users is
+#>   Vuorre M (2023). _bmlm: Bayesian Multilevel Mediation_. R package
+#>   version 1.3.13, <https://CRAN.R-project.org/package=bmlm>.
 #> 
-#>   @Manual{,
-#>     title = {bmlm: Bayesian Multilevel Mediation},
-#>     author = {Matti Vuorre},
-#>     year = {2017},
-#>     url = {https://cran.r-project.org/package=bmlm},
-#>   }
+#> To see these entries in BibTeX format, use 'print(<citation>,
+#> bibtex=TRUE)', 'toBibtex(.)', or set
+#> 'options(citation.bibtex.max=999)'.
 ```
