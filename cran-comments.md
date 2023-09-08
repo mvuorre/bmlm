@@ -2,6 +2,7 @@
 
 - Local MacOS Ventura, R 4.3.1
 - Remote Fedora Linux, R-devel, clang, gfortran
+- winbuilder
 
 ## R CMD check results
 
