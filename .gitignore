@@ -4,8 +4,6 @@
 .Ruserdata
 inst/doc
 src/*
-!src/Makevars
-!src/Makevars.win
 !src/init.cpp
 data-raw/
 *_cache/
