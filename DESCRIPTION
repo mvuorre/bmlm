@@ -20,7 +20,7 @@ Imports:
     ggplot2 (>= 2.0.0),
     methods,
     RcppParallel (>= 5.0.1),
-    rstan (>= 2.18.1),
+    rstan (>= 2.26.0),
     rstantools (>= 2.3.1.1)
 Suggests:
     qgraph,
@@ -33,8 +33,8 @@ LinkingTo:
     Rcpp (>= 0.12.0),
     RcppEigen (>= 0.3.3.3.0),
     RcppParallel (>= 5.0.1),
-    rstan (>= 2.18.1),
-    StanHeaders (>= 2.18.0)
+    rstan (>= 2.26.0),
+    StanHeaders (>= 2.26.0)
 RoxygenNote: 7.1.2
 Encoding: UTF-8
 SystemRequirements: GNU make

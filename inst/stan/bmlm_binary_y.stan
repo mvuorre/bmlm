@@ -2,7 +2,7 @@
 
 data {
 #include chunks/data.stan
-    int<lower=0, upper=1> Y[N]; // Dichotomous outcome
+  array[N]  int<lower=0, upper=1> Y; // Dichotomous outcome
 }
 transformed data{
 #include chunks/transformed_data.stan
