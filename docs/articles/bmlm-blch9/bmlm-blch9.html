@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">bmlm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.15</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@ Data</h1>
                         <h4 data-toc-skip class="author">Matti
 Vuorre</h4>
             
-            <h4 data-toc-skip class="date">2023-08-31</h4>
+            <h4 data-toc-skip class="date">2023-09-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/HEAD/vignettes/bmlm-blch9/bmlm-blch9.Rmd" class="external-link"><code>vignettes/bmlm-blch9/bmlm-blch9.Rmd</code></a></small>
       <div class="hidden name"><code>bmlm-blch9.Rmd</code></div>
@@ -268,12 +268,12 @@ methods are also available.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Parameter Mean   SE Median 2.5% 97.5% n_eff Rhat</span></span>
-<span><span class="co">## 1         a 0.19 0.04   0.19 0.12  0.26  4628    1</span></span>
-<span><span class="co">## 2         b 0.15 0.03   0.15 0.09  0.21  3939    1</span></span>
-<span><span class="co">## 3        cp 0.10 0.02   0.10 0.06  0.15  3885    1</span></span>
-<span><span class="co">## 4        me 0.06 0.01   0.06 0.03  0.09  2530    1</span></span>
-<span><span class="co">## 5         c 0.16 0.03   0.16 0.11  0.21  4341    1</span></span>
-<span><span class="co">## 6       pme 0.35 0.08   0.35 0.21  0.53  2638    1</span></span></code></pre>
+<span><span class="co">## 1         a 0.19 0.04   0.19 0.12  0.26  5325    1</span></span>
+<span><span class="co">## 2         b 0.15 0.03   0.15 0.09  0.21  4559    1</span></span>
+<span><span class="co">## 3        cp 0.10 0.02   0.10 0.06  0.15  5019    1</span></span>
+<span><span class="co">## 4        me 0.06 0.01   0.06 0.03  0.09  1949    1</span></span>
+<span><span class="co">## 5         c 0.16 0.03   0.16 0.11  0.21  4450    1</span></span>
+<span><span class="co">## 6       pme 0.36 0.08   0.35 0.21  0.52  2420    1</span></span></code></pre>
 <p><code><a href="../../reference/mlm_summary.html">mlm_summary()</a></code> returns, for each parameter, the following
 information:</p>
 <ul>
@@ -483,12 +483,12 @@ appended to them.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"u_c"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Parameter Mean   SE Median  2.5% 97.5% n_eff Rhat</span></span>
-<span><span class="co">## 1    u_c[1] 0.12 0.08   0.12 -0.03  0.31  4743    1</span></span>
-<span><span class="co">## 2    u_c[2] 0.10 0.09   0.10 -0.07  0.29  3765    1</span></span>
-<span><span class="co">## 3    u_c[3] 0.11 0.08   0.11 -0.05  0.29  3919    1</span></span>
-<span><span class="co">## 4    u_c[4] 0.39 0.13   0.38  0.16  0.67  3062    1</span></span>
-<span><span class="co">## 5    u_c[5] 0.09 0.09   0.09 -0.11  0.28  3918    1</span></span>
-<span><span class="co">## 6    u_c[6] 0.08 0.08   0.08 -0.10  0.25  4620    1</span></span></code></pre>
+<span><span class="co">## 1    u_c[1] 0.12 0.08   0.11 -0.02  0.28  3920    1</span></span>
+<span><span class="co">## 2    u_c[2] 0.10 0.09   0.10 -0.06  0.28  4591    1</span></span>
+<span><span class="co">## 3    u_c[3] 0.11 0.08   0.10 -0.05  0.29  2838    1</span></span>
+<span><span class="co">## 4    u_c[4] 0.38 0.13   0.37  0.17  0.67  3224    1</span></span>
+<span><span class="co">## 5    u_c[5] 0.09 0.09   0.09 -0.11  0.28  4303    1</span></span>
+<span><span class="co">## 6    u_c[6] 0.08 0.08   0.08 -0.08  0.24  4779    1</span></span></code></pre>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../../reference/mlm_pars_plot.html">mlm_pars_plot</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"u_cp"</span>, type <span class="op">=</span> <span class="st">"coef"</span>, level <span class="op">=</span> <span class="fl">.8</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
@@ -539,7 +539,7 @@ Stan code underlying <code><a href="../../reference/mlm.html">mlm()</a></code>.<
 <span><span class="co">##   &lt;https://doi.org/10.3758/s13428-017-0980-9&gt;.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">##   Vuorre M (2023). _bmlm: Bayesian Multilevel Mediation_. R package</span></span>
-<span><span class="co">##   version 1.3.13, &lt;https://CRAN.R-project.org/package=bmlm&gt;.</span></span>
+<span><span class="co">##   version 1.3.15, &lt;https://CRAN.R-project.org/package=bmlm&gt;.</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## To see these entries in BibTeX format, use 'print(&lt;citation&gt;,</span></span>
 <span><span class="co">## bibtex=TRUE)', 'toBibtex(.)', or set</span></span>

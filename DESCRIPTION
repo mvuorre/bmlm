@@ -1,7 +1,7 @@
 Package: bmlm
 Title: Bayesian Multilevel Mediation
-Version: 1.3.14
-Date: 2023-09-08
+Version: 1.3.15
+Date: 2023-09-25
 Authors@R: person(given = "Matti", 
                   family = "Vuorre", 
                   email = "m.j.vuorre@tilburguniversity.edu",
@@ -35,7 +35,7 @@ LinkingTo:
     RcppParallel (>= 5.0.1),
     rstan (>= 2.26.0),
     StanHeaders (>= 2.26.0)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 SystemRequirements: GNU make
 Biarch: true
