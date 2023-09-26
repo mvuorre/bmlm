@@ -1,5 +1,5 @@
 ---
-title: "bmlm: An R package for Bayesian MultiLevel Mediation models"
+title: "bmlm: R package for Bayesian multilevel mediation"
 output: github_document
 ---
 

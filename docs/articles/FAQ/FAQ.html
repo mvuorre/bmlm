@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">bmlm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.13</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.3.15</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
                         <h4 data-toc-skip class="author">Matti
 Vuorre</h4>
             
-            <h4 data-toc-skip class="date">2023-08-31</h4>
+            <h4 data-toc-skip class="date">2023-09-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/mvuorre/bmlm/blob/HEAD/vignettes/FAQ/FAQ.Rmd" class="external-link"><code>vignettes/FAQ/FAQ.Rmd</code></a></small>
       <div class="hidden name"><code>FAQ.Rmd</code></div>
@@ -146,12 +146,12 @@ arrange the data frame returned by <code><a href="../../reference/mlm_summary.ht
 <span><span class="va">u_a</span> <span class="op">&lt;-</span> <span class="fu"><a href="../../reference/mlm_summary.html">mlm_summary</a></span><span class="op">(</span><span class="va">fit</span>, pars <span class="op">=</span> <span class="st">"u_a"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">u_a</span>, <span class="va">Mean</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Parameter  Mean   SE Median  2.5% 97.5% n_eff Rhat</span></span>
-<span><span class="co">## 1   u_a[45] -0.39 0.18  -0.39 -0.76 -0.03  1259    1</span></span>
-<span><span class="co">## 2   u_a[76] -0.15 0.16  -0.16 -0.47  0.17  1226    1</span></span>
-<span><span class="co">## 3   u_a[21] -0.14 0.21  -0.14 -0.56  0.25  1227    1</span></span>
-<span><span class="co">## 4   u_a[39] -0.14 0.19  -0.13 -0.50  0.21  1667    1</span></span>
-<span><span class="co">## 5   u_a[64] -0.13 0.15  -0.12 -0.43  0.16  1062    1</span></span>
-<span><span class="co">## 6   u_a[77] -0.11 0.17  -0.11 -0.45  0.20  1411    1</span></span></code></pre>
+<span><span class="co">## 1   u_a[45] -0.39 0.18  -0.39 -0.74 -0.05  1360    1</span></span>
+<span><span class="co">## 2   u_a[76] -0.15 0.16  -0.15 -0.46  0.16  1140    1</span></span>
+<span><span class="co">## 3   u_a[21] -0.14 0.21  -0.14 -0.55  0.27  1678    1</span></span>
+<span><span class="co">## 4   u_a[39] -0.14 0.17  -0.14 -0.49  0.19  1377    1</span></span>
+<span><span class="co">## 5   u_a[64] -0.11 0.16  -0.11 -0.40  0.19  1161    1</span></span>
+<span><span class="co">## 6   u_a[77] -0.11 0.19  -0.11 -0.47  0.25  1267    1</span></span></code></pre>
 <p>Notice that we used the <code><a href="https://rdrr.io/r/utils/head.html" class="external-link">head()</a></code> function to return the
 first six rows of the resulting data frame. The subject numbers are in
 square brackets: ID 45 has the lowest <em>u_a</em> parameter value. To
@@ -161,12 +161,12 @@ on descending values of Mean).</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html" class="external-link">arrange</a></span><span class="op">(</span><span class="va">u_a</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html" class="external-link">desc</a></span><span class="op">(</span><span class="va">Mean</span><span class="op">)</span><span class="op">)</span> <span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">##   Parameter Mean   SE Median 2.5% 97.5% n_eff Rhat</span></span>
-<span><span class="co">## 1    u_a[9] 0.65 0.17   0.64 0.33  0.96  1369    1</span></span>
-<span><span class="co">## 2   u_a[61] 0.56 0.17   0.55 0.24  0.89  1530    1</span></span>
-<span><span class="co">## 3   u_a[57] 0.55 0.18   0.55 0.19  0.91  1069    1</span></span>
-<span><span class="co">## 4   u_a[49] 0.54 0.15   0.54 0.25  0.84  1120    1</span></span>
-<span><span class="co">## 5   u_a[22] 0.53 0.18   0.53 0.21  0.89  1417    1</span></span>
-<span><span class="co">## 6   u_a[32] 0.53 0.16   0.53 0.21  0.83  1033    1</span></span></code></pre>
+<span><span class="co">## 1    u_a[9] 0.65 0.18   0.64 0.33  1.02  1159    1</span></span>
+<span><span class="co">## 2   u_a[61] 0.56 0.18   0.55 0.23  0.93  1071    1</span></span>
+<span><span class="co">## 3   u_a[57] 0.55 0.19   0.55 0.19  0.93  1060    1</span></span>
+<span><span class="co">## 4   u_a[49] 0.54 0.15   0.54 0.23  0.83  1099    1</span></span>
+<span><span class="co">## 5   u_a[22] 0.52 0.18   0.52 0.17  0.87  1597    1</span></span>
+<span><span class="co">## 6   u_a[32] 0.52 0.16   0.52 0.21  0.85  1374    1</span></span></code></pre>
 <p><strong>Important</strong>: To use this method accurately, please
 ensure that the subjects’ ID numbers in your data are sequential
 integers from 1 to however many subjects there are in your sample. The

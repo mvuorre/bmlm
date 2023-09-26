@@ -1,6 +1,6 @@
     int<lower=1> N;             // Number of observations
     int<lower=1> J;             // Number of participants
-    int<lower=1,upper=J> id[N]; // Participant IDs
+    array[N] int<lower=1,upper=J> id; // Participant IDs
     vector[N] X;                // Manipulated variable
     vector[N] M;                // Mediator
     // Priors

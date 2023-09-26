@@ -1,4 +1,4 @@
-bmlm: An R package for Bayesian MultiLevel Mediation models
+bmlm: R package for Bayesian multilevel mediation
 ================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -73,7 +73,7 @@ citation("bmlm")
 #>   <https://doi.org/10.3758/s13428-017-0980-9>.
 #> 
 #>   Vuorre M (2023). _bmlm: Bayesian Multilevel Mediation_. R package
-#>   version 1.3.14, <https://CRAN.R-project.org/package=bmlm>.
+#>   version 1.3.15, <https://CRAN.R-project.org/package=bmlm>.
 #> 
 #> To see these entries in BibTeX format, use 'print(<citation>,
 #> bibtex=TRUE)', 'toBibtex(.)', or set

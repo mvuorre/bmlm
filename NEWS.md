@@ -1,3 +1,7 @@
+# bmlm 1.3.15
+
+Minor update: Use new Stan array syntax thanks to Andrew Johnson.
+
 # bmlm 1.3.14
 
 Minor fix: Let rstantools generate Makevars
