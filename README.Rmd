@@ -40,16 +40,16 @@ install.packages("bmlm")
 
 Sometimes the stable version on CRAN is not the latest version of bmlm. bmlm is developed on GitHub, and users may obtain the latest (development) version from GitHub directly.
 
-The latest development version of bmlm requires [devtools](https://cran.r-project.org/package=devtools) for installation. If you don't have the devtools package installed in R, first run this line:
+The latest development version of bmlm requires [remotes](https://cran.r-project.org/package=remotes) for installation. If you don't have the remotes package installed in R, first run this line:
 
 ```r
-install.packages("devtools")
+install.packages("remotes")
 ```
 
 Then proceed to install bmlm from GitHub:
 
 ```r
-devtools::install_github("mvuorre/bmlm", args = "--preclean")
+remotes::install_github("mvuorre/bmlm")
 ```
 
 # Information
